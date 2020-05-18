@@ -1,8 +1,8 @@
 ﻿@using PhotoPavilion.Common
 @using PhotoPavilion.Data.Models
 @using Microsoft.AspNetCore.Identity
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<PhotoPavilionUser> SignInManager
+@inject UserManager<PhotoPavilionUser> UserManager
 
 <ul class="navbar-nav">
     @if (this.SignInManager.IsSignedIn(this.User))

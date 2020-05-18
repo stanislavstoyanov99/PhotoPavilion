@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace PhotoPavilion.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(PhotoPavilionDbContext))]
     [Migration("20191224074400_InitialCreate")]
     partial class InitialCreate
     {

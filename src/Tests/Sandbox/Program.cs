@@ -33,7 +33,7 @@
             // Seed data on application startup
             using (var serviceScope = serviceProvider.CreateScope())
             {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<PhotoPavilionDbContext>();
                 dbContext.Database.Migrate();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
@@ -68,12 +68,12 @@
 
             services.AddSingleton<IConfiguration>(configuration);
 
-            services.AddDbContext<ApplicationDbContext>(
+            services.AddDbContext<PhotoPavilionDbContext>(
                 options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
                     .UseLoggerFactory(new LoggerFactory()));
 
-            services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<PhotoPavilionUser>(IdentityOptionsProvider.GetIdentityOptions)
+                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<PhotoPavilionDbContext>();
 
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));

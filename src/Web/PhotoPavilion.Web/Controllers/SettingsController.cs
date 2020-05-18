@@ -3,12 +3,12 @@
     using System;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Mvc;
+
     using PhotoPavilion.Data.Common.Repositories;
     using PhotoPavilion.Data.Models;
+    using PhotoPavilion.Models.ViewModels.Settings;
     using PhotoPavilion.Services.Data;
-    using PhotoPavilion.Web.ViewModels.Settings;
-
-    using Microsoft.AspNetCore.Mvc;
 
     public class SettingsController : BaseController
     {
@@ -25,7 +25,12 @@
         public IActionResult Index()
         {
             var settings = this.settingsService.GetAll<SettingViewModel>();
-            var model = new SettingsListViewModel { Settings = settings };
+
+            var model = new SettingsListViewModel
+            {
+                Settings = settings,
+            };
+
             return this.View(model);
         }
 

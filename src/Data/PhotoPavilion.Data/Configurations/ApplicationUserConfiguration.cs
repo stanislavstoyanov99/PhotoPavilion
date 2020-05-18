@@ -1,12 +1,13 @@
 ﻿namespace PhotoPavilion.Data.Configurations
 {
-    using PhotoPavilion.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
+    using PhotoPavilion.Data.Models;
+
+    public class ApplicationUserConfiguration : IEntityTypeConfiguration<PhotoPavilionUser>
     {
-        public void Configure(EntityTypeBuilder<ApplicationUser> appUser)
+        public void Configure(EntityTypeBuilder<PhotoPavilionUser> appUser)
         {
             appUser
                 .HasMany(e => e.Claims)

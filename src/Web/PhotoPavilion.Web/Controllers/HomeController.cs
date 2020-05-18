@@ -2,9 +2,9 @@
 {
     using System.Diagnostics;
 
-    using PhotoPavilion.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
+
+    using PhotoPavilion.Models.ViewModels;
 
     public class HomeController : BaseController
     {
@@ -22,7 +22,10 @@
         public IActionResult Error()
         {
             return this.View(
-                new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
+                new ErrorViewModel
+                {
+                    RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier,
+                });
         }
     }
 }

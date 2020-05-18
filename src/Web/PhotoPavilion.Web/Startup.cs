@@ -2,17 +2,6 @@
 {
     using System.Reflection;
 
-    using PhotoPavilion.Data;
-    using PhotoPavilion.Data.Common;
-    using PhotoPavilion.Data.Common.Repositories;
-    using PhotoPavilion.Data.Models;
-    using PhotoPavilion.Data.Repositories;
-    using PhotoPavilion.Data.Seeding;
-    using PhotoPavilion.Services.Data;
-    using PhotoPavilion.Services.Mapping;
-    using PhotoPavilion.Services.Messaging;
-    using PhotoPavilion.Web.ViewModels;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -21,6 +10,17 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+
+    using PhotoPavilion.Data;
+    using PhotoPavilion.Data.Common;
+    using PhotoPavilion.Data.Common.Repositories;
+    using PhotoPavilion.Data.Models;
+    using PhotoPavilion.Data.Repositories;
+    using PhotoPavilion.Data.Seeding;
+    using PhotoPavilion.Models.ViewModels;
+    using PhotoPavilion.Services.Data;
+    using PhotoPavilion.Services.Mapping;
+    using PhotoPavilion.Services.Messaging;
 
     public class Startup
     {
@@ -34,11 +34,11 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(
+            services.AddDbContext<PhotoPavilionDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<PhotoPavilionUser>(IdentityOptionsProvider.GetIdentityOptions)
+                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<PhotoPavilionDbContext>();
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -52,7 +52,18 @@
                     {
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     });
+
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
+
             services.AddRazorPages();
+
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+            });
 
             services.AddSingleton(this.configuration);
 
@@ -74,9 +85,14 @@
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<PhotoPavilionDbContext>();
+
                 dbContext.Database.Migrate();
-                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+
+                new ApplicationDbContextSeeder()
+                    .SeedAsync(dbContext, serviceScope.ServiceProvider)
+                    .GetAwaiter()
+                    .GetResult();
             }
 
             if (env.IsDevelopment())
@@ -90,6 +106,7 @@
                 app.UseHsts();
             }
 
+            app.UseResponseCompression();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

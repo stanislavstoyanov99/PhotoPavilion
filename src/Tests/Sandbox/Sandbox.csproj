@@ -40,7 +40,6 @@
     <ProjectReference Include="..\..\Services\PhotoPavilion.Services.Data\PhotoPavilion.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\PhotoPavilion.Services.Mapping\PhotoPavilion.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\PhotoPavilion.Services.Messaging\PhotoPavilion.Services.Messaging.csproj" />
-    <ProjectReference Include="..\..\Services\PhotoPavilion.Services\PhotoPavilion.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -27,11 +27,14 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\PhotoPavilion.Data.Models\PhotoPavilion.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\PhotoPavilion.Data\PhotoPavilion.Data.csproj" />
+    <ProjectReference Include="..\..\PhotoPavilion.Models.ViewModels\PhotoPavilion.Models.ViewModels.csproj" />
     <ProjectReference Include="..\..\Services\PhotoPavilion.Services.Data\PhotoPavilion.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\PhotoPavilion.Services.Mapping\PhotoPavilion.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\PhotoPavilion.Services.Messaging\PhotoPavilion.Services.Messaging.csproj" />
-    <ProjectReference Include="..\..\Services\PhotoPavilion.Services\PhotoPavilion.Services.csproj" />
     <ProjectReference Include="..\PhotoPavilion.Web.Infrastructure\PhotoPavilion.Web.Infrastructure.csproj" />
-    <ProjectReference Include="..\PhotoPavilion.Web.ViewModels\PhotoPavilion.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Middlewares\" />
   </ItemGroup>
 </Project>
