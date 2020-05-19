@@ -4,11 +4,10 @@
     using Microsoft.AspNetCore.Mvc;
 
     using PhotoPavilion.Common;
-    using PhotoPavilion.Web.Controllers;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [Area("Administration")]
-    public class AdministrationController : BaseController
+    public class AdministrationController : Controller
     {
     }
 }

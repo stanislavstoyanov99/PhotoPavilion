@@ -3,10 +3,13 @@ namespace PhotoPavilion.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using Microsoft.AspNetCore.Identity;
 
+    using PhotoPavilion.Data.Common;
     using PhotoPavilion.Data.Common.Models;
+    using PhotoPavilion.Data.Models.Enumerations;
 
     public class PhotoPavilionUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -17,6 +20,13 @@ namespace PhotoPavilion.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
         }
+
+        [Required]
+        [MaxLength(DataValidation.FullNameMaxLength)]
+        public string FullName { get; set; }
+
+        [Required]
+        public Gender Gender { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }

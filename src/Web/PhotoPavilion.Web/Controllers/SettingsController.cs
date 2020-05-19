@@ -10,7 +10,7 @@
     using PhotoPavilion.Models.ViewModels.Settings;
     using PhotoPavilion.Services.Data;
 
-    public class SettingsController : BaseController
+    public class SettingsController : Controller
     {
         private readonly ISettingsService settingsService;
 

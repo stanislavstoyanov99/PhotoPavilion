@@ -6,7 +6,7 @@
 
     using PhotoPavilion.Models.ViewModels;
 
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
         public IActionResult Index()
         {
