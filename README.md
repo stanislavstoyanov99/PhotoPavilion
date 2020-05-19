@@ -20,7 +20,7 @@ ASP.NET Core application for the course IBT 2020 @Technical University of Sofia
 
 - [Stanislav Stoyanov](https://github.com/stanislavstoyanov99)
 
-## Template authors
+## MVC Template authors
 
 - [Nikolay Kostov](https://github.com/NikolayIT)
 - [Vladislav Karamfilov](https://github.com/vladislav-karamfilov)
