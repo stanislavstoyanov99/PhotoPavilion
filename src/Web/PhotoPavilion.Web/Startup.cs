@@ -21,6 +21,7 @@
     using PhotoPavilion.Services.Data;
     using PhotoPavilion.Services.Mapping;
     using PhotoPavilion.Services.Messaging;
+    using PhotoPavilion.Web.Middlewares;
 
     public class Startup
     {
@@ -115,6 +116,7 @@
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseAdminMiddleware();
 
             app.UseEndpoints(
                 endpoints =>
