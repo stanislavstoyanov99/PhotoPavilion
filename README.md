@@ -1,4 +1,4 @@
-# PhotoPavilion
+# ASP.NET Core Photo Pavilion
 ASP.NET Core application for the course IBT 2020 @Technical University of Sofia
 
 [![GitHub license](https://img.shields.io/github/license/stanislavstoyanov99/PhotoPavilion?color=brightgreen)](https://github.com/stanislavstoyanov99/PhotoPavilion/blob/master/LICENSE)
