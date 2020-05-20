@@ -41,4 +41,8 @@
     <ProjectReference Include="..\..\Services\PhotoPavilion.Services.Messaging\PhotoPavilion.Services.Messaging.csproj" />
     <ProjectReference Include="..\PhotoPavilion.Web.Infrastructure\PhotoPavilion.Web.Infrastructure.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\bootstrap\dist\css\" />
+  </ItemGroup>
 </Project>
