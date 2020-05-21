@@ -9,6 +9,9 @@
 
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
+    <!-- font-awesome icons -->
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true" />
+    <!-- //font-awesome icons -->
     <link rel='icon' href='~/favicon.ico' type='image/x-icon' />
 </head>
 <body>
@@ -21,11 +24,7 @@
         @this.RenderBody()
     </main>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    <partial name="_FooterPartial" />
 
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>

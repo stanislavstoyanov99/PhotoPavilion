@@ -1,0 +1,49 @@
+﻿@using PhotoPavilion.Common
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <h6>About</h6>
+                <p class="text-justify">Description of Photo Pavilion</p>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <h6>Products</h6>
+                <ul class="footer-links">
+                    <li><a href="#">Cameras</a></li>
+                    <li><a href="#">Lenses</a></li>
+                    <li><a href="#">Lightenings</a></li>
+                    <li><a href="#">Filters</a></li>
+                    <li><a href="#">Tripods</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-6 col-md-4">
+                <h6>Quick Links</h6>
+                <ul class="footer-links">
+                    <li><a href="http://scanfcode.com/about/">About Us</a></li>
+                    <li><a href="http://scanfcode.com/contact/">Contact Us</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a></li>
+                    <li><a href="http://scanfcode.com/sitemap/">Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-6 col-xs-12">
+                <p class="copyright-text">
+                    &copy; @DateTime.Now.Year All Rights Reserved
+                    <a asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
+                </p>
+            </div>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <ul class="social-icons">
+                    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

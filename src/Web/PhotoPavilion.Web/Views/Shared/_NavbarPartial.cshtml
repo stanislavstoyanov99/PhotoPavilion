@@ -7,24 +7,26 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Products <span class="sr-only">(current)</span></a>
+            <li class="nav-item" active-when="/Products/Index">
+                <a class="nav-link" href="#">Products</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" active-when="/Settings/Index">
                 <a class="nav-link" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" active-when="/Categories/Index">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
+                    Categories
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Cameras</a>
+                    <a class="dropdown-item" href="#">Lenses</a>
+                    <a class="dropdown-item" href="#">Lightenings</a>
+                    <a class="dropdown-item" href="#">Filters</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="#">Others</a>
                 </div>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" active-when="/Home/Privacy">
                 <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </li>
         </ul>
