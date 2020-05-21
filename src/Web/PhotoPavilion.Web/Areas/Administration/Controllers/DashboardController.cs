@@ -1,23 +1,13 @@
 ﻿namespace PhotoPavilion.Web.Areas.Administration.Controllers
 {
-    using PhotoPavilion.Services.Data;
-    using PhotoPavilion.Web.ViewModels.Administration.Dashboard;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Mvc;
-
+    // TODO
     public class DashboardController : AdministrationController
     {
-        private readonly ISettingsService settingsService;
 
-        public DashboardController(ISettingsService settingsService)
-        {
-            this.settingsService = settingsService;
-        }
-
-        public IActionResult Index()
-        {
-            var viewModel = new IndexViewModel { SettingsCount = this.settingsService.GetCount(), };
-            return this.View(viewModel);
-        }
     }
 }
