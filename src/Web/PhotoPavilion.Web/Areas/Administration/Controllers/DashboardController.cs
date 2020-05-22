@@ -8,6 +8,9 @@
     // TODO
     public class DashboardController : AdministrationController
     {
+        public DashboardController()
+        {
 
+        }
     }
 }
