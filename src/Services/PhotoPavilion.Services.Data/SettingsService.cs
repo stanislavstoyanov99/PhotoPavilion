@@ -5,6 +5,7 @@
 
     using PhotoPavilion.Data.Common.Repositories;
     using PhotoPavilion.Data.Models;
+    using PhotoPavilion.Services.Data.Contracts;
     using PhotoPavilion.Services.Mapping;
 
     public class SettingsService : ISettingsService

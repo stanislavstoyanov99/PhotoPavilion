@@ -19,6 +19,7 @@
     using PhotoPavilion.Data.Seeding;
     using PhotoPavilion.Models.ViewModels;
     using PhotoPavilion.Services.Data;
+    using PhotoPavilion.Services.Data.Contracts;
     using PhotoPavilion.Services.Mapping;
     using PhotoPavilion.Services.Messaging;
     using PhotoPavilion.Web.Middlewares;
@@ -76,6 +77,7 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IProductsService, ProductsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

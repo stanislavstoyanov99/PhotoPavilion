@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\PhotoPavilion.Data.Common\PhotoPavilion.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\PhotoPavilion.Data.Models\PhotoPavilion.Data.Models.csproj" />
+    <ProjectReference Include="..\..\PhotoPavilion.Models.InputModels\PhotoPavilion.Models.InputModels.csproj" />
     <ProjectReference Include="..\PhotoPavilion.Services.Mapping\PhotoPavilion.Services.Mapping.csproj" />
   </ItemGroup>
 
