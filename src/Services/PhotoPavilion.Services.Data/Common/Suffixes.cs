@@ -2,6 +2,6 @@
 {
     public class Suffixes
     {
-        public const string WallpaperSuffix = "_Wallpaper";
+        public const string ProductSuffix = "_Product";
     }
 }
