@@ -356,6 +356,5 @@ MigrationBackup/
 **/wwwroot/lib/
 appsettings
 appsettings.Development.json
-PhotoPavilion/src/appsettings.json
 *.min.css
 *.min.js
