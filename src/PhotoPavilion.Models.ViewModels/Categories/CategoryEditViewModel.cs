@@ -5,13 +5,16 @@
     using PhotoPavilion.Services.Mapping;
 
     using static PhotoPavilion.Models.Common.ModelValidation;
+    using static PhotoPavilion.Models.Common.ModelValidation.Category;
+
     using Category = Data.Models.Category;
 
-    public class CategoryDetailsViewModel : IMapFrom<Category>
+    public class CategoryEditViewModel : IMapFrom<Category>
     {
-        [Display(Name = IdDisplayName)]
         public int Id { get; set; }
 
+        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = NameLengthError)]
         public string Name { get; set; }
     }
 }

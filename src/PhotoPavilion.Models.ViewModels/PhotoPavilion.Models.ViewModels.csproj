@@ -9,7 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Data\PhotoPavilion.Data.Models\PhotoPavilion.Data.Models.csproj" />
+    <ProjectReference Include="..\PhotoPavilion.Common\PhotoPavilion.Common.csproj" />
     <ProjectReference Include="..\PhotoPavilion.Models.Common\PhotoPavilion.Models.Common.csproj" />
     <ProjectReference Include="..\Services\PhotoPavilion.Services.Mapping\PhotoPavilion.Services.Mapping.csproj" />
   </ItemGroup>

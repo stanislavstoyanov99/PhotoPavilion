@@ -20,7 +20,7 @@
     public class ProductCreateInputModel
     {
         [Required(ErrorMessage = EmptyFieldLengthError)]
-        [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = NameLengthError)]
+        [StringLength(Common.ModelValidation.Category.NameMaxLength, MinimumLength = Common.ModelValidation.Category.NameMinLength, ErrorMessage = NameLengthError)]
         public string Name { get; set; }
 
         [Range(1, CodeMaxLength)]

@@ -80,6 +80,7 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IProductsService, ProductsService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
 
             Account account = new Account(
                 this.configuration["Cloudinary:AppName"],

@@ -2,12 +2,12 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using PhotoPavilion.Data.Models;
     using PhotoPavilion.Models.ViewModels.Brands;
     using PhotoPavilion.Models.ViewModels.Categories;
     using PhotoPavilion.Services.Mapping;
 
-    using static PhotoPavilion.Models.Common.ModelValidation.Product;
+    using static PhotoPavilion.Models.Common.ModelValidation;
+    using Product = Data.Models.Product;
 
     public class ProductDetailsViewModel : IMapFrom<Product>
     {
