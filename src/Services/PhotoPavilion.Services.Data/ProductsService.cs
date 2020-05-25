@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@
     using PhotoPavilion.Models.ViewModels.Products;
     using PhotoPavilion.Services.Data.Common;
     using PhotoPavilion.Services.Data.Contracts;
+    using PhotoPavilion.Services.Mapping;
 
     public class ProductsService : IProductsService
     {
@@ -83,24 +85,74 @@
             return viewModel;
         }
 
-        public Task DeleteByIdAsync(int id)
+        public async Task DeleteByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var product = await this.productsRepository.All().FirstOrDefaultAsync(p => p.Id == id);
+            if (product == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.CategoryNotFound, id));
+            }
+
+            product.IsDeleted = true;
+            product.DeletedOn = DateTime.UtcNow;
+            this.productsRepository.Update(product);
+            await this.productsRepository.SaveChangesAsync();
         }
 
-        public Task EditAsync(ProductEditViewModel productEditViewModel)
+        public async Task EditAsync(ProductEditViewModel productEditViewModel)
         {
-            throw new NotImplementedException();
+            var product = await this.productsRepository
+                .All()
+                .FirstOrDefaultAsync(m => m.Id == productEditViewModel.Id);
+
+            if (product == null)
+            {
+                throw new NullReferenceException(
+                    string.Format(ExceptionMessages.ProductNotFound, productEditViewModel.Id));
+            }
+
+            if (productEditViewModel.Image != null)
+            {
+                var newImageUrl = await this.cloudinaryService
+                    .UploadAsync(productEditViewModel.Image, productEditViewModel.Name);
+                product.ImagePath = newImageUrl;
+            }
+
+            product.Name = productEditViewModel.Name;
+            product.Code = productEditViewModel.Code;
+            product.Description = productEditViewModel.Description;
+            product.Price = productEditViewModel.Price;
+            product.BrandId = productEditViewModel.BrandId;
+            product.CategoryId = productEditViewModel.CategoryId;
+            product.ModifiedOn = DateTime.UtcNow;
+
+            await this.productsRepository.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<TViewModel>> GetAllProductsAsync<TViewModel>()
+        public async Task<IEnumerable<TViewModel>> GetAllProductsAsync<TViewModel>()
         {
-            throw new NotImplementedException();
+            var products = await this.productsRepository
+                .All()
+                .To<TViewModel>()
+                .ToListAsync();
+
+            return products;
         }
 
-        public Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
+        public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
         {
-            throw new NotImplementedException();
+            var product = await this.productsRepository
+                .All()
+                .Where(p => p.Id == id)
+                .To<TViewModel>()
+                .FirstOrDefaultAsync();
+
+            if (product == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.ProductNotFound, id));
+            }
+
+            return product;
         }
     }
 }
