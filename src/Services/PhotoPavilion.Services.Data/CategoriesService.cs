@@ -33,7 +33,7 @@
 
             bool doesCategoryExist = await this.categoriesRepository
                 .All()
-                .AnyAsync(x => x.Name == category.Name);
+                .AnyAsync(c => c.Name == category.Name);
             if (doesCategoryExist)
             {
                 throw new ArgumentException(
@@ -52,7 +52,7 @@
         {
             var category = await this.categoriesRepository
                 .All()
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(c => c.Id == id);
             if (category == null)
             {
                 throw new NullReferenceException(
@@ -61,6 +61,7 @@
 
             category.IsDeleted = true;
             category.DeletedOn = DateTime.UtcNow;
+
             this.categoriesRepository.Update(category);
             await this.categoriesRepository.SaveChangesAsync();
         }
@@ -69,7 +70,7 @@
         {
             var category = await this.categoriesRepository
                 .All()
-                .FirstOrDefaultAsync(d => d.Id == categoryEditViewModel.Id);
+                .FirstOrDefaultAsync(c => c.Id == categoryEditViewModel.Id);
 
             if (category == null)
             {
@@ -88,7 +89,7 @@
         {
             var categories = await this.categoriesRepository
                 .All()
-                .OrderBy(x => x.Name)
+                .OrderBy(c => c.Name)
                 .To<TViewModel>()
                 .ToListAsync();
 

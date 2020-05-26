@@ -70,7 +70,9 @@
                 Category = category,
             };
 
-            bool doesProductExist = await this.productsRepository.All().AnyAsync(x => x.Name == product.Name);
+            bool doesProductExist = await this.productsRepository
+                .All()
+                .AnyAsync(p => p.Name == product.Name);
             if (doesProductExist)
             {
                 throw new ArgumentException(
@@ -87,7 +89,9 @@
 
         public async Task DeleteByIdAsync(int id)
         {
-            var product = await this.productsRepository.All().FirstOrDefaultAsync(p => p.Id == id);
+            var product = await this.productsRepository
+                .All()
+                .FirstOrDefaultAsync(p => p.Id == id);
             if (product == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.CategoryNotFound, id));
@@ -95,6 +99,7 @@
 
             product.IsDeleted = true;
             product.DeletedOn = DateTime.UtcNow;
+
             this.productsRepository.Update(product);
             await this.productsRepository.SaveChangesAsync();
         }
