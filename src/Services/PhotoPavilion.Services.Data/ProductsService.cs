@@ -38,7 +38,7 @@
         {
             var brand = await this.brandsRepository
                 .All()
-                .FirstOrDefaultAsync(d => d.Id == productCreateInputModel.BrandId);
+                .FirstOrDefaultAsync(b => b.Id == productCreateInputModel.BrandId);
 
             if (brand == null)
             {
@@ -48,7 +48,7 @@
 
             var category = await this.categoriesRepository
                 .All()
-                .FirstOrDefaultAsync(d => d.Id == productCreateInputModel.CategoryId);
+                .FirstOrDefaultAsync(c => c.Id == productCreateInputModel.CategoryId);
 
             if (category == null)
             {
@@ -103,7 +103,7 @@
         {
             var product = await this.productsRepository
                 .All()
-                .FirstOrDefaultAsync(m => m.Id == productEditViewModel.Id);
+                .FirstOrDefaultAsync(p => p.Id == productEditViewModel.Id);
 
             if (product == null)
             {

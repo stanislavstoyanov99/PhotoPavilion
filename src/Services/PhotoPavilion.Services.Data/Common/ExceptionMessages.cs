@@ -9,5 +9,7 @@
         public const string BrandNotFound = "Brand with id {0} is not found.";
 
         public const string CategoryNotFound = "Category with id {0} is not found.";
+
+        public const string CategoryAlreadyExists = "Category with name {0} already exists";
     }
 }

@@ -2,15 +2,19 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
+
+    using Microsoft.EntityFrameworkCore;
 
     using PhotoPavilion.Data.Common.Repositories;
     using PhotoPavilion.Data.Models;
     using PhotoPavilion.Models.InputModels.AdministratorInputModels.Categories;
     using PhotoPavilion.Models.ViewModels.Categories;
+    using PhotoPavilion.Services.Data.Common;
     using PhotoPavilion.Services.Data.Contracts;
+    using PhotoPavilion.Services.Mapping;
 
-    // TODO - finish this service
     public class CategoriesService : ICategoriesService
     {
         private readonly IDeletableEntityRepository<Category> categoriesRepository;
@@ -20,29 +24,91 @@
             this.categoriesRepository = categoriesRepository;
         }
 
-        public Task<CategoryDetailsViewModel> CreateAsync(CategoryCreateInputModel categoryCreateInputModel)
+        public async Task<CategoryDetailsViewModel> CreateAsync(CategoryCreateInputModel categoryCreateInputModel)
         {
-            throw new NotImplementedException();
+            var category = new Category
+            {
+                Name = categoryCreateInputModel.Name,
+            };
+
+            bool doesCategoryExist = await this.categoriesRepository
+                .All()
+                .AnyAsync(x => x.Name == category.Name);
+            if (doesCategoryExist)
+            {
+                throw new ArgumentException(
+                    string.Format(ExceptionMessages.CategoryAlreadyExists, category.Name));
+            }
+
+            await this.categoriesRepository.AddAsync(category);
+            await this.categoriesRepository.SaveChangesAsync();
+
+            var viewModel = await this.GetViewModelByIdAsync<CategoryDetailsViewModel>(category.Id);
+
+            return viewModel;
         }
 
-        public Task DeleteByIdAsync(int id)
+        public async Task DeleteByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var category = await this.categoriesRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (category == null)
+            {
+                throw new NullReferenceException(
+                    string.Format(ExceptionMessages.CategoryNotFound, id));
+            }
+
+            category.IsDeleted = true;
+            category.DeletedOn = DateTime.UtcNow;
+            this.categoriesRepository.Update(category);
+            await this.categoriesRepository.SaveChangesAsync();
         }
 
-        public Task EditAsync(CategoryEditViewModel categoryEditViewModel)
+        public async Task EditAsync(CategoryEditViewModel categoryEditViewModel)
         {
-            throw new NotImplementedException();
+            var category = await this.categoriesRepository
+                .All()
+                .FirstOrDefaultAsync(d => d.Id == categoryEditViewModel.Id);
+
+            if (category == null)
+            {
+                throw new NullReferenceException(
+                    string.Format(ExceptionMessages.CategoryNotFound, categoryEditViewModel.Id));
+            }
+
+            category.Name = categoryEditViewModel.Name;
+            category.ModifiedOn = DateTime.UtcNow;
+
+            this.categoriesRepository.Update(category);
+            await this.categoriesRepository.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<TViewModel>> GetAllCategoriesAsync<TViewModel>()
+        public async Task<IEnumerable<TViewModel>> GetAllCategoriesAsync<TViewModel>()
         {
-            throw new NotImplementedException();
+            var categories = await this.categoriesRepository
+                .All()
+                .OrderBy(x => x.Name)
+                .To<TViewModel>()
+                .ToListAsync();
+
+            return categories;
         }
 
-        public Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
+        public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
         {
-            throw new NotImplementedException();
+            var categoryViewModel = await this.categoriesRepository
+                .All()
+                .Where(c => c.Id == id)
+                .To<TViewModel>()
+                .FirstOrDefaultAsync();
+
+            if (categoryViewModel == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.CategoryNotFound, id));
+            }
+
+            return categoryViewModel;
         }
     }
 }
