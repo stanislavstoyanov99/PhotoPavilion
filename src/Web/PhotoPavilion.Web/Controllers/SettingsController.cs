@@ -8,7 +8,7 @@
     using PhotoPavilion.Data.Common.Repositories;
     using PhotoPavilion.Data.Models;
     using PhotoPavilion.Models.ViewModels.Settings;
-    using PhotoPavilion.Services.Data;
+    using PhotoPavilion.Services.Data.Contracts;
 
     public class SettingsController : Controller
     {
