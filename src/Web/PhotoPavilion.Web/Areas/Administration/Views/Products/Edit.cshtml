@@ -1,0 +1,71 @@
+﻿@model PhotoPavilion.Models.ViewModels.Products.ProductEditViewModel
+@{
+    this.ViewData["Title"] = "Edit Product";
+    this.ViewData["ActivePage"] = ProductNavPages.Products;
+
+    var categories = Model.Categories.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var brands = Model.Brands.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Products" asp-action="Edit" enctype="multipart/form-data" method="post">
+            <h4>Edit <b>@Model.Name</b> product with id: @Model.Id</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Code"></label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Old Image</label>
+                <div class="form-group">
+                    <input asp-for="ImagePath" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <img class="img-fluid img-thumbnail" src="@Model.ImagePath" alt="Image" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image"></label>
+                <input type="file" asp-for="Image" name="Image" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId"></label>
+                <div class="container">
+                    <select asp-for="CategoryId" asp-items="categories" class="selectpicker">
+                        <option selected="" disabled="">Select Category</option>
+                    </select>
+                </div>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BrandId"></label>
+                <div class="container">
+                    <select asp-for="BrandId" asp-items="brands" class="selectpicker">
+                        <option selected="" disabled="">Select Brand</option>
+                    </select>
+                </div>
+                <span asp-validation-for="BrandId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Save changes</button>
+            <button asp-area="Administration" asp-controller="Products" asp-action="GetAll" class="btn btn-primary">Back to all products</button>
+        </form>
+    </div>
+</div>

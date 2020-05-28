@@ -144,6 +144,17 @@
             return products;
         }
 
+        public IQueryable<TViewModel> GetAllProductsAsQueryeable<TViewModel>()
+        {
+            var products = this.productsRepository
+                .All()
+                .OrderBy(x => x.Name)
+                .ThenByDescending(x => x.CreatedOn)
+                .To<TViewModel>();
+
+            return products;
+        }
+
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
         {
             var product = await this.productsRepository

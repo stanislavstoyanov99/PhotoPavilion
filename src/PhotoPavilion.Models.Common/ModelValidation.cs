@@ -24,6 +24,8 @@
             public const string ImagePathError = "Image path must be between {2} and {1} symbols";
 
             public const int ImageMaxSize = 10 * 1024 * 1024;
+
+            public const string ImageDisplayName = "Image";
         }
 
         public static class Brand

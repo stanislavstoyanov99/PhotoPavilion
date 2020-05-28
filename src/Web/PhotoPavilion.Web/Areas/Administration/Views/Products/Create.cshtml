@@ -1,0 +1,61 @@
+﻿@model PhotoPavilion.Models.InputModels.AdministratorInputModels.Products.ProductCreateInputModel
+@{
+    this.ViewData["Title"] = "Create Product";
+    this.ViewData["ActivePage"] = ProductNavPages.Products;
+
+    var categories = Model.Categories.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var brands = Model.Brands.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Products" asp-action="Create" enctype="multipart/form-data" method="post">
+            <h4>Create new products</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Code"></label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image"></label>
+                <input asp-for="Image" type="file" name="Image" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId"></label>
+                <div class="container">
+                    <select asp-for="CategoryId" asp-items="categories" class="selectpicker">
+                        <option selected="" disabled="">Select Category</option>
+                    </select>
+                </div>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BrandId"></label>
+                <div class="container">
+                    <select asp-for="BrandId" asp-items="brands" class="selectpicker">
+                        <option selected="" disabled="">Select Brand</option>
+                    </select>
+                </div>
+                <span asp-validation-for="BrandId" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Save changes</button>
+        </form>
+    </div>
+</div>
