@@ -14,7 +14,7 @@
             public const int CodeMaxLength = int.MaxValue;
 
             public const int DescriptionMinLength = 50;
-            public const int DescriptionMaxLength = 2000;
+            public const int DescriptionMaxLength = 20000;
 
             public const string DescriptionError = "Description must be between {2} and {1} symbols";
 

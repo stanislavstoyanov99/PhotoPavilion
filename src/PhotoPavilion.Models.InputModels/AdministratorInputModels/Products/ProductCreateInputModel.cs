@@ -30,7 +30,7 @@
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = DescriptionError)]
         public string Description { get; set; }
 
-        [Range(1, double.MaxValue)]
+        [Range(1, 20000)]
         public decimal Price { get; set; }
 
         [DataType(DataType.Url)]

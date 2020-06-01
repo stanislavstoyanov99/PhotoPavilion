@@ -42,7 +42,6 @@
         [StringLength(ImageMaxLength, MinimumLength = ImageMinLength, ErrorMessage = ImagePathError)]
         public string ImagePath { get; set; }
 
-        [Required(ErrorMessage = EmptyFieldLengthError)]
         [DataType(DataType.Upload)]
         [MaxFileSize(ImageMaxSize)]
         [AllowedExtensions]

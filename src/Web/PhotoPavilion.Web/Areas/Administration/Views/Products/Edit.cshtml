@@ -8,7 +8,7 @@
 }
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-9">
         <form asp-area="Administration" asp-controller="Products" asp-action="Edit" enctype="multipart/form-data" method="post">
             <h4>Edit <b>@Model.Name</b> product with id: @Model.Id</h4>
             <hr />
@@ -48,20 +48,16 @@
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId"></label>
-                <div class="container">
-                    <select asp-for="CategoryId" asp-items="categories" class="selectpicker">
-                        <option selected="" disabled="">Select Category</option>
-                    </select>
-                </div>
+                <select class="custom-select" asp-for="CategoryId" asp-items="categories">
+                    <option selected="" disabled="">Select Category</option>
+                </select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BrandId"></label>
-                <div class="container">
-                    <select asp-for="BrandId" asp-items="brands" class="selectpicker">
-                        <option selected="" disabled="">Select Brand</option>
-                    </select>
-                </div>
+                <select class="custom-select" asp-for="BrandId" asp-items="brands">
+                    <option selected="" disabled="">Select Brand</option>
+                </select>
                 <span asp-validation-for="BrandId" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-success">Save changes</button>

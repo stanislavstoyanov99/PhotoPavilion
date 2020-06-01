@@ -12,7 +12,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
             <h4>Products List</h4>
             <hr />
             <h5>Total Count : <span>@Model.Count()</span></h5>
@@ -22,7 +22,7 @@
                         <th scope="col">Id</th>
                         <th scope="col">Name</th>
                         <th scope="col">Code</th>
-                        <th scope="col">Description</th>
+                        <th scope="col">Short Description</th>
                         <th scope="col">Price</th>
                         <th scope="col">Category</th>
                         <th scope="col">Brand</th>
@@ -36,10 +36,10 @@
                             <th scope="row">@product.Id</th>
                             <td>@product.Name</td>
                             <td>@product.Code</td>
-                            <td>@product.Description</td>
+                            <td>@product.ShortDescription</td>
                             <td>@product.Price</td>
-                            <td>@product.Brand.Name</td>
                             <td>@product.Category.Name</td>
+                            <td>@product.Brand.Name</td>
                             <td>
                                 <a class="badge badge-success" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
                                 <a class="badge badge-danger" asp-action="Remove" asp-route-id="@product.Id">Remove</a>

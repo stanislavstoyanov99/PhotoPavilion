@@ -11,6 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200601202901_ExtendProductDescriptionMaxLength.cs" />
+    <Compile Remove="Migrations\20200601202901_ExtendProductDescriptionMaxLength.Designer.cs" />
+    <Compile Remove="Migrations\20200601203616_ChangeProductDescriptionMaxLength.cs" />
+    <Compile Remove="Migrations\20200601203616_ChangeProductDescriptionMaxLength.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
 
