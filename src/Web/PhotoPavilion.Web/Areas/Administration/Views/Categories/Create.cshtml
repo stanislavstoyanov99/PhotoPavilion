@@ -1,0 +1,20 @@
+﻿@model PhotoPavilion.Models.InputModels.AdministratorInputModels.Categories.CategoryCreateInputModel
+@{
+    this.ViewData["Title"] = "Create Category";
+    this.ViewData["ActivePage"] = CategoryNavPages.Categories;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Categories" asp-action="Create" method="post">
+            <h4>Create new category</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Save changes</button>
+        </form>
+    </div>
+</div>

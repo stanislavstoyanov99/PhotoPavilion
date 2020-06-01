@@ -10,57 +10,44 @@
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
 
-<link rel="stylesheet" type="text/css" href="~/list-css/table-style.css" />
-<link rel="stylesheet" type="text/css" href="~/list-css/basictable.css" />
-
 <div class="container">
     <div class="row">
         <div class="col-md-9">
             <h4>Products List</h4>
             <hr />
-            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-                <div id="myTabContent" class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
-                        <div class="agile-news-table">
-                            <div class="w3ls-news-result">
-                                <h4>Total Count : <span>@Model.Count()</span></h4>
-                            </div>
-                            <table id="table-breakpoint">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Name</th>
-                                        <th>Code</th>
-                                        <th>Description</th>
-                                        <th>Price</th>
-                                        <th>Category</th>
-                                        <th>Brand</th>
-                                        <th>Functions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var product in Model)
-                                    {
-                                        <tr>
-                                            <td>@product.Id</td>
-                                            <td>@product.Name</td>
-                                            <td>@product.Code</td>
-                                            <td>@product.Description</td>
-                                            <td>@product.Price</td>
-                                            <td>@product.Brand.Name</td>
-                                            <td>@product.Category.Name</td>
-                                            <td>
-                                                <a class="badge badge-success" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
-                                                <a class="badge badge-danger" asp-action="Remove" asp-route-id="@product.Id">Remove</a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h5>Total Count : <span>@Model.Count()</span></h5>
+            <table class="table table-bordered table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Functions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model)
+                    {
+                        <tr>
+                            <th scope="row">@product.Id</th>
+                            <td>@product.Name</td>
+                            <td>@product.Code</td>
+                            <td>@product.Description</td>
+                            <td>@product.Price</td>
+                            <td>@product.Brand.Name</td>
+                            <td>@product.Category.Name</td>
+                            <td>
+                                <a class="badge badge-success" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+                                <a class="badge badge-danger" asp-action="Remove" asp-route-id="@product.Id">Remove</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
             <hr />
             <a asp-action="GetAll" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-primary @prevDisabled">
                 Previous
@@ -71,17 +58,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts
-{
-    <script type="text/javascript" src="~/list-js/jquery.basictable.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#table').basictable();
-
-            $('#table-breakpoint').basictable({
-                breakpoint: 768
-            });
-        });
-    </script>
-}

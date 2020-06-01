@@ -7,8 +7,12 @@
     <div class="row">
         <div class="col-md-3">
             <ul class="nav nav-pills nav-stacked">
-                <li class="@ProductNavPages.CreateProductNavClass(ViewContext)"><a asp-controller="Products" asp-action="Create">Create product</a></li>
-                <li class="@ProductNavPages.GetAllNavClass(ViewContext)"><a asp-controller="Products" asp-action="GetAll">List products</a></li>
+                <li class="@ProductNavPages.CreateProductNavClass(ViewContext)">
+                    <a asp-controller="Products" asp-action="Create">Create product</a>
+                </li>
+                <li class="@ProductNavPages.GetAllNavClass(ViewContext)">
+                    <a asp-controller="Products" asp-action="GetAll">List products</a>
+                </li>
             </ul>
         </div>
     </div>

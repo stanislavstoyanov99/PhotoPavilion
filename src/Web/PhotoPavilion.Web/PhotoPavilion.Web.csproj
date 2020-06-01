@@ -45,7 +45,5 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\lib\bootstrap\dist\css\" />
-    <Folder Include="wwwroot\list-css\" />
-    <Folder Include="wwwroot\list-js\" />
   </ItemGroup>
 </Project>

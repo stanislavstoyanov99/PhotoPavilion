@@ -1,0 +1,21 @@
+﻿@model PhotoPavilion.Models.ViewModels.Categories.CategoryEditViewModel
+@{
+    this.ViewData["Title"] = "Edit Category";
+    this.ViewData["ActivePage"] = CategoryNavPages.Categories;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Categories" asp-action="Edit" method="post">
+            <h5>Edit <b>@Model.Name</b> category with id: @Model.Id</h5>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Save changes</button>
+            <button asp-area="Administration" asp-controller="Categories" asp-action="GetAll" class="btn btn-primary">Back to all categories</button>
+        </form>
+    </div>
+</div>
