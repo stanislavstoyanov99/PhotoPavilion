@@ -1,0 +1,50 @@
+﻿@using PhotoPavilion.Models.ViewModels.Brands
+@model PaginatedList<BrandDetailsViewModel>
+@{
+    this.ViewData["Title"] = "All brands";
+    this.ViewData["ActivePage"] = BrandNavPages.Brands;
+}
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h4>Brands List</h4>
+            <hr />
+            <h5>Total Count : <span>@Model.Count()</span></h5>
+            <table class="table table-bordered table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Functions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var brand in Model)
+                    {
+                        <tr>
+                            <th scope="row">@brand.Id</th>
+                            <td>@brand.Name</td>
+                            <td>
+                                <a class="badge badge-success" asp-action="Edit" asp-route-id="@brand.Id">Edit</a>
+                                <a class="badge badge-danger" asp-action="Remove" asp-route-id="@brand.Id">Remove</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <hr />
+            <a asp-action="GetAll" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-primary @prevDisabled">
+                Previous
+            </a>
+            <a asp-action="GetAll" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-primary @nextDisabled">
+                Next
+            </a>
+        </div>
+    </div>
+</div>

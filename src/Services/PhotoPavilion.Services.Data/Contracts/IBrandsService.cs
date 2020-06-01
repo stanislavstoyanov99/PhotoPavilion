@@ -1,6 +1,7 @@
 ﻿namespace PhotoPavilion.Services.Data.Contracts
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using PhotoPavilion.Models.InputModels.AdministratorInputModels.Brands;
@@ -13,5 +14,7 @@
         Task EditAsync(BrandEditViewModel brandEditViewModel);
 
         Task<IEnumerable<TViewModel>> GetAllBrandsAsync<TViewModel>();
+
+        IQueryable<TViewModel> GetAllBrandsAsQueryeable<TViewModel>();
     }
 }

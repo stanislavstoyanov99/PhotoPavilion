@@ -1,4 +1,9 @@
-﻿@using PhotoPavilion.Common
+﻿@inject PhotoPavilion.Services.Data.Contracts.ICategoriesService CateogiresService
+@using PhotoPavilion.Common
+
+@{
+    var categories = await CateogiresService.GetAllCategoriesAsync<NavbarCategoryViewModel>();
+}
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
@@ -10,20 +15,22 @@
             <li class="nav-item" active-when="/Products/Index">
                 <a class="nav-link" href="#">Products</a>
             </li>
-            <li class="nav-item" active-when="/Settings/Index">
-                <a class="nav-link" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
+            <li class="nav-item" active-when="/Brands/Index">
+                <a class="nav-link" asp-area="" asp-controller="Brands" asp-action="Index">Brands</a>
             </li>
             <li class="nav-item dropdown" active-when="/Categories/Index">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Categories
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Cameras</a>
-                    <a class="dropdown-item" href="#">Lenses</a>
-                    <a class="dropdown-item" href="#">Lightenings</a>
-                    <a class="dropdown-item" href="#">Filters</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Others</a>
+                    <cache expires-after="@TimeSpan.FromDays(30)" vary-by="@categories.Count().ToString()">
+                        @foreach (var category in categories)
+                        {
+                            <a class="dropdown-item" asp-area="" asp-controller="Categories" asp-action="ByName" asp-route-name="@category.Name">
+                                @category.Name
+                            </a>
+                        }
+                    </cache>
                 </div>
             </li>
             <li class="nav-item" active-when="/Home/Privacy">

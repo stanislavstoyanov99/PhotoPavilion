@@ -1,0 +1,20 @@
+﻿@model PhotoPavilion.Models.ViewModels.Brands.BrandDetailsViewModel
+@{
+    this.ViewData["Title"] = "Delete Brand";
+    this.ViewData["ActivePage"] = BrandNavPages.Brands;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Brands" asp-action="Remove" method="post">
+            <h5 class="text-danger">Are you sure you want to delete <b>@Model.Name</b> brand?</h5>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" disabled="" />
+            </div>
+            <button type="submit" class="btn btn-danger">Delete brand</button>
+            <button asp-area="Administration" asp-controller="Brands" asp-action="GetAll" class="btn btn-primary">Back to all brands</button>
+        </form>
+    </div>
+</div>

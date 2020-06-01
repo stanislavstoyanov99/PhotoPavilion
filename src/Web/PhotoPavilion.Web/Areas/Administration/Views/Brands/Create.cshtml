@@ -1,0 +1,20 @@
+﻿@model PhotoPavilion.Models.InputModels.AdministratorInputModels.Brands.BrandCreateInputModel
+@{
+    this.ViewData["Title"] = "Create Brand";
+    this.ViewData["ActivePage"] = BrandNavPages.Brands;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Brands" asp-action="Create" method="post">
+            <h4>Create new brand</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Save changes</button>
+        </form>
+    </div>
+</div>

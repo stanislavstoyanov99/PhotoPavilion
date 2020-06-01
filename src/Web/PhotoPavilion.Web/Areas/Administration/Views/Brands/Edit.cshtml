@@ -1,0 +1,21 @@
+﻿@model PhotoPavilion.Models.ViewModels.Brands.BrandEditViewModel
+@{
+    this.ViewData["Title"] = "Edit Brand";
+    this.ViewData["ActivePage"] = BrandNavPages.Brands;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-area="Administration" asp-controller="Brands" asp-action="Edit" method="post">
+            <h5>Edit <b>@Model.Name</b> brand with id: @Model.Id</h5>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Save changes</button>
+            <button asp-area="Administration" asp-controller="Brands" asp-action="GetAll" class="btn btn-primary">Back to all brands</button>
+        </form>
+    </div>
+</div>

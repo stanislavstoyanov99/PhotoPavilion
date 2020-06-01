@@ -1,0 +1,19 @@
+﻿@{
+    this.ViewData["ActivePage"] = BrandNavPages.Brands;
+    this.ViewData["Title"] = "Brands";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="@BrandNavPages.CreateBrandNavClass(ViewContext)">
+                    <a asp-controller="Brands" asp-action="Create">Create brand</a>
+                </li>
+                <li class="@BrandNavPages.GetAllNavClass(ViewContext)">
+                    <a asp-controller="Brands" asp-action="GetAll">List brands</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

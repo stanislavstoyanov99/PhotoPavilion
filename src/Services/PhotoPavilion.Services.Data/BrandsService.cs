@@ -96,6 +96,17 @@
             return brands;
         }
 
+        public IQueryable<TViewModel> GetAllBrandsAsQueryeable<TViewModel>()
+        {
+            var brands = this.brandsRepository
+                .All()
+                .OrderBy(x => x.Name)
+                .ThenByDescending(x => x.CreatedOn)
+                .To<TViewModel>();
+
+            return brands;
+        }
+
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
         {
             var brandViewModel = await this.brandsRepository
