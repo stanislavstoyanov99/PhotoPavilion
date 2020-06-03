@@ -36,7 +36,7 @@
                             <th scope="row">@product.Id</th>
                             <td>@product.Name</td>
                             <td>@product.Code</td>
-                            <td>@product.ShortDescription</td>
+                            <td>@Html.Raw(product.SanitizedShortDescription)</td>
                             <td>@product.Price</td>
                             <td>@product.Category.Name</td>
                             <td>@product.Brand.Name</td>

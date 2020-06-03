@@ -1,5 +1,6 @@
 ﻿namespace PhotoPavilion.Models.ViewModels.Products
 {
+    using Ganss.XSS;
     using System.ComponentModel.DataAnnotations;
 
     using PhotoPavilion.Models.ViewModels.Brands;
@@ -30,6 +31,8 @@
                         : shortDescription;
             }
         }
+
+        public string SanitizedShortDescription => new HtmlSanitizer().Sanitize(this.ShortDescription);
 
         public decimal Price { get; set; }
 

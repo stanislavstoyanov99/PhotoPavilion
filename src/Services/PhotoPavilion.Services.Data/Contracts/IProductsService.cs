@@ -16,5 +16,7 @@
         Task<IEnumerable<TViewModel>> GetAllProductsAsync<TViewModel>();
 
         IQueryable<TViewModel> GetAllProductsAsQueryeable<TViewModel>();
+
+        Task<IEnumerable<TViewModel>> GetTopProductsAsync<TViewModel>(int count = 0);
     }
 }

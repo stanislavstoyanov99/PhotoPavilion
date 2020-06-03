@@ -70,3 +70,9 @@ a:hover {
 input[type="file"] {
     display: block;
 }
+
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #ffa500;
+    border-color: #fff;
+}

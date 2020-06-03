@@ -8,7 +8,7 @@
 }
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-9">
         <form asp-area="Administration" asp-controller="Products" asp-action="Create" enctype="multipart/form-data" method="post">
             <h4>Create new product</h4>
             <hr />
@@ -55,3 +55,16 @@
         </form>
     </div>
 </div>
+
+@section Scripts
+{
+    <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea",
+            plugins: [
+                "image paste table link code media"
+            ]
+        });
+    </script>
+}

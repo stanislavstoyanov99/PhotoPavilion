@@ -1,16 +1,37 @@
 ﻿namespace PhotoPavilion.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
 
     using PhotoPavilion.Models.ViewModels;
+    using PhotoPavilion.Models.ViewModels.Products;
+    using PhotoPavilion.Services.Data.Contracts;
 
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private const int TopProductsCount = 6;
+        private readonly IProductsService productsService;
+
+        public HomeController(IProductsService productsService)
         {
-            return this.View();
+            this.productsService = productsService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            //var topMoviesInSlider = await this.moviesService
+            //    .GetTopImdbMoviesAsync<SliderMovieDetailsViewModel>(TopMoviesInHeaderSliderRating, TopMoviesInHeaderSliderCount);
+            var topProducts = await this.productsService
+                .GetTopProductsAsync<TopProductDetailsViewModel>(TopProductsCount);
+
+            var viewModel = new ProductsHomePageListingViewModel
+            {
+                TopProducts = topProducts,
+            };
+
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()

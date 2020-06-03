@@ -170,5 +170,16 @@
 
             return product;
         }
+
+        public async Task<IEnumerable<TViewModel>> GetTopProductsAsync<TViewModel>(int count = 0)
+        {
+            var topProducts = await this.productsRepository
+                .All()
+                .Take(count)
+                .To<TViewModel>()
+                .ToListAsync();
+
+            return topProducts;
+        }
     }
 }

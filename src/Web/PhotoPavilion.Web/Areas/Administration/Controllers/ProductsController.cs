@@ -13,7 +13,7 @@
 
     public class ProductsController : AdministrationController
     {
-        private const int PageSize = 10;
+        private const int PageSize = 5;
         private readonly IProductsService productsService;
         private readonly ICategoriesService categoriesService;
         private readonly IBrandsService brandsService;
