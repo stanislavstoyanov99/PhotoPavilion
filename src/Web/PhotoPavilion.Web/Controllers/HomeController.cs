@@ -11,7 +11,15 @@
 
     public class HomeController : Controller
     {
-        private const int TopProductsCount = 6;
+        private const int TopCamerasCount = 6;
+        private const int TopLensesCount = 3;
+        private const int TopFiltersCount = 3;
+        private const int TopLighteningsCount = 3;
+        private const string CamerasCategory = "Cameras";
+        private const string LensesCategory = "Lenses";
+        private const string FiltersCategory = "Filters";
+        private const string LighteningsCategory = "Lightenings";
+
         private readonly IProductsService productsService;
 
         public HomeController(IProductsService productsService)
@@ -21,14 +29,21 @@
 
         public async Task<IActionResult> Index()
         {
-            //var topMoviesInSlider = await this.moviesService
-            //    .GetTopImdbMoviesAsync<SliderMovieDetailsViewModel>(TopMoviesInHeaderSliderRating, TopMoviesInHeaderSliderCount);
-            var topProducts = await this.productsService
-                .GetTopProductsAsync<TopProductDetailsViewModel>(TopProductsCount);
+            var topCameras = await this.productsService
+                .GetTopProductsAsync<TopProductDetailsViewModel>(CamerasCategory, TopCamerasCount);
+            var topLenses = await this.productsService
+                .GetTopProductsAsync<TopProductDetailsViewModel>(LensesCategory, TopLensesCount);
+            var topFilters = await this.productsService
+                .GetTopProductsAsync<TopProductDetailsViewModel>(FiltersCategory, TopFiltersCount);
+            var topLightenings = await this.productsService
+                .GetTopProductsAsync<TopProductDetailsViewModel>(LighteningsCategory, TopLighteningsCount);
 
             var viewModel = new ProductsHomePageListingViewModel
             {
-                TopProducts = topProducts,
+                TopCameras = topCameras,
+                TopLenses = topLenses,
+                TopFilters = topFilters,
+                TopLightenings = topLightenings,
             };
 
             return this.View(viewModel);

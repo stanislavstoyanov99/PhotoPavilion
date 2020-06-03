@@ -171,10 +171,11 @@
             return product;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetTopProductsAsync<TViewModel>(int count = 0)
+        public async Task<IEnumerable<TViewModel>> GetTopProductsAsync<TViewModel>(string categoryName, int count = 0)
         {
             var topProducts = await this.productsRepository
                 .All()
+                .Where(x => x.Category.Name == categoryName)
                 .Take(count)
                 .To<TViewModel>()
                 .ToListAsync();

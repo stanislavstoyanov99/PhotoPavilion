@@ -7,7 +7,7 @@
 
         public static class Product
         {
-            public const int NameMaxLength = 40;
+            public const int NameMaxLength = 100;
             public const int DescriptionMaxLength = 20000;
             public const int ImagePathMaxLength = 500;
         }

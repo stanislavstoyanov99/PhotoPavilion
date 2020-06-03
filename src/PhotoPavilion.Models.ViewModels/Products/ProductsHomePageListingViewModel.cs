@@ -4,8 +4,12 @@
 
     public class ProductsHomePageListingViewModel
     {
-        public IEnumerable<TopProductDetailsViewModel> TopProducts { get; set; }
+        public IEnumerable<TopProductDetailsViewModel> TopCameras { get; set; }
 
-        // public IEnumerable<SliderMovieDetailsViewModel> TopProductsInSlider { get; set; }
+        public IEnumerable<TopProductDetailsViewModel> TopLenses { get; set; }
+
+        public IEnumerable<TopProductDetailsViewModel> TopFilters { get; set; }
+
+        public IEnumerable<TopProductDetailsViewModel> TopLightenings { get; set; }
     }
 }

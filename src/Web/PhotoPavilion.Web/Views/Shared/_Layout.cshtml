@@ -10,18 +10,18 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
-    <!-- font-awesome icons -->
     <link href="~/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true" />
-    <!-- //font-awesome icons -->
+    <link href="~/css/back-to-top-button.css" rel="stylesheet" asp-append-version="true" />
     <link rel='icon' href='~/favicon.ico' type='image/x-icon' />
 </head>
 <body>
-    <header>
+    <header class="header">
         <partial name="_NavbarPartial" />
     </header>
 
     <partial name="_CookieConsentPartial" />
     <main role="main">
+        <a id="button"></a>
         @this.RenderBody()
     </main>
 
@@ -32,6 +32,23 @@
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script>
+        var btn = $('#button');
+
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 500) {
+                btn.addClass('show');
+            }
+            else {
+                btn.removeClass('show');
+            }
+        });
+
+        btn.on('click', function (e) {
+            e.preventDefault();
+            $('html, body').animate({ scrollTop: 0 }, '300');
+        });
+    </script>
     @this.RenderSection("Scripts", required: false)
 </body>
 </html>
