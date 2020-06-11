@@ -1,9 +1,9 @@
-﻿@{
+﻿@using PhotoPavilion.Models.ViewModels.Privacy
+@model PrivacyDetailsViewModel
+@{
     this.ViewData["Title"] = "Privacy Policy";
 }
 
 <div class="container">
-    <h1>@this.ViewData["Title"]</h1>
-
-    <p>Use this page to detail your site's privacy policy.</p>
+    <p>@Html.Raw(Model.SanitizedPageContent)</p>
 </div>

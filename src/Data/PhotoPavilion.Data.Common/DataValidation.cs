@@ -27,5 +27,10 @@
             public const int TitleMaxLength = 100;
             public const int DescriptionMaxLength = 1500;
         }
+
+        public static class Privacy
+        {
+            public const int ContentPageMaxLength = 15000;
+        }
     }
 }

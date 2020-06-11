@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using PhotoPavilion.Models.ViewModels;
+    using PhotoPavilion.Models.ViewModels.Privacy;
     using PhotoPavilion.Models.ViewModels.Products;
     using PhotoPavilion.Services.Data.Contracts;
 
@@ -21,10 +22,12 @@
         private const string LighteningsCategory = "Lightenings";
 
         private readonly IProductsService productsService;
+        private readonly IPrivacyService privacyService;
 
-        public HomeController(IProductsService productsService)
+        public HomeController(IProductsService productsService, IPrivacyService privacyService)
         {
             this.productsService = productsService;
+            this.privacyService = privacyService;
         }
 
         public async Task<IActionResult> Index()
@@ -49,9 +52,11 @@
             return this.View(viewModel);
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
-            return this.View();
+            var privacy = await this.privacyService.GetViewModelAsync<PrivacyDetailsViewModel>();
+
+            return this.View(privacy);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -11,7 +11,7 @@
             public const int NameMinLength = 2;
             public const int NameMaxLength = 100;
 
-            public const int CodeMaxLength = int.MaxValue;
+            public const int CodeMaxLength = 20000;
 
             public const int DescriptionMinLength = 50;
             public const int DescriptionMaxLength = 20000;
@@ -40,6 +40,15 @@
             public const int NameMinLength = 2;
             public const int NameMaxLength = 30;
             public const string CategoryIdError = "Please select category name.";
+        }
+
+        public static class Privacy
+        {
+            public const int PageContentMinLength = 1000;
+            public const int PageContentMaxLength = 15000;
+
+            public const string PageContentLengthError = "Page content must be between {2} and {1} symbols";
+            public const string PageContentDisplayName = "Page Content";
         }
     }
 }
