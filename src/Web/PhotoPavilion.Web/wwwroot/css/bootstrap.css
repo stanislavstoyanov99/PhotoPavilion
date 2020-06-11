@@ -61,11 +61,6 @@
     margin-left: 0;
 }
 
-a:hover {
-    color: #fff;
-    text-decoration: underline;
-}
-
 input[type="file"] {
     display: block;
 }

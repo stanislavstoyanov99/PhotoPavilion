@@ -1,0 +1,10 @@
+﻿.monospaced {
+    font-family: 'Ubuntu Mono', monospaced;
+}
+.add-to-cart .btn-qty {
+    width: 60px;
+    height: 46px;
+}
+.add-to-cart .btn {
+    border-radius: 0;
+}

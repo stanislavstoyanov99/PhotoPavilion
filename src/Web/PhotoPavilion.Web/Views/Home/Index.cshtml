@@ -61,84 +61,23 @@
 </div>
 <div class="container marketing">
     <div class="row">
-        @foreach (var camera in Model.TopCameras)
+        @foreach (var product in Model.TopProducts)
         {
             <div class="col-lg-4">
                 <svg class="bd-placeholder-img rounded-circle" width="140" height="140">
-                    <title>@camera.Name</title>
+                    <title>@product.Name</title>
                     <clipPath id="circleView">
                         <rect width="100%" height="100%" />
                     </clipPath>
-                    <image width="140" height="140" xlink:href="@camera.ImagePath" clip-path="url(#circleView)" />
+                    <image width="140" height="140" xlink:href="@product.ImagePath" clip-path="url(#circleView)" />
                 </svg>
-                <h2>@camera.Name</h2>
-                <p>@Html.Raw(camera.SanitizedShortDescription)</p>
+                <h2>@product.Name</h2>
+                <p>@Html.Raw(product.SanitizedShortDescription)</p>
                 <p>
-                    <a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
+                    <a class="btn btn-secondary" asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" role="button">View details &raquo;</a>
                 </p>
             </div>
-        }
-    </div>
-    <hr class="featurette-divider">
-    <div class="row">
-        @foreach (var lense in Model.TopLenses)
-        {
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140">
-                    <title>@lense.Name</title>
-                    <clipPath id="circleView">
-                        <rect width="100%" height="100%" />
-                    </clipPath>
-                    <image width="140" height="140" xlink:href="@lense.ImagePath" clip-path="url(#circleView)" />
-                </svg>
-                <h2>@lense.Name</h2>
-                <p>@Html.Raw(lense.SanitizedShortDescription)</p>
-                <p>
-                    <a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
-                </p>
-            </div>
-        }
-    </div>
-    <hr class="featurette-divider">
-    <div class="row">
-        @foreach (var filter in Model.TopFilters)
-        {
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140">
-                    <title>@filter.Name</title>
-                    <clipPath id="circleView">
-                        <rect width="100%" height="100%" />
-                    </clipPath>
-                    <image width="140" height="140" xlink:href="@filter.ImagePath" clip-path="url(#circleView)" />
-                </svg>
-                <h2>@filter.Name</h2>
-                <p>@Html.Raw(filter.SanitizedShortDescription)</p>
-                <p>
-                    <a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
-                </p>
-            </div>
-        }
-    </div>
-    <hr class="featurette-divider">
-    <div class="row">
-        @foreach (var lightening in Model.TopLightenings)
-        {
-            <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="140" height="140">
-                    <title>@lightening.Name</title>
-                    <clipPath id="circleView">
-                        <rect width="100%" height="100%" />
-                    </clipPath>
-                    <image width="140" height="140" xlink:href="@lightening.ImagePath" clip-path="url(#circleView)" />
-                </svg>
-                <h2>@lightening.Name</h2>
-                <p>@Html.Raw(lightening.SanitizedShortDescription)</p>
-                <p>
-                    <a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
-                </p>
-            </div>
+            <hr class="featurette-divider">
         }
     </div>
 </div>
-
-<hr class="featurette-divider">

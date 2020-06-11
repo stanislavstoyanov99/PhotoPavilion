@@ -17,6 +17,6 @@
 
         IQueryable<TViewModel> GetAllProductsAsQueryeable<TViewModel>();
 
-        Task<IEnumerable<TViewModel>> GetTopProductsAsync<TViewModel>(string categoryName, int count = 0);
+        Task<IEnumerable<TViewModel>> GetTopProductsAsync<TViewModel>(int count = 0);
     }
 }

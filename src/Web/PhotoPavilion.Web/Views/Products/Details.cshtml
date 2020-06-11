@@ -1,0 +1,116 @@
+﻿@using PhotoPavilion.Models.ViewModels.Products
+@model DetailsListingViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+<link href="~/css/product.css" rel="stylesheet" asp-append-version="true" />
+
+<div class="container" id="product-section">
+    <div class="row">
+        <div class="col-md-6 mt-4">
+            <img class="img-fluid" src="@Model.ProductDetailsViewModel.ImagePath" alt="Product image" />
+        </div>
+        <div class="col-md-6 mt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>@Model.ProductDetailsViewModel.Name</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="badge badge-success">New</span>
+                    <span class="monospaced ml-3">No. @Model.ProductDetailsViewModel.Code</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="description">
+                        @Model.ProductDetailsViewModel.SanitizedShortDescription
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="sr-only">Four out of Five Stars</span>
+                    <span class="fa fa-star-o" aria-hidden="true"></span>
+                    <span class="fa fa-star-o" aria-hidden="true"></span>
+                    <span class="fa fa-star-o" aria-hidden="true"></span>
+                    <span class="fa fa-star-o" aria-hidden="true"></span>
+                    <span class="fa fa-star-o" aria-hidden="true"></span>
+                    <span class="badge badge-primary">61</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 bottom-rule">
+                    <h2 class="product-price">@Model.ProductDetailsViewModel.Price лв.</h2>
+                </div>
+            </div>
+            <div class="row add-to-cart">
+                <div class="col-md-6 product-qty">
+                    <span id="increment-btn" class="btn btn-light btn-lg btn-qty">
+                        <span class="fa fa-plus" aria-hidden="true"></span>
+                    </span>
+                    <input id="product-quantity" class="btn btn-secondary btn-lg btn-qty" value="0" />
+                    <span id="decrement-btn" class="btn btn-light btn-lg btn-qty">
+                        <span class="fa fa-minus" aria-hidden="true"></span>
+                    </span>
+                </div>
+                <button class="btn btn-outline-dark">Add to Cart</button>
+            </div>
+            <div class="row">
+                <div class="col-md-9 mt-3">
+                    <span id="error" class="alert alert-danger alert-dismissible" style="display: none"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 ml-5 text-center">
+                    <a class="monospaced" href="#">Add to Favourite List</a>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12 top-10">
+                    <p>To order by telephone, <a href="tel:18005551212">please call 1-800-555-1212</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        const incrementButton = document.getElementById('increment-btn');
+        const decrementButton = document.getElementById('decrement-btn');
+
+        incrementButton.addEventListener('click', incrementQuantity);
+        decrementButton.addEventListener('click', decrementQuantity);
+
+        function incrementQuantity() {
+            let quantity = document.getElementById('product-quantity');
+            quantity.value = Number(quantity.value) + 1;
+        }
+
+        function decrementQuantity() {
+            let quantity = document.getElementById('product-quantity');
+
+            if (Number(quantity.value) - 1 < 0) {
+                const button = document.createElement("button");
+                button.setAttribute("type", "button");
+                button.setAttribute("data-dismiss", "alert")
+                button.className = "close";
+                button.innerHTML = "&times;";
+
+                const error = document.getElementById("error");
+                error.style.display = "block";
+
+                error.innerHTML = 'Quantity cannot be less than zero!';
+                error.appendChild(button);
+            } else {
+                quantity.value = Number(quantity.value) - 1;
+            }
+        }
+    </script>
+}

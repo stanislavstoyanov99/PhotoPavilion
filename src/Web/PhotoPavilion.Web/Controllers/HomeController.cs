@@ -12,14 +12,7 @@
 
     public class HomeController : Controller
     {
-        private const int TopCamerasCount = 6;
-        private const int TopLensesCount = 3;
-        private const int TopFiltersCount = 3;
-        private const int TopLighteningsCount = 3;
-        private const string CamerasCategory = "Cameras";
-        private const string LensesCategory = "Lenses";
-        private const string FiltersCategory = "Filters";
-        private const string LighteningsCategory = "Lightenings";
+        private const int TopProductsCount = 3;
 
         private readonly IProductsService productsService;
         private readonly IPrivacyService privacyService;
@@ -32,21 +25,12 @@
 
         public async Task<IActionResult> Index()
         {
-            var topCameras = await this.productsService
-                .GetTopProductsAsync<TopProductDetailsViewModel>(CamerasCategory, TopCamerasCount);
-            var topLenses = await this.productsService
-                .GetTopProductsAsync<TopProductDetailsViewModel>(LensesCategory, TopLensesCount);
-            var topFilters = await this.productsService
-                .GetTopProductsAsync<TopProductDetailsViewModel>(FiltersCategory, TopFiltersCount);
-            var topLightenings = await this.productsService
-                .GetTopProductsAsync<TopProductDetailsViewModel>(LighteningsCategory, TopLighteningsCount);
+            var topProducts = await this.productsService
+                .GetTopProductsAsync<TopProductDetailsViewModel>();
 
             var viewModel = new ProductsHomePageListingViewModel
             {
-                TopCameras = topCameras,
-                TopLenses = topLenses,
-                TopFilters = topFilters,
-                TopLightenings = topLightenings,
+                TopProducts = topProducts,
             };
 
             return this.View(viewModel);
