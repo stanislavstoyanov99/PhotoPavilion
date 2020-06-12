@@ -1,4 +1,9 @@
-﻿@using PhotoPavilion.Common
+﻿@inject PhotoPavilion.Services.Data.Contracts.ICategoriesService CateogiresService
+@using PhotoPavilion.Common
+
+@{
+    var categories = await CateogiresService.GetAllCategoriesAsync<NavbarCategoryViewModel>();
+}
 
 <footer class="site-footer">
     <div class="container">
@@ -14,11 +19,16 @@
             <div class="col-sm-12 col-md-4">
                 <h6>Products</h6>
                 <ul class="footer-links">
-                    <li><a href="#">Cameras</a></li>
-                    <li><a href="#">Lenses</a></li>
-                    <li><a href="#">Lightenings</a></li>
-                    <li><a href="#">Filters</a></li>
-                    <li><a href="#">Tripods</a></li>
+                    <cache expires-after="@TimeSpan.FromDays(30)" vary-by="@categories.Count().ToString()">
+                        @foreach (var category in categories)
+                        {
+                            <li>
+                                <a asp-area="" asp-controller="Categories" asp-action="ByName" asp-route-name="@category.Name">
+                                    @category.Name
+                                </a>
+                            </li>
+                        }
+                    </cache>
                 </ul>
             </div>
             <div class="col-xs-6 col-md-4">

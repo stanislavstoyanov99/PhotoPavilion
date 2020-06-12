@@ -191,5 +191,16 @@
 
             return productsByCategoryName;
         }
+
+        public async Task<TViewModel> GetLastlyAddedProductAsync<TViewModel>()
+        {
+            var lastlyAddedProduct = await this.productsRepository
+                .All()
+                .OrderByDescending(x => x.CreatedOn)
+                .To<TViewModel>()
+                .FirstAsync();
+
+            return lastlyAddedProduct;
+        }
     }
 }

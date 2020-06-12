@@ -1,6 +1,6 @@
 ﻿@inject PhotoPavilion.Services.Data.Contracts.ICategoriesService CateogiresService
 @using PhotoPavilion.Models.ViewModels.Products
-@model PaginatedList<ProductDetailsViewModel>
+@model ProductCategoryPageListingViewModel
 @{
     ViewData["Title"] = "Categories";
 }
@@ -10,10 +10,10 @@
 }
 
 @{
-    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var prevPage = !Model.HasPreviousPage ? "1" : (Model.PageIndex - 1).ToString();
-    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-    var nextPage = !Model.HasNextPage ? "1" : (Model.PageIndex + 1).ToString();
+    var prevDisabled = !Model.ProductsByCategoryName.HasPreviousPage ? "disabled" : "";
+    var prevPage = !Model.ProductsByCategoryName.HasPreviousPage ? "1" : (Model.ProductsByCategoryName.PageIndex - 1).ToString();
+    var nextDisabled = !Model.ProductsByCategoryName.HasNextPage ? "disabled" : "";
+    var nextPage = !Model.ProductsByCategoryName.HasNextPage ? "1" : (Model.ProductsByCategoryName.PageIndex + 1).ToString();
 }
 
 <link href="~/css/products-by-category.css" rel="stylesheet" asp-append-version="true" />
@@ -21,7 +21,9 @@
 <section class="jumbotron text-center">
     <div class="container">
         <h1 class="jumbotron-heading">@this.TempData["CategoryName"]</h1>
-        <p class="lead text-muted mb-0">Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte...</p>
+        <p class="lead text-muted mb-0">
+            @Html.Raw(Model.Category.SanitizedDescription)
+        </p>
     </div>
 </section>
 <div class="container">
@@ -59,21 +61,25 @@
             <div class="card bg-light mb-3">
                 <div class="card-header bg-dark text-white text-uppercase">Last product</div>
                 <div class="card-body">
-                    <img class="img-fluid" src="https://dummyimage.com/600x400/55595c/fff" />
-                    <h5 class="card-title">Product title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <p class="bloc_left_price">99.00 $</p>
+                    <img class="img-fluid" src="@Model.LastlyAddedProduct.ImagePath" />
+                    <h5 class="card-title">
+                        <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.LastlyAddedProduct.Id">
+                            @Model.LastlyAddedProduct.Name
+                        </a>
+                    </h5>
+                    <p class="card-text">@Html.Raw(Model.LastlyAddedProduct.SanitizedShortDescription)</p>
+                    <p class="bloc_left_price">$@Model.LastlyAddedProduct.Price</p>
                 </div>
             </div>
         </div>
         <div class="col-lg-9">
             <div class="row">
-                @foreach (var product in Model)
+                @foreach (var product in Model.ProductsByCategoryName)
                 {
                     <div class="col-lg-6 col-md-6 mb-4">
                         <div class="card h-100">
                             <a>
-                                <img class="card-img-top img-thumbnail" src="@product.ImagePath" alt="Product Image">
+                                <img class="card-img-top img-thumbnail" src="@product.ImagePath" alt="Product Image" />
                             </a>
                             <div class="card-body">
                                 <h4 class="card-title">
@@ -113,7 +119,7 @@
                         </div>
                     </div>
                 }
-                @if (Model.TotalPages != 0)
+                @if (Model.ProductsByCategoryName.TotalPages != 0)
                 {
                     <div class="col-lg-12 col-md-6 mb-4">
                         <nav aria-label="Page navigation">
@@ -123,9 +129,9 @@
                                         Previous
                                     </a>
                                 </li>
-                                @for (int i = 1; i <= Model.TotalPages; i++)
+                                @for (int i = 1; i <= Model.ProductsByCategoryName.TotalPages; i++)
                                 {
-                                    var active = i == Model.PageIndex ? "active" : string.Empty;
+                                    var active = i == Model.ProductsByCategoryName.PageIndex ? "active" : string.Empty;
                                     <li class="page-item @active">
                                         <a class="page-link" asp-action="ByName" asp-route-pageNumber="@i" asp-route-name="@this.TempData["CategoryName"]">@i</a>
                                     </li>

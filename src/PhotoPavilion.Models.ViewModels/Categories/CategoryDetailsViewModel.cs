@@ -1,5 +1,6 @@
 ﻿namespace PhotoPavilion.Models.ViewModels.Categories
 {
+    using Ganss.XSS;
     using System.ComponentModel.DataAnnotations;
 
     using PhotoPavilion.Services.Mapping;
@@ -13,5 +14,22 @@
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public string ShortDescription
+        {
+            get
+            {
+                var shortDescription = this.Description;
+                return shortDescription.Length > 200
+                        ? shortDescription.Substring(0, 200) + " ..."
+                        : shortDescription;
+            }
+        }
+
+        public string SanitizedDescription => new HtmlSanitizer().Sanitize(this.Description);
+
+        public string SanitizedShortDescription => new HtmlSanitizer().Sanitize(this.ShortDescription);
     }
 }

@@ -18,6 +18,10 @@
         [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
+        [Required]
+        [MaxLength(DescriptionMaxLength)]
+        public string Description { get; set; }
+
         public virtual ICollection<Product> Products { get; set; }
     }
 }

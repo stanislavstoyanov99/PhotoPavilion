@@ -27,7 +27,7 @@
         public int Code { get; set; }
 
         [Required(ErrorMessage = EmptyFieldLengthError)]
-        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = DescriptionError)]
+        [StringLength(Product.DescriptionMaxLength, MinimumLength = Product.DescriptionMinLength, ErrorMessage = Product.DescriptionError)]
         public string Description { get; set; }
 
         [Range(1, 20000)]

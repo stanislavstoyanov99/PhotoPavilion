@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using PhotoPavilion.Models.ViewModels;
+    using PhotoPavilion.Models.ViewModels.Categories;
     using PhotoPavilion.Models.ViewModels.Products;
     using PhotoPavilion.Services.Data.Contracts;
 
@@ -13,10 +14,12 @@
     {
         private const int ProductsPerPage = 6;
         private readonly IProductsService productsService;
+        private readonly ICategoriesService categoriesService;
 
-        public CategoriesController(IProductsService productsService)
+        public CategoriesController(IProductsService productsService, ICategoriesService categoriesService)
         {
             this.productsService = productsService;
+            this.categoriesService = categoriesService;
         }
 
         public async Task<IActionResult> ByName(int? pageNumber, string name)
@@ -30,10 +33,23 @@
             }
 
             this.TempData["CategoryName"] = name;
+
             var productsByCategoryNamePaginated = await PaginatedList<ProductDetailsViewModel>
                     .CreateAsync(productsByCategoryName, pageNumber ?? 1, ProductsPerPage);
 
-            return this.View(productsByCategoryNamePaginated);
+            var lastlyAddedProduct = await this.productsService
+                .GetLastlyAddedProductAsync<ProductDetailsViewModel>();
+
+            var category = await this.categoriesService.GetCategoryAsync<CategoryDetailsViewModel>(name);
+
+            var viewModel = new ProductCategoryPageListingViewModel
+            {
+                Category = category,
+                ProductsByCategoryName = productsByCategoryNamePaginated,
+                LastlyAddedProduct = lastlyAddedProduct,
+            };
+
+            return this.View(viewModel);
         }
     }
 }

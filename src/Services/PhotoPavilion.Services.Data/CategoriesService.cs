@@ -29,6 +29,7 @@
             var category = new Category
             {
                 Name = categoryCreateInputModel.Name,
+                Description = categoryCreateInputModel.Description,
             };
 
             bool doesCategoryExist = await this.categoriesRepository
@@ -79,6 +80,7 @@
             }
 
             category.Name = categoryEditViewModel.Name;
+            category.Description = categoryEditViewModel.Description;
             category.ModifiedOn = DateTime.UtcNow;
 
             this.categoriesRepository.Update(category);
@@ -94,6 +96,17 @@
                 .ToListAsync();
 
             return categories;
+        }
+
+        public async Task<TViewModel> GetCategoryAsync<TViewModel>(string name)
+        {
+            var category = await this.categoriesRepository
+                .All()
+                .Where(c => c.Name == name)
+                .To<TViewModel>()
+                .FirstOrDefaultAsync();
+
+            return category;
         }
 
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)

@@ -16,6 +16,7 @@
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Name</th>
+                        <th scope="col">Description</th>
                         <th scope="col">Functions</th>
                     </tr>
                 </thead>
@@ -25,6 +26,7 @@
                         <tr>
                             <th scope="row">@category.Id</th>
                             <td>@category.Name</td>
+                            <td>@Html.Raw(category.SanitizedShortDescription)</td>
                             <td>
                                 <a class="badge badge-success" asp-action="Edit" asp-route-id="@category.Id">Edit</a>
                                 <a class="badge badge-danger" asp-action="Remove" asp-route-id="@category.Id">Remove</a>

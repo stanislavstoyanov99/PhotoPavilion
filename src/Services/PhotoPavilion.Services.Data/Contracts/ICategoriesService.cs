@@ -13,5 +13,7 @@
         Task EditAsync(CategoryEditViewModel categoryEditViewModel);
 
         Task<IEnumerable<TViewModel>> GetAllCategoriesAsync<TViewModel>();
+
+        Task<TViewModel> GetCategoryAsync<TViewModel>(string name);
     }
 }

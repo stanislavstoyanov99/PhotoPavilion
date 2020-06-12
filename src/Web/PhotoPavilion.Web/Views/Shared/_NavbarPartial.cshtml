@@ -26,7 +26,12 @@
                     <cache expires-after="@TimeSpan.FromDays(30)" vary-by="@categories.Count().ToString()">
                         @foreach (var category in categories)
                         {
-                            <a class="dropdown-item" asp-area="" asp-controller="Categories" asp-action="ByName" asp-route-name="@category.Name">
+                            <a 
+                               class="dropdown-item"
+                               asp-area=""
+                               asp-controller="Categories"
+                               asp-action="ByName"
+                               asp-route-name="@category.Name">
                                 @category.Name
                             </a>
                         }

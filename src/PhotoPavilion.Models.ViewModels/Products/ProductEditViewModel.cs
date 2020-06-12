@@ -5,6 +5,7 @@
 
     using PhotoPavilion.Services.Mapping;
     using PhotoPavilion.Common.Attributes;
+    using PhotoPavilion.Models.Common;
     using PhotoPavilion.Models.ViewModels.Brands;
     using PhotoPavilion.Models.ViewModels.Categories;
 
@@ -32,7 +33,10 @@
         public int Code { get; set; }
 
         [Required(ErrorMessage = EmptyFieldLengthError)]
-        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = DescriptionError)]
+        [StringLength(
+            ModelValidation.Product.DescriptionMaxLength,
+            MinimumLength = ModelValidation.Product.DescriptionMinLength,
+            ErrorMessage = ModelValidation.Product.DescriptionError)]
         public string Description { get; set; }
 
         [Range(1, double.MaxValue)]

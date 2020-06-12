@@ -19,6 +19,7 @@
 
         public static class Category
         {
+            public const int DescriptionMaxLength = 500;
             public const int NameMaxLength = 30;
         }
 

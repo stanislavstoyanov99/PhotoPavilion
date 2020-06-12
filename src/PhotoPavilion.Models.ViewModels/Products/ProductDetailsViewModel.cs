@@ -45,8 +45,6 @@
 
         public string ImagePath { get; set; }
 
-        public int Length { get; set; }
-
         public DateTime CreatedOn { get; set; }
     }
 }
