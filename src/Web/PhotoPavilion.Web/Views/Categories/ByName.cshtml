@@ -1,0 +1,145 @@
+﻿@inject PhotoPavilion.Services.Data.Contracts.ICategoriesService CateogiresService
+@using PhotoPavilion.Models.ViewModels.Products
+@model PaginatedList<ProductDetailsViewModel>
+@{
+    ViewData["Title"] = "Categories";
+}
+
+@{
+    var categories = await CateogiresService.GetAllCategoriesAsync<NavbarCategoryViewModel>();
+}
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var prevPage = !Model.HasPreviousPage ? "1" : (Model.PageIndex - 1).ToString();
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    var nextPage = !Model.HasNextPage ? "1" : (Model.PageIndex + 1).ToString();
+}
+
+<link href="~/css/products-by-category.css" rel="stylesheet" asp-append-version="true" />
+
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">@this.TempData["CategoryName"]</h1>
+        <p class="lead text-muted mb-0">Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte...</p>
+    </div>
+</section>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@this.TempData["CategoryName"]</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-3">
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-danger text-white text-uppercase">
+                    <i class="fa fa-list"></i> Categories
+                </div>
+                <ul class="list-group category_block">
+                    <cache expires-after="@TimeSpan.FromDays(30)" vary-by="@categories.Count().ToString()">
+                        @foreach (var category in categories)
+                        {
+                            <li class="list-group-item">
+                                <a asp-area="" asp-controller="Categories" asp-action="ByName" asp-route-name="@category.Name">
+                                    @category.Name
+                                </a>
+                            </li>
+                        }
+                    </cache>
+                </ul>
+            </div>
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-dark text-white text-uppercase">Last product</div>
+                <div class="card-body">
+                    <img class="img-fluid" src="https://dummyimage.com/600x400/55595c/fff" />
+                    <h5 class="card-title">Product title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="bloc_left_price">99.00 $</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="row">
+                @foreach (var product in Model)
+                {
+                    <div class="col-lg-6 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a>
+                                <img class="card-img-top img-thumbnail" src="@product.ImagePath" alt="Product Image">
+                            </a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">
+                                        @product.Name
+                                    </a>
+                                </h4>
+                                <p class="card-text">@Html.Raw(product.SanitizedShortDescription)</p>
+                                <hr />
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="btn btn-danger btn-block">$@product.Price</p>
+                                    </div>
+                                    <div class="col">
+                                        <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                    </div>
+                                </div>
+                                <div class="product_rassurance">
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item p-3"><i class="fa fa-truck fa-2x"></i><br />Fast delivery</li>
+                                        <li class="list-inline-item p-3"><i class="fa fa-credit-card fa-2x"></i><br />Secure payment</li>
+                                        <li class="list-inline-item p-3"><i class="fa fa-phone fa-2x"></i><br />+33 1 22 54 65 60</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="col-md-6">
+                                    <span class="sr-only">Four out of Five Stars</span>
+                                    <span class="fa fa-star-o" aria-hidden="true"></span>
+                                    <span class="fa fa-star-o" aria-hidden="true"></span>
+                                    <span class="fa fa-star-o" aria-hidden="true"></span>
+                                    <span class="fa fa-star-o" aria-hidden="true"></span>
+                                    <span class="fa fa-star-o" aria-hidden="true"></span>
+                                    <span class="badge badge-primary">61</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (Model.TotalPages != 0)
+                {
+                    <div class="col-lg-12 col-md-6 mb-4">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item @prevDisabled">
+                                    <a class="page-link" asp-action="ByName" asp-route-pageNumber="@prevPage">
+                                        Previous
+                                    </a>
+                                </li>
+                                @for (int i = 1; i <= Model.TotalPages; i++)
+                                {
+                                    var active = i == Model.PageIndex ? "active" : string.Empty;
+                                    <li class="page-item @active">
+                                        <a class="page-link" asp-action="ByName" asp-route-pageNumber="@i" asp-route-name="@this.TempData["CategoryName"]">@i</a>
+                                    </li>
+                                }
+                                <li class="page-item @nextDisabled">
+                                    <a class="page-link" asp-action="ByName" asp-route-pageNumber="@nextPage">
+                                        Next
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

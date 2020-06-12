@@ -16,6 +16,11 @@ a.navbar-brand {
     background-color: orange;
 }
 
+.nav-tabs .nav-link.active {
+    background: #373637;
+    color: #fddd0c !important;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

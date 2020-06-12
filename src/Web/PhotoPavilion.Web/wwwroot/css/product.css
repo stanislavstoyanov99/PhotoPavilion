@@ -8,3 +8,24 @@
 .add-to-cart .btn {
     border-radius: 0;
 }
+.add-to-cart .btn:hover {
+    background: #373637;
+    color: #fddd0c !important;
+}
+.tabs {
+    border-top: 1px solid #E1E1E1;
+    border-bottom: 1px solid #E1E1E1;
+    padding-top: 20px;
+}
+.tabs ul li {
+    float: left;
+    margin-right: 5px;
+    background: transparent;
+    width: auto;
+    height: auto;
+    border-bottom: none !important;
+}
+.nav > li > a:hover,
+.nav > li > a:focus {
+    border-radius: .25rem;
+}

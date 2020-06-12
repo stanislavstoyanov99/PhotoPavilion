@@ -181,5 +181,15 @@
 
             return topProducts;
         }
+
+        public IQueryable<ProductDetailsViewModel> GetByCategoryNameAsQueryable(string name)
+        {
+            var productsByCategoryName = this.productsRepository
+                .All()
+                .Where(p => p.Category.Name == name)
+                .To<ProductDetailsViewModel>();
+
+            return productsByCategoryName;
+        }
     }
 }

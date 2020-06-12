@@ -1,5 +1,6 @@
 ﻿namespace PhotoPavilion.Models.ViewModels.Products
 {
+    using System;
     using Ganss.XSS;
     using System.ComponentModel.DataAnnotations;
 
@@ -45,5 +46,7 @@
         public string ImagePath { get; set; }
 
         public int Length { get; set; }
+
+        public DateTime CreatedOn { get; set; }
     }
 }
