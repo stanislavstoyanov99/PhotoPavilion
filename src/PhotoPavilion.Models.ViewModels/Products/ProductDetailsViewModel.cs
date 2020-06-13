@@ -8,10 +8,13 @@
     using PhotoPavilion.Models.ViewModels.Categories;
     using PhotoPavilion.Services.Mapping;
 
+    using AutoMapper;
+
     using static PhotoPavilion.Models.Common.ModelValidation;
     using Product = Data.Models.Product;
+    using System.Linq;
 
-    public class ProductDetailsViewModel : IMapFrom<Product>
+    public class ProductDetailsViewModel : IMapFrom<Product>, IHaveCustomMappings
     {
         [Display(Name = IdDisplayName)]
         public int Id { get; set; }
@@ -46,5 +49,16 @@
         public string ImagePath { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public int StarRatingsSum { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Product, ProductDetailsViewModel>()
+                .ForMember(x => x.StarRatingsSum, options =>
+                {
+                    options.MapFrom(p => p.Ratings.Sum(st => st.Rate));
+                });
+        }
     }
 }

@@ -83,6 +83,7 @@
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IBrandsService, BrandsService>();
             services.AddTransient<IPrivacyService, PrivacyService>();
+            services.AddTransient<IRatingsService, RatingsService>();
 
             Account account = new Account(
                 this.configuration["Cloudinary:AppName"],

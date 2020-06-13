@@ -19,5 +19,9 @@
         public const string PrivacyNotFound = "Privacy with id {0} is not found.";
 
         public const string PrivacyViewModelNotFound = "Privacy view model is not found.";
+
+        public const string AlreadySentVote = "You cannot vote twice in the same day. To vote come back again tomorrow at";
+
+        public const string AuthenticatedErrorMessage = "Please, login in order to vote.";
     }
 }

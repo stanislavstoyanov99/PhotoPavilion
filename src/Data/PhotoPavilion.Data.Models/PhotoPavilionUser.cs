@@ -23,6 +23,7 @@ namespace PhotoPavilion.Data.Models
             this.Orders = new HashSet<Order>();
             this.Comments = new HashSet<Comment>();
             this.Reviews = new HashSet<Review>();
+            this.Ratings = new HashSet<StarRating>();
         }
 
         [Required]
@@ -53,5 +54,7 @@ namespace PhotoPavilion.Data.Models
         public virtual ICollection<Comment> Comments { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; }
+
+        public virtual ICollection<StarRating> Ratings { get; set; }
     }
 }

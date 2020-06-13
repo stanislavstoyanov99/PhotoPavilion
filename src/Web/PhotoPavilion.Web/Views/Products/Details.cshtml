@@ -6,6 +6,7 @@
 
 <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
 <link href="~/css/product.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/ratings.css" rel="stylesheet" asp-append-version="true" />
 
 <div class="container" id="product-section">
     <div class="row">
@@ -32,14 +33,40 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
-                    <span class="sr-only">Four out of Five Stars</span>
-                    <span class="fa fa-star-o" aria-hidden="true"></span>
-                    <span class="fa fa-star-o" aria-hidden="true"></span>
-                    <span class="fa fa-star-o" aria-hidden="true"></span>
-                    <span class="fa fa-star-o" aria-hidden="true"></span>
-                    <span class="fa fa-star-o" aria-hidden="true"></span>
-                    <span class="badge badge-primary">61</span>
+                <div class="col-md-6">
+                    <form id="starRatingsForm" method="post"></form>
+                    <div class="block-stars stars_ratings product_@Model.ProductDetailsViewModel.Id">
+                        <ul class="ratings p-0">
+                            <li>
+                                <a href="#@Model.ProductDetailsViewModel.Id" onclick="sendRating(@Model.ProductDetailsViewModel.Id, 1)">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#@Model.ProductDetailsViewModel.Id" onclick="sendRating(@Model.ProductDetailsViewModel.Id, 2)">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#@Model.ProductDetailsViewModel.Id" onclick="sendRating(@Model.ProductDetailsViewModel.Id, 3)">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#@Model.ProductDetailsViewModel.Id" onclick="sendRating(@Model.ProductDetailsViewModel.Id, 4)">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#@Model.ProductDetailsViewModel.Id" onclick="sendRating(@Model.ProductDetailsViewModel.Id, 5)">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="badge badge-primary starRatingsSum">
+                            @Model.ProductDetailsViewModel.StarRatingsSum
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -82,65 +109,67 @@
             <div class="row">
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a 
-                           class="nav-item nav-link active"
+                        <a class="nav-item nav-link active"
                            id="nav-description-tab hover"
-                           data-toggle="tab" 
-                           href="#nav-description" 
-                           role="tab" 
-                           aria-controls="nav-description" 
-                           aria-selected="true">Description
+                           data-toggle="tab"
+                           href="#nav-description"
+                           role="tab"
+                           aria-controls="nav-description"
+                           aria-selected="true">
+                            Description
                         </a>
-                        <a 
-                           class="nav-item nav-link" 
-                           id="nav-features-tab hover" 
-                           data-toggle="tab" 
-                           href="#nav-features" 
-                           role="tab" 
-                           aria-controls="nav-features" 
-                           aria-selected="false">Features
+                        <a class="nav-item nav-link"
+                           id="nav-features-tab hover"
+                           data-toggle="tab"
+                           href="#nav-features"
+                           role="tab"
+                           aria-controls="nav-features"
+                           aria-selected="false">
+                            Features
                         </a>
-                        <a 
-                           class="nav-item nav-link"
+                        <a class="nav-item nav-link"
                            id="nav-comments-tab hover"
                            data-toggle="tab"
                            href="#nav-comments"
                            role="tab"
                            aria-controls="nav-comments"
-                           aria-selected="false">Comments
+                           aria-selected="false">
+                            Comments
                         </a>
-                        <a 
-                           class="nav-item nav-link"
+                        <a class="nav-item nav-link"
                            id="nav-reviews-tab hover"
                            data-toggle="tab"
                            href="#nav-reviews"
                            role="tab"
                            aria-controls="nav-reviews"
-                           aria-selected="false">Reviews
+                           aria-selected="false">
+                            Reviews
                         </a>
                     </div>
                 </nav>
                 <div class="tab-content mt-3 mb-5" id="nav-tabContent">
-                    <div 
-                         class="tab-pane fade show active"
+                    <div class="tab-pane fade show active"
                          id="nav-description" role="tabpanel"
-                         aria-labelledby="nav-description-tab">@Html.Raw(Model.ProductDetailsViewModel.Description)
+                         aria-labelledby="nav-description-tab">
+                        @Html.Raw(Model.ProductDetailsViewModel.Description)
                     </div>
                     <div class="tab-pane fade"
                          id="nav-features"
                          role="tabpanel"
-                         aria-labelledby="nav-features-tab">...
+                         aria-labelledby="nav-features-tab">
+                        ...
                     </div>
-                    <div class="tab-pane fade" 
+                    <div class="tab-pane fade"
                          id="nav-comments"
                          role="tabpanel"
-                         aria-labelledby="nav-comments-tab">...
+                         aria-labelledby="nav-comments-tab">
+                        ...
                     </div>
-                    <div 
-                         class="tab-pane fade"
+                    <div class="tab-pane fade"
                          id="nav-reviews"
                          role="tabpanel"
-                         aria-labelledby="nav-reviews-tab">...
+                         aria-labelledby="nav-reviews-tab">
+                        ...
                     </div>
                 </div>
             </div>
@@ -150,6 +179,7 @@
 
 @section Scripts
 {
+    <script type="text/javascript" src="~/js/rating.js"></script>
     <script>
         const incrementButton = document.getElementById('increment-btn');
         const decrementButton = document.getElementById('decrement-btn');

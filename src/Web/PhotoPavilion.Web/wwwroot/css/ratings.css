@@ -1,0 +1,10 @@
+﻿.block-stars {
+    float: left;
+}
+ul.ratings li, .ratings a {
+    display: inline-block !important;
+    list-style: none;
+}
+ul.ratings li i, .ratings a i {
+    color: #ff8d1b;
+}

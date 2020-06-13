@@ -13,6 +13,7 @@
         {
             this.ProductReviews = new HashSet<ProductReview>();
             this.Comments = new HashSet<Comment>();
+            this.Ratings = new HashSet<StarRating>();
         }
 
         [Required]
@@ -42,5 +43,7 @@
         public virtual ICollection<ProductReview> ProductReviews { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual ICollection<StarRating> Ratings { get; set; }
     }
 }
