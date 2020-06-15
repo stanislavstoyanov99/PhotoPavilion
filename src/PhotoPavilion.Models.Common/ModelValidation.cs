@@ -8,6 +8,7 @@
 
         public static class Product
         {
+            public const string NameDisplay = "Product name";
             public const int NameMinLength = 2;
             public const int NameMaxLength = 100;
 
@@ -52,6 +53,20 @@
 
             public const string PageContentLengthError = "Page content must be between {2} and {1} symbols";
             public const string PageContentDisplayName = "Page Content";
+        }
+
+        public static class ShoppingCartProduct
+        {
+            public const string ProductNameDisplayName = "Product name";
+            public const string ProductPriceDisplayName = "Product price";
+            public const string ProductCreatedOnDisplayName = "Product publish date";
+        }
+
+        public static class OrderProduct
+        {
+            public const string OrderIdDisplay = "#";
+            public const string UserFullNameDisplay = "User full name";
+            public const string CreatedOnNameDisplay = "Date of purchase";
         }
     }
 }

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<PhotoPavilion.Models.ViewModels.OrderProducts.OrderProductDetailsViewModel>
+@{
+    ViewData["Title"] = "Order Products";
+}
+
+<div class="container mt-3 mb-3">
+    <h3 class="text-center">My Orders</h3>
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">No orders found</h4>
+            <p>Aww yeah, you successfully read this important alert message. You have no orders found.</p>
+            <hr>
+            <div>
+                <a class="btn btn-primary btn-sm" asp-controller="Home" asp-action="Index" role="button">Home</a>
+            </div>
+        </div>
+    }
+    else
+    {
+    <table class="table table-hover" id="orderProductsTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedOn)
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td display-for="@item.Id">@item.Id</td>
+                    <td>
+                        <a class="text-dark" asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductId">
+                            @item.ProductName
+                        </a>
+                    </td>
+                    <td display-for="@item.Quantity">@item.Quantity</td>
+                    <td display-for="@item.CreatedOn"><time datetime="@item.CreatedOn.ToString("O")"></time></td>
+                    <td>
+                        <a class="btn btn-outline-dark" asp-controller="OrderProducts" asp-action="Details" asp-route-id="@item.Id">Details</a>&nbsp;
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    }
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#orderProductsTable')
+                .addClass('nowrap')
+                .dataTable({
+                    responsive: true,
+                });
+        });
+    </script>
+}

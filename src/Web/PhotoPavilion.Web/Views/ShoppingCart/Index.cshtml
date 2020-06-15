@@ -1,0 +1,109 @@
+﻿@inject IOptions<StripeSettings> Stripe
+@model IEnumerable<PhotoPavilion.Models.ViewModels.ShoppingCart.ShoppingCartProductViewModel>
+@{ 
+    ViewData["Title"] = "Shopping Cart"; 
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.4/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.7/css/select.dataTables.min.css">
+<link href="~/css/shopping-cart.css" rel="stylesheet" asp-append-version="true" />
+
+<div class="container mt-3 mb-3">
+    <h3 class="text-center">Shopping Cart</h3>
+    <table class="table table-hover table-borderless w-100" id="shoppingCart">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductCreatedOn)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+             {
+                <tr>
+                    <td>
+                        <a class="text-dark" asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductId">
+                        @item.ProductName
+                        </a>
+                    </td>
+                    <td>
+                        <time datetime="@item.ProductCreatedOn.ToString("O")"></time>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductPrice) $
+                    </td>
+                    <td>
+                        <form class="text-center" method="post" asp-controller="ShoppingCart" asp-action="Edit" asp-route-id="@item.Id" asp-route-newQuantity="newQuantity">
+                            <div class="row">
+                                <input type="number" id="newQuantity" min="1" name="newQuantity" class="form-control form-control-sm col-md-3" value="@item.Quantity" />
+                                <button type="submit" class="btn btn-sm btn-outline-dark ml-3">Edit</button>
+                            </div>
+                        </form>
+                    </td>
+                    <td>
+                        <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-id="@item.Id">
+                            <span class="text-danger ml-4">
+                                <i class="fa fa-trash"></i>
+                            </span>
+                        </a>
+                    </td>
+                </tr>
+             }
+        </tbody>
+    </table>
+    <div class="text-center">
+        <h5>Total sum: <b>@Model.Sum(x => x.ShoppingCartProductTotalPrice) $</b></h5>
+        <div class="row d-flex justify-content-around">
+            @if (Model.Count() != 0)
+            {
+                <form asp-controller="ShoppingCart" asp-action="Charge" method="post">
+                    <script src="//checkout.stripe.com/v2/checkout.js"
+                            class="stripe-button"
+                            data-key="@Stripe.Value.PublishableKey"
+                            data-description="Pay for your products now"
+                            data-amount="@(Model.Sum(x => x.ShoppingCartProductTotalPrice) * 100)">
+                    </script>
+                </form>
+                <form method="post" asp-controller="OrderProducts" asp-action="Buy">
+                    <button type="submit" class="stripe-button-el">
+                    <span style="display: block; min-height: 30px;">Pay when you get to the shop</span>
+                    </button>
+                </form>
+            }
+        </div>
+    </div>
+    <div class="continue-shopping mt-5">
+        <a class="btn btn-dark btn-sm" asp-controller="Home" asp-action="Index" role="button">Continue shopping</a>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#shoppingCart')
+                .addClass('nowrap')
+                .dataTable({
+                    responsive: true,
+                });
+        });
+    </script>
+}

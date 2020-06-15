@@ -171,15 +171,18 @@
             return product;
         }
 
-        // In later moment filter only top products
-        public async Task<IEnumerable<TViewModel>> GetTopProductsAsync<TViewModel>(int count = 0)
+        public async Task<IEnumerable<TViewModel>> GetTopRatingProductsAsync<TViewModel>(decimal rating = 0, int count = 0)
         {
-            var topProducts = await this.productsRepository
+            var topRatingProducts = await this.productsRepository
                 .All()
+                .Where(p => p.Ratings.Sum(x => x.Rate) > rating)
+                .OrderByDescending(p => p.Ratings.Sum(x => x.Rate))
+                .ThenBy(p => p.Price)
+                .Take(count)
                 .To<TViewModel>()
                 .ToListAsync();
 
-            return topProducts;
+            return topRatingProducts;
         }
 
         public IQueryable<ProductDetailsViewModel> GetByCategoryNameAsQueryable(string name)

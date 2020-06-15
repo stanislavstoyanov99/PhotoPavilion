@@ -19,7 +19,11 @@
     using PhotoPavilion.Common;
     using PhotoPavilion.Data.Models;
     using PhotoPavilion.Data.Models.Enumerations;
+    using PhotoPavilion.Models.ViewModels.ShoppingCart;
+    using PhotoPavilion.Services.Data.Contracts;
     using PhotoPavilion.Web.Areas.Identity.Pages.Account.InputModels;
+    using PhotoPavilion.Web.Common;
+    using PhotoPavilion.Web.Helpers;
 
     [AllowAnonymous]
 #pragma warning disable SA1649 // File name should match first type name
@@ -30,17 +34,20 @@
         private readonly UserManager<PhotoPavilionUser> userManager;
         private readonly ILogger<RegisterModel> logger;
         private readonly IEmailSender emailSender;
+        private readonly IShoppingCartsService shoppingCartsService;
 
         public RegisterModel(
             UserManager<PhotoPavilionUser> userManager,
             SignInManager<PhotoPavilionUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IShoppingCartsService shoppingCartsService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
             this.emailSender = emailSender;
+            this.shoppingCartsService = shoppingCartsService;
         }
 
         [BindProperty(SupportsGet = true)]
@@ -72,12 +79,14 @@
             if (this.ModelState.IsValid)
             {
                 Enum.TryParse<Gender>(this.Input.SelectedGender, out Gender gender);
+
                 var user = new PhotoPavilionUser
                 {
                     UserName = this.Input.Username,
                     Email = this.Input.Email,
                     FullName = this.Input.FullName,
                     Gender = gender,
+                    ShoppingCart = new ShoppingCart(),
                 };
 
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
@@ -85,6 +94,7 @@
                 {
                     this.logger.LogInformation("User created a new account with password.");
                     await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
+                    await this.shoppingCartsService.AssignShoppingCartToUserId(user);
 
                     var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -106,6 +116,22 @@
                     else
                     {
                         await this.signInManager.SignInAsync(user, isPersistent: false);
+
+                        var shoppingCartProducts = this.HttpContext.Session
+                               .GetObjectFromJson<ShoppingCartProductViewModel[]>(WebConstants.ShoppingCartSessionKey) ??
+                               new List<ShoppingCartProductViewModel>().ToArray();
+
+                        if (shoppingCartProducts != null)
+                        {
+                            foreach (var product in shoppingCartProducts)
+                            {
+                                await this.shoppingCartsService
+                                    .AddProductToShoppingCartAsync(product.ProductId, this.Input.Username, product.Quantity);
+                            }
+
+                            this.HttpContext.Session.Remove(WebConstants.ShoppingCartSessionKey);
+                        }
+
                         return this.LocalRedirect(returnUrl);
                     }
                 }

@@ -31,7 +31,8 @@
                                         {
                                             <div class="px-4 pt-3">
                                                 <button type="button" class="btn btn-secondary" onclick="showAddCommentForm(@comment.Id)">
-                                                <i class="fa fa-reply"></i>&nbsp; Reply</button> 
+                                                    <i class="fa fa-reply"></i>&nbsp; Reply
+                                                </button>
                                             </div>
                                         }
                                     </div>
@@ -122,18 +123,20 @@
                 </div>
             </div>
             <div class="row add-to-cart">
-                <div class="col-md-6 product-qty">
-                    <span id="increment-btn" class="btn btn-light btn-lg btn-qty">
-                        <span class="fa fa-plus" aria-hidden="true"></span>
-                    </span>
-                    <input id="product-quantity" class="btn btn-secondary btn-lg btn-qty" value="0" />
-                    <span id="decrement-btn" class="btn btn-light btn-lg btn-qty">
-                        <span class="fa fa-minus" aria-hidden="true"></span>
-                    </span>
+                <div class="col-md-12 product-qty">
+                    <form method="post" asp-controller="ShoppingCart" asp-action="Add" asp-route-id="@Model.ProductDetailsViewModel.Id" asp-route-quantity="quantity">
+                        <span id="increment-btn" class="btn btn-light btn-lg btn-qty">
+                            <span class="fa fa-plus" aria-hidden="true"></span>
+                        </span>
+                        <input id="product-quantity" name="quantity" class="btn btn-secondary btn-lg btn-qty" value="1" min="1" />
+                        <span id="decrement-btn" class="btn btn-light btn-lg btn-qty">
+                            <span class="fa fa-minus" aria-hidden="true"></span>
+                        </span>
+                        <button class="btn btn-outline-dark ml-5">
+                            <i class="fa fa-shopping-cart" aria-hidden="true">&nbsp;Add to Cart</i>
+                        </button>
+                    </form>
                 </div>
-                <button class="btn btn-outline-dark">
-                    <i class="fa fa-shopping-cart" aria-hidden="true">&nbsp;Add to Cart</i>
-                </button>
             </div>
             <div class="row">
                 <div class="col-md-9 mt-3">
@@ -270,7 +273,7 @@
             e.preventDefault();
             let quantity = document.getElementById('product-quantity');
 
-            if (Number(quantity.value) - 1 < 0) {
+            if (Number(quantity.value) - 1 <= 0) {
                 const button = document.createElement("button");
                 button.setAttribute("type", "button");
                 button.setAttribute("data-dismiss", "alert")

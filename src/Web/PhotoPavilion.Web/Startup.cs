@@ -1,5 +1,6 @@
 ﻿namespace PhotoPavilion.Web
 {
+    using System;
     using System.Reflection;
 
     using CloudinaryDotNet;
@@ -23,7 +24,9 @@
     using PhotoPavilion.Services.Data.Contracts;
     using PhotoPavilion.Services.Mapping;
     using PhotoPavilion.Services.Messaging;
+    using PhotoPavilion.Web.Common;
     using PhotoPavilion.Web.Middlewares;
+    using Stripe;
 
     public class Startup
     {
@@ -42,6 +45,12 @@
 
             services.AddDefaultIdentity<PhotoPavilionUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<PhotoPavilionDbContext>();
+
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.IdleTimeout = new TimeSpan(0, 4, 0, 0);
+            });
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -76,7 +85,8 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(
+                serviceProvider => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IProductsService, ProductsService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
@@ -85,6 +95,8 @@
             services.AddTransient<IPrivacyService, PrivacyService>();
             services.AddTransient<IRatingsService, RatingsService>();
             services.AddTransient<IProductCommentsService, ProductCommentsService>();
+            services.AddTransient<IShoppingCartsService, ShoppingCartsService>();
+            services.AddTransient<IOrderProductsService, OrderProductsService>();
 
             services.AddAuthentication()
                 .AddFacebook(facebookOptions =>
@@ -94,7 +106,7 @@
                     facebookOptions.Fields.Add("name");
                 });
 
-            Account account = new Account(
+            var account = new CloudinaryDotNet.Account(
                 this.configuration["Cloudinary:AppName"],
                 this.configuration["Cloudinary:AppKey"],
                 this.configuration["Cloudinary:AppSecret"]);
@@ -102,6 +114,9 @@
             Cloudinary cloudinary = new Cloudinary(account);
 
             services.AddSingleton(cloudinary);
+
+            // Stripe
+            services.Configure<StripeSettings>(this.configuration.GetSection("Stripe"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -121,6 +136,8 @@
                     .GetAwaiter()
                     .GetResult();
             }
+
+            StripeConfiguration.ApiKey = this.configuration.GetSection("Stripe")["SecretKey"];
 
             if (env.IsDevelopment())
             {
@@ -142,6 +159,7 @@
             app.UseRouting();
 
             app.UseAuthentication();
+            app.UseSession();
             app.UseAuthorization();
             app.UseAdminMiddleware();
 

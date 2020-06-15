@@ -19,7 +19,7 @@
 
         IQueryable<TViewModel> GetAllProductsAsQueryeable<TViewModel>();
 
-        Task<IEnumerable<TViewModel>> GetTopProductsAsync<TViewModel>(int count = 0);
+        Task<IEnumerable<TViewModel>> GetTopRatingProductsAsync<TViewModel>(decimal rating = 0, int count = 0);
 
         IQueryable<ProductDetailsViewModel> GetByCategoryNameAsQueryable(string name);
     }

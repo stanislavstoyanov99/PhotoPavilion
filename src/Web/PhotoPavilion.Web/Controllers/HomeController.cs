@@ -12,7 +12,8 @@
 
     public class HomeController : Controller
     {
-        private const int TopProductsCount = 3;
+        private const int TopProductsCount = 12;
+        private const int TopProductsRating = 40;
 
         private readonly IProductsService productsService;
         private readonly IPrivacyService privacyService;
@@ -26,7 +27,7 @@
         public async Task<IActionResult> Index()
         {
             var topProducts = await this.productsService
-                .GetTopProductsAsync<TopProductDetailsViewModel>();
+                .GetTopRatingProductsAsync<TopProductDetailsViewModel>(TopProductsRating, TopProductsCount);
 
             var viewModel = new ProductsHomePageListingViewModel
             {

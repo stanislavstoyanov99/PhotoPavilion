@@ -14,6 +14,8 @@
             this.ProductReviews = new HashSet<ProductReview>();
             this.Comments = new HashSet<Comment>();
             this.Ratings = new HashSet<StarRating>();
+            this.ShoppingCartProducts = new HashSet<ShoppingCartProduct>();
+            this.OrderProducts = new HashSet<OrderProduct>();
         }
 
         [Required]
@@ -45,5 +47,9 @@
         public virtual ICollection<Comment> Comments { get; set; }
 
         public virtual ICollection<StarRating> Ratings { get; set; }
+
+        public virtual ICollection<ShoppingCartProduct> ShoppingCartProducts { get; set; }
+
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }

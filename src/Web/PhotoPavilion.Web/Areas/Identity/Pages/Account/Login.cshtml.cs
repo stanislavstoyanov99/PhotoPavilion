@@ -10,8 +10,13 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.Extensions.Logging;
+
     using PhotoPavilion.Data.Models;
+    using PhotoPavilion.Models.ViewModels.ShoppingCart;
+    using PhotoPavilion.Services.Data.Contracts;
     using PhotoPavilion.Web.Areas.Identity.Pages.Account.InputModels;
+    using PhotoPavilion.Web.Common;
+    using PhotoPavilion.Web.Helpers;
 
     [AllowAnonymous]
 #pragma warning disable SA1649 // File name should match first type name
@@ -20,13 +25,16 @@
     {
         private readonly SignInManager<PhotoPavilionUser> signInManager;
         private readonly ILogger<LoginModel> logger;
+        private readonly IShoppingCartsService shoppingCartsService;
 
         public LoginModel(
             SignInManager<PhotoPavilionUser> signInManager,
-            ILogger<LoginModel> logger)
+            ILogger<LoginModel> logger,
+            IShoppingCartsService shoppingCartsService)
         {
             this.signInManager = signInManager;
             this.logger = logger;
+            this.shoppingCartsService = shoppingCartsService;
         }
 
         [BindProperty]
@@ -78,6 +86,21 @@
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User logged in.");
+
+                    var shoppingCartProducts = this.HttpContext.Session
+                                                     .GetObjectFromJson<ShoppingCartProductViewModel[]>(WebConstants.ShoppingCartSessionKey) ??
+                                                 new List<ShoppingCartProductViewModel>().ToArray();
+                    if (shoppingCartProducts != null)
+                    {
+                        foreach (var product in shoppingCartProducts)
+                        {
+                            await this.shoppingCartsService
+                                .AddProductToShoppingCartAsync(product.ProductId, this.Input.Username, product.Quantity);
+                        }
+
+                        this.HttpContext.Session.Remove(WebConstants.ShoppingCartSessionKey);
+                    }
+
                     return this.LocalRedirect(returnUrl);
                 }
 

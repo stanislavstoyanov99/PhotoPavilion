@@ -26,8 +26,7 @@
                     <cache expires-after="@TimeSpan.FromDays(30)" vary-by="@categories.Count().ToString()">
                         @foreach (var category in categories)
                         {
-                            <a 
-                               class="dropdown-item"
+                            <a class="dropdown-item"
                                asp-area=""
                                asp-controller="Categories"
                                asp-action="ByName"
@@ -42,16 +41,17 @@
                 <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </li>
         </ul>
-        <ul class="navbar-nav" style="padding-right: 1vw;">
+        <ul class="navbar-nav">
             <partial name="_LoginPartial" />
+            @if (this.User.Identity.IsAuthenticated)
+            {
+                @await this.Html.PartialAsync("_UserOrderProductsPartial")
+            }
         </ul>
         <form class="form-inline mt-2 mt-md-0">
             @if (this.User.Identity.IsAuthenticated)
             {
-                <a class="btn btn-success btn-sm ml-3 mr-4" href="cart.html">
-                    <i class="fa fa-shopping-cart"></i> Cart
-                    <span class="badge badge-light">3</span>
-                </a>
+                @await Component.InvokeAsync(typeof(ShoppingCartComponent))
             }
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<PhotoPavilion.Models.ViewModels.ShoppingCart.ShoppingCartProductViewModel>
+
+<ul class="nav navbar-nav navbar-right">
+    <li class="nav-item dropdown col-md-12">
+        <div class="dropdown collapse navbar-collapse d-flex" id="navbarNav">
+            <div class="dropdown-toggle btn nav-link" id="dropdownMenuLink" data-toggle="dropdown">
+                <i class="fa fa-shopping-cart"></i>&nbsp;Shopping Cart
+            </div>
+            @if (Model.Count() != 0)
+            {
+                <span class="badge badge-pill badge-success">@Model.Count()</span>
+            }
+            <div class="dropdown-menu">
+                @foreach (var shoppingCartProduct in Model)
+                {
+                    <div class="d-flex justify-content-around" style="min-width: 20vw;">
+                        <a class="dropdown-item" asp-controller="Products" asp-action="Details" asp-route-id="@shoppingCartProduct.ProductId">
+                            <img class="img-fluid" src="@shoppingCartProduct.ProductImagePath" width="100" height="100">
+                            <span>@shoppingCartProduct.ProductName</span>
+                            <div class="text-center">Quantity: @shoppingCartProduct.Quantity</div>
+                            <div class="text-center">
+                                Current price: <b>$@(shoppingCartProduct.ProductPrice * shoppingCartProduct.Quantity)</b>
+                            </div>
+                        </a>
+                        <a class="col-md-1 text-danger px-0" asp-controller="ShoppingCart" asp-action="Delete" asp-route-id="@shoppingCartProduct.Id">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                }
+                @if (!Model.Any())
+                {
+                    <a class="text-center dropdown-item">
+                        <em class="text-muted">Empty shopping cart</em>
+                    </a>
+                }
+                <div class="text-center">
+                    <b>Total sum: $@(Model.Sum(x => x.ProductPrice * x.Quantity))</b>
+                </div>
+                <a class="dropdown-item text-center" asp-area="" asp-controller="ShoppingCart" asp-action="Index">
+                    Open shopping cart
+                </a>
+            </div>
+        </div>
+    </li>
+</ul>

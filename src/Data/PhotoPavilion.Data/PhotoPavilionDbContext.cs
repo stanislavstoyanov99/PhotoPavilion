@@ -34,8 +34,6 @@
 
         public DbSet<OrderProduct> OrderProducts { get; set; }
 
-        public DbSet<Order> Orders { get; set; }
-
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Brand> Brands { get; set; }
@@ -45,6 +43,10 @@
         public DbSet<Privacy> Privacies { get; set; }
 
         public DbSet<StarRating> StarRatings { get; set; }
+
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+
+        public DbSet<ShoppingCartProduct> ShoppingCartProducts { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -67,10 +69,13 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // Needed for many-to-many relationships
-            builder.Entity<OrderProduct>()
-                .HasKey(op => new { op.OrderId, op.ProductId });
+            builder.Entity<ShoppingCart>()
+                .HasOne(sc => sc.User)
+                .WithOne(u => u.ShoppingCart)
+                .HasForeignKey<PhotoPavilionUser>(u => u.ShoppingCartId)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            // Needed for many-to-many relationships
             builder.Entity<ProductReview>()
                 .HasKey(pr => new { pr.ProductId, pr.ReviewId });
 

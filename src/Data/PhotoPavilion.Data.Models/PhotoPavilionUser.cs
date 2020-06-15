@@ -20,7 +20,7 @@ namespace PhotoPavilion.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
 
-            this.Orders = new HashSet<Order>();
+            this.OrderProducts = new HashSet<OrderProduct>();
             this.Comments = new HashSet<Comment>();
             this.Reviews = new HashSet<Review>();
             this.Ratings = new HashSet<StarRating>();
@@ -32,6 +32,10 @@ namespace PhotoPavilion.Data.Models
 
         [Required]
         public Gender Gender { get; set; }
+
+        public int ShoppingCartId { get; set; }
+
+        public virtual ShoppingCart ShoppingCart { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }
@@ -49,7 +53,7 @@ namespace PhotoPavilion.Data.Models
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
 

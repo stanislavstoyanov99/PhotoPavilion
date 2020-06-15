@@ -1,6 +1,7 @@
 ﻿namespace PhotoPavilion.Web.Areas.Identity.Pages.Account
 {
     using System;
+    using System.Collections.Generic;
     using System.Security.Claims;
     using System.Text;
     using System.Text.Encodings.Web;
@@ -16,7 +17,11 @@
     using PhotoPavilion.Common;
     using PhotoPavilion.Data.Models;
     using PhotoPavilion.Data.Models.Enumerations;
+    using PhotoPavilion.Models.ViewModels.ShoppingCart;
+    using PhotoPavilion.Services.Data.Contracts;
     using PhotoPavilion.Web.Areas.Identity.Pages.Account.InputModels;
+    using PhotoPavilion.Web.Common;
+    using PhotoPavilion.Web.Helpers;
 
     [AllowAnonymous]
 #pragma warning disable SA1649 // File name should match first type name
@@ -26,18 +31,21 @@
         private readonly SignInManager<PhotoPavilionUser> signInManager;
         private readonly UserManager<PhotoPavilionUser> userManager;
         private readonly IEmailSender emailSender;
+        private readonly IShoppingCartsService shoppingCartsService;
         private readonly ILogger<ExternalLoginModel> logger;
 
         public ExternalLoginModel(
             SignInManager<PhotoPavilionUser> signInManager,
             UserManager<PhotoPavilionUser> userManager,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IShoppingCartsService shoppingCartsService)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
             this.logger = logger;
             this.emailSender = emailSender;
+            this.shoppingCartsService = shoppingCartsService;
         }
 
         [BindProperty]
@@ -131,6 +139,7 @@
                     Email = this.Input.Email,
                     Gender = gender,
                     FullName = this.Input.FullName,
+                    ShoppingCart = new ShoppingCart(),
                 };
 
                 var result = await this.userManager.CreateAsync(user);
@@ -141,6 +150,8 @@
                     {
                         this.logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
                         await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
+                        await this.shoppingCartsService.AssignShoppingCartToUserId(user);
+                        await this.StoreGuestShoppingCartIfAny(info.Principal.Identity.Name.RemoveWhiteSpaces());
 
                         // If account confirmation is required, we need to show the link if we don't have a real email sender
                         if (this.userManager.Options.SignIn.RequireConfirmedAccount)
@@ -178,6 +189,23 @@
             this.LoginProvider = info.LoginProvider;
             this.ReturnUrl = returnUrl;
             return this.Page();
+        }
+
+        private async Task StoreGuestShoppingCartIfAny(string identityName)
+        {
+            var shoppingCartProducts = this.HttpContext.Session
+                .GetObjectFromJson<ShoppingCartProductViewModel[]>(WebConstants.ShoppingCartSessionKey) ??
+                new List<ShoppingCartProductViewModel>().ToArray();
+
+            if (shoppingCartProducts != null)
+            {
+                foreach (var product in shoppingCartProducts)
+                {
+                    await this.shoppingCartsService.AddProductToShoppingCartAsync(product.ProductId, identityName, product.Quantity);
+                }
+
+                this.HttpContext.Session.Remove(WebConstants.ShoppingCartSessionKey);
+            }
         }
     }
 }
