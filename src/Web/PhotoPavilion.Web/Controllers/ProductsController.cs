@@ -16,8 +16,13 @@
             this.productsService = productsService;
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string tab = "")
         {
+            if (id != 0)
+            {
+                this.ViewBag.ActiveTab = id.ToString();
+            }
+
             var product = await this.productsService.GetViewModelByIdAsync<ProductDetailsViewModel>(id);
 
             var viewModel = new DetailsListingViewModel

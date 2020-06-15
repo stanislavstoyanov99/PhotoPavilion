@@ -84,6 +84,15 @@
             services.AddTransient<IBrandsService, BrandsService>();
             services.AddTransient<IPrivacyService, PrivacyService>();
             services.AddTransient<IRatingsService, RatingsService>();
+            services.AddTransient<IProductCommentsService, ProductCommentsService>();
+
+            services.AddAuthentication()
+                .AddFacebook(facebookOptions =>
+                {
+                    facebookOptions.AppId = this.configuration["Authentication:Facebook:AppId"];
+                    facebookOptions.AppSecret = this.configuration["Authentication:Facebook:AppSecret"];
+                    facebookOptions.Fields.Add("name");
+                });
 
             Account account = new Account(
                 this.configuration["Cloudinary:AppName"],

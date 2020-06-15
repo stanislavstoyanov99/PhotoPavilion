@@ -4,17 +4,27 @@
     ViewData["Title"] = "Register";
 }
 
-<div class="container container_addon">
+<div class="container mt-3 mb-3">
     <h2>@ViewData["Title"]</h2>
     <h4>Associate your @Model.LoginProvider account.</h4>
     <hr />
 
     <div class="form-group">
-        <p class="alert alert-success">
-            You've successfully authenticated with <strong>@Model.LoginProvider</strong>.
-            Please enter an email address, username and gender for this site below and click the <strong>Register</strong> button to finish
-            logging in.
-        </p>
+        @if (this.ModelState.ErrorCount == 0)
+        {
+            <p class="alert alert-success">
+                You've successfully authenticated with <strong>@Model.LoginProvider</strong>.
+                Please enter an email address, username and gender for this site below and click the <strong>Register</strong> button to finish
+                logging in.
+            </p>
+        }
+        else
+        {
+            @foreach (var error in this.ModelState.Root.Errors)
+            {
+                <p class="alert alert-danger">@error.ErrorMessage</p>
+            }
+        }
     </div>
 
     <div class="row">
@@ -38,10 +48,12 @@
                 <div class="form-group form-check-inline">
                     @foreach (var gender in Model.Input.Genders)
                     {
-                        <input type="radio" asp-for="Input.SelectedGender" value="@gender" class="form-check-input" />@gender
+                        <input type="radio" asp-for="Input.SelectedGender" value="@gender" class="form-check-input ml-2" />@gender
                     }
                 </div>
-                <span asp-validation-for="Input.SelectedGender" class="text-danger"></span>
+                <div class="form-group">
+                    <span class="text-danger" asp-validation-for="Input.SelectedGender"></span>
+                </div>
                 <hr />
                 <button type="submit" class="btn btn-success">Register</button>
             </form>

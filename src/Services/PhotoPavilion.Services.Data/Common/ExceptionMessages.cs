@@ -23,5 +23,7 @@
         public const string AlreadySentVote = "You cannot vote twice in the same day. To vote come back again tomorrow at";
 
         public const string AuthenticatedErrorMessage = "Please, login in order to vote.";
+
+        public const string ProductCommentAlreadyExists = "Product comment with product id {0} and content {1} already exists";
     }
 }

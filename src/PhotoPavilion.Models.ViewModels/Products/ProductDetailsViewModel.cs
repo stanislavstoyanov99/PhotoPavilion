@@ -2,8 +2,11 @@
 {
     using System;
     using Ganss.XSS;
+    using System.Linq;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using PhotoPavilion.Models.ViewModels.ProductComments;
     using PhotoPavilion.Models.ViewModels.Brands;
     using PhotoPavilion.Models.ViewModels.Categories;
     using PhotoPavilion.Services.Mapping;
@@ -12,7 +15,6 @@
 
     using static PhotoPavilion.Models.Common.ModelValidation;
     using Product = Data.Models.Product;
-    using System.Linq;
 
     public class ProductDetailsViewModel : IMapFrom<Product>, IHaveCustomMappings
     {
@@ -51,6 +53,8 @@
         public DateTime CreatedOn { get; set; }
 
         public int StarRatingsSum { get; set; }
+
+        public IEnumerable<PostProductCommentViewModel> Comments { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

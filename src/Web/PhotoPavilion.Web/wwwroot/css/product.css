@@ -29,3 +29,27 @@
 .nav > li > a:focus {
     border-radius: .25rem;
 }
+.comment-decoration input[type="submit"] {
+    outline: none;
+    font-style: normal;
+    padding: 8px 20px;
+    background: #fddd0c;
+    font-size: 14px;
+    color: #000;
+    display: block;
+    border: none;
+    transition: .5s all;
+    -webkit-transition: .5s all;
+    -moz-transition: .5s all;
+    -o-transition: .5s all;
+    -ms-transition: .5s all;
+}
+.comment-decoration input[type="submit"]:hover {
+    text-decoration: none;
+    color: #fddd0c;
+    background: #222;
+}
+.media-body span a {
+    color: #ff8d1b;
+    text-decoration: none;
+}
