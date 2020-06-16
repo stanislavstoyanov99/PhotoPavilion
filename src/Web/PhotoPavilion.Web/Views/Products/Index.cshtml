@@ -12,18 +12,18 @@
 }
 
 <div class="container marketing">
-    <div class="row">
+    <div class="row mt-5 mb-3">
         @foreach (var product in Model)
         {
             <div class="col-lg-4">
-                <svg class="bd-placeholder-img rounded-circle" width="300" height="300">
+                <svg class="bd-placeholder-img" width="200" height="200">
                     <title>@product.Name</title>
                     <clipPath id="circleView">
                         <rect width="100%" height="100%" />
                     </clipPath>
-                    <image width="300" height="300" xlink:href="@product.ImagePath" clip-path="url(#circleView)" />
+                    <image width="200" height="200" xlink:href="@product.ImagePath" clip-path="url(#circleView)" />
                 </svg>
-                <h2>@product.Name</h2>
+                <h3>@product.Name</h3>
                 <p>@Html.Raw(product.SanitizedShortDescription)</p>
                 <p>
                     <a class="btn btn-secondary" asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" role="button">View details &raquo;</a>
@@ -32,8 +32,8 @@
                     <span class="badge badge-dark">Brand: @product.Brand.Name</span>
                     <span class="badge badge-dark ml-3">Category: @product.Category.Name</span>
                 </div>
+                <hr />
             </div>
-            <hr class="featurette-divider">
         }
     </div>
     @if (Model.TotalPages != 0)

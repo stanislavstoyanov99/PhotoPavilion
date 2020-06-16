@@ -13,7 +13,7 @@
     public class HomeController : Controller
     {
         private const int TopProductsCount = 12;
-        private const int TopProductsRating = 40;
+        private const int TopProductsRating = 30;
 
         private readonly IProductsService productsService;
         private readonly IPrivacyService privacyService;
