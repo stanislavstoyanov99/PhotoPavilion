@@ -67,6 +67,53 @@
             public const string OrderIdDisplay = "#";
             public const string UserFullNameDisplay = "User full name";
             public const string CreatedOnNameDisplay = "Date of purchase";
+            public const string OrderStatusNameDisplay = "Order status";
+        }
+
+        public static class FaqEntry
+        {
+            public const int QuestionMinLength = 10;
+            public const int QuestionMaxLength = 100;
+
+            public const int AnswerMinLength = 10;
+            public const int AnswerMaxLength = 1000;
+
+            public const string QuestionLengthError = "Question must be between {2} and {1} symbols";
+            public const string AnswerLengthError = "Answer must be between {2} and {1} symbols";
+        }
+
+        public static class Review
+        {
+            public const int TitleMinLength = 10;
+            public const int TitleMaxLength = 100;
+            public const int DescriptionMinLength = 20;
+            public const int DescriptionMaxLength = 1500;
+            public const string ReviewsDisplayName = "Reviews";
+
+            public const string DescriptionLengthError = "Description must be between {2} and {1} symbols";
+            public const string TitleLengthError = "Title must be between {2} and {1} symbols";
+        }
+
+        public static class ContactFormEntry
+        {
+            public const int FirstNameMinLength = 3;
+            public const int FirstNameMaxLength = 30;
+            public const int LastNameMinLength = 3;
+            public const int LastNameMaxLength = 30;
+
+            public const int SubjectMaxLength = 100;
+            public const int SubjectMinLegth = 5;
+
+            public const int ContentMaxLength = 10000;
+            public const int ContentMinLegth = 20;
+
+            public const string FirstNameLengthError = "First name must be between {2} and {1} symbols";
+            public const string LastNameLengthError = "Last name must be between {2} and {1} symbols";
+            public const string SubjectLengthError = "Subject must be between {2} and {1} symbols";
+            public const string ContentLengthError = "Content must be between {2} and {1} symbols";
+
+            public const string FirstNameDisplayName = "First Name";
+            public const string LastNameDispalyName = "Last Name";
         }
     }
 }

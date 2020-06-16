@@ -5,7 +5,7 @@
     this.ViewData["Title"] = "Home Page";
 }
 
-<link href="~/css/carousel.css" rel="stylesheet" />
+<link href="~/css/carousel.css" rel="stylesheet" asp-append-version="true" />
 
 <div class="text-center">
     <h1 class="display-4" style="padding-top: 1vw;">Welcome to @GlobalConstants.SystemName!</h1>
@@ -17,14 +17,13 @@
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
         <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="bd-placeholder-img" src="https://i.postimg.cc/T3YrXF2P/photography-wallpaper-10008-10364-hd-wallpapers.jpg" />
+            <img class="bd-placeholder-img" src="~/images/home/nikon.jpg" />
             <div class="container">
-                <div class="carousel-caption text-left">
-                    <h1>Example headline.</h1>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <div class="carousel-caption text-right">
                     <p>
                         <a class="btn btn-lg btn-primary" asp-area="Identity" asp-page="/Account/Register" role="button">
                             Sign up today
@@ -34,21 +33,13 @@
             </div>
         </div>
         <div class="carousel-item">
-            <img class="bd-placeholder-img" src="https://i.postimg.cc/dQCM8SYD/2487f4b2432e85b0dbfd6b9797185001.jpg" />
-            <div class="container">
-                <div class="carousel-caption">
-                    <h1>Another example headline.</h1>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
-                </div>
-            </div>
+            <img class="bd-placeholder-img" src="~/images/home/canon.jpg" />
         </div>
         <div class="carousel-item">
-            <img class="bd-placeholder-img" src="https://i.postimg.cc/Jz4ddp9N/Twitter-Cover-Photo-17-1500x500.jpg" />
+            <img class="bd-placeholder-img" src="~/images/home/sony.jpg" />
             <div class="container">
                 <div class="carousel-caption text-right">
                     <h1>One more for good measure.</h1>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
                     <p>
                         <a class="btn btn-lg btn-primary" asp-controller="Products" asp-action="Index" role="button">
                             Browse our products
@@ -56,6 +47,9 @@
                     </p>
                 </div>
             </div>
+        </div>
+        <div class="carousel-item">
+            <img class="bd-placeholder-img" src="~/images/home/discount.jpg" />
         </div>
     </div>
     <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">

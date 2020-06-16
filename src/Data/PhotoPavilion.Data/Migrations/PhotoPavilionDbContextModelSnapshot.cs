@@ -275,6 +275,84 @@ namespace PhotoPavilion.Data.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("PhotoPavilion.Data.Models.ContactFormEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(10000);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactFormEntries");
+                });
+
+            modelBuilder.Entity("PhotoPavilion.Data.Models.FaqEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Answer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1000)")
+                        .HasMaxLength(1000);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Question")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("FaqEntries");
+                });
+
             modelBuilder.Entity("PhotoPavilion.Data.Models.OrderProduct", b =>
                 {
                     b.Property<int>("Id")
@@ -501,29 +579,6 @@ namespace PhotoPavilion.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("PhotoPavilion.Data.Models.ProductReview", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ReviewId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("ProductId", "ReviewId");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("ReviewId");
-
-                    b.ToTable("ProductReviews");
-                });
-
             modelBuilder.Entity("PhotoPavilion.Data.Models.Review", b =>
                 {
                     b.Property<int>("Id")
@@ -532,9 +587,6 @@ namespace PhotoPavilion.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedOn")
@@ -551,6 +603,9 @@ namespace PhotoPavilion.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)")
@@ -562,6 +617,8 @@ namespace PhotoPavilion.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("UserId");
 
@@ -816,23 +873,14 @@ namespace PhotoPavilion.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PhotoPavilion.Data.Models.ProductReview", b =>
+            modelBuilder.Entity("PhotoPavilion.Data.Models.Review", b =>
                 {
                     b.HasOne("PhotoPavilion.Data.Models.Product", "Product")
-                        .WithMany("ProductReviews")
+                        .WithMany("Reviews")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PhotoPavilion.Data.Models.Review", "Review")
-                        .WithMany("ProductReviews")
-                        .HasForeignKey("ReviewId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PhotoPavilion.Data.Models.Review", b =>
-                {
                     b.HasOne("PhotoPavilion.Data.Models.PhotoPavilionUser", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId");

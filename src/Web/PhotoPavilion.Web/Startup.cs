@@ -4,6 +4,7 @@
     using System.Reflection;
 
     using CloudinaryDotNet;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -26,6 +27,7 @@
     using PhotoPavilion.Services.Messaging;
     using PhotoPavilion.Web.Common;
     using PhotoPavilion.Web.Middlewares;
+
     using Stripe;
 
     public class Startup
@@ -97,6 +99,9 @@
             services.AddTransient<IProductCommentsService, ProductCommentsService>();
             services.AddTransient<IShoppingCartsService, ShoppingCartsService>();
             services.AddTransient<IOrderProductsService, OrderProductsService>();
+            services.AddTransient<IAboutService, AboutService>();
+            services.AddTransient<IProductReviewsService, ProductReviewsService>();
+            services.AddTransient<IContactsService, ContactsService>();
 
             services.AddAuthentication()
                 .AddFacebook(facebookOptions =>

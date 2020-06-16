@@ -28,8 +28,6 @@
 
         public DbSet<Product> Products { get; set; }
 
-        public DbSet<ProductReview> ProductReviews { get; set; }
-
         public DbSet<Review> Reviews { get; set; }
 
         public DbSet<OrderProduct> OrderProducts { get; set; }
@@ -47,6 +45,10 @@
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
         public DbSet<ShoppingCartProduct> ShoppingCartProducts { get; set; }
+
+        public DbSet<FaqEntry> FaqEntries { get; set; }
+
+        public DbSet<ContactFormEntry> ContactFormEntries { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -74,10 +76,6 @@
                 .WithOne(u => u.ShoppingCart)
                 .HasForeignKey<PhotoPavilionUser>(u => u.ShoppingCartId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            // Needed for many-to-many relationships
-            builder.Entity<ProductReview>()
-                .HasKey(pr => new { pr.ProductId, pr.ReviewId });
 
             // Needed for Identity models configuration
             base.OnModelCreating(builder);

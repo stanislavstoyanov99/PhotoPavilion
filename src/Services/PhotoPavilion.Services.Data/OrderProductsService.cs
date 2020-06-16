@@ -59,13 +59,12 @@
             return orderProductDetailsViewModel;
         }
 
-        public async Task<IEnumerable<OrderProductDetailsViewModel>> GetAllAsync(string username)
+        public IQueryable<OrderProductDetailsViewModel> GetAllAsQueryeable(string username)
         {
-            var orderProductsViewModel = await this.orderProductsRepository
+            var orderProductsViewModel = this.orderProductsRepository
                 .All()
                 .Where(op => op.User.UserName == username)
-                .To<OrderProductDetailsViewModel>()
-                .ToArrayAsync();
+                .To<OrderProductDetailsViewModel>();
 
             return orderProductsViewModel;
         }

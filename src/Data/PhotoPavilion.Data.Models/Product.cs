@@ -11,7 +11,7 @@
     {
         public Product()
         {
-            this.ProductReviews = new HashSet<ProductReview>();
+            this.Reviews = new HashSet<Review>();
             this.Comments = new HashSet<Comment>();
             this.Ratings = new HashSet<StarRating>();
             this.ShoppingCartProducts = new HashSet<ShoppingCartProduct>();
@@ -42,7 +42,7 @@
 
         public virtual Category Category { get; set; }
 
-        public virtual ICollection<ProductReview> ProductReviews { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
 

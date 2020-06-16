@@ -4,7 +4,6 @@
 
     using Microsoft.AspNetCore.Mvc.Rendering;
 
-    // TODO - add all admin pages
     public class AdminNavPages
     {
         public static string Products => "Movies";
@@ -17,6 +16,8 @@
 
         public static string Contacts => "Contacts";
 
+        public static string About => "About";
+
         public static string ProductsNavClass(ViewContext viewContext) => PageNavClass(viewContext, Products);
 
         public static string CategoriesNavClass(ViewContext viewContext) => PageNavClass(viewContext, Categories);
@@ -26,6 +27,8 @@
         public static string PrivacyNavClass(ViewContext viewContext) => PageNavClass(viewContext, Privacy);
 
         public static string ContactsNavClass(ViewContext viewContext) => PageNavClass(viewContext, Contacts);
+
+        public static string AboutNavClass(ViewContext viewContext) => PageNavClass(viewContext, About);
 
         protected static string PageNavClass(ViewContext viewContext, string page)
         {

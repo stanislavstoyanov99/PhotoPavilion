@@ -1,0 +1,143 @@
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@using PhotoPavilion.Models.ViewModels.Contacts
+@model ContactFormEntryViewModel
+@{
+    ViewData["Title"] = "Contact us";
+}
+
+<link href="~/css/contacts.css" rel="stylesheet" asp-append-version="true" />
+
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Contact Us</h1>
+    </div>
+</section>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Contact us</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col mb-5">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <i class="fa fa-envelope"></i> Contact us.
+                </div>
+                <div class="card-body">
+                    <form asp-action="Index" method="post">
+                        <div class="form-group">
+                            <label asp-for="@Model.FirstName"></label>
+                            <input asp-for="FirstName" placeholder="Enter first name" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.LastName"></label>
+                            <input asp-for="LastName" placeholder="Enter last name" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Email"></label>
+                            <input asp-for="Email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Subject"></label>
+                            <input asp-for="Subject" placeholder="Enter subject" class="form-control" />
+                            <span asp-validation-for="Subject" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Content"></label>
+                            <textarea asp-for="Content" class="form-control" id="message" rows="6" placeholder="Enter content"></textarea>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+                        <div class="mx-auto">
+                            <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
+                            <button type="submit" class="btn btn-primary text-right">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-4">
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-success text-white text-uppercase"><i class="fa fa-home"></i> Address</div>
+                <div class="card-body">
+                    <p>Bulgaria avenue</p>
+                    <p>75008 SOFIA</p>
+                    <p>Bulgaria</p>
+                    <p>Email : slavkata_99@abv.bg</p>
+                    <p>Tel. +33 12 56 11 51 84</p>
+                </div>
+                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-home"></i> Social Media</div>
+                <div class="card-body">
+                    <ul class="contacts-list col-md-6">
+                        <li>
+                            <a href="https://www.facebook.com/stanislavstoyanovphotography">
+                                <i class="fa fa-facebook" aria-hidden="true"></i>
+                                <span class="text">Facebook</span>
+                            </a>
+                        </li>
+                        <li class="twt">
+                            <a href="https://twitter.com/Slavkata99">
+                                <i class="fa fa-twitter" aria-hidden="true"></i>
+                                <span class="text">Twitter</span>
+                            </a>
+                        </li>
+                        <li class="ggp">
+                            <a href="https://www.instagram.com/stanislav_stoyanov99/?hl=bg">
+                                <i class="fa fa-instagram" aria-hidden="true"></i>
+                                <span class="text">Instagram</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<form asp-action="Index" method="post">
+    <div class="contact-custom_container">
+        <input asp-for="FirstName" placeholder="FIRST NAME" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="contact-custom_container">
+        <input asp-for="LastName" placeholder="LAST NAME" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="contact-custom_container">
+        <input asp-for="Email" placeholder="EMAIL" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="contact-custom_container">
+        <input asp-for="Subject" placeholder="SUBJECT" />
+        <span asp-validation-for="Subject" class="text-danger"></span>
+    </div>
+    <div class="contact-custom_container">
+        <textarea asp-for="Content" placeholder="YOUR MESSAGE" rows="15"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+    <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
+    <input type="submit" value="SEND MESSAGE" />
+</form>*@
+
+@section Scripts
+{
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:Key"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Key"]', { action: 'contact_form' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
+            });
+        });
+    </script>
+}

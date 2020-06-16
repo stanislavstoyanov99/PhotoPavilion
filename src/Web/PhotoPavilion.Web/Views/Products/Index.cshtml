@@ -1,0 +1,65 @@
+﻿@using PhotoPavilion.Models.ViewModels.Products
+@model PaginatedList<ProductDetailsViewModel>
+@{
+    this.ViewData["Title"] = "Products";
+}
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var prevPage = !Model.HasPreviousPage ? "1" : (Model.PageIndex - 1).ToString();
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    var nextPage = !Model.HasNextPage ? "1" : (Model.PageIndex + 1).ToString();
+}
+
+<div class="container marketing">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-lg-4">
+                <svg class="bd-placeholder-img rounded-circle" width="300" height="300">
+                    <title>@product.Name</title>
+                    <clipPath id="circleView">
+                        <rect width="100%" height="100%" />
+                    </clipPath>
+                    <image width="300" height="300" xlink:href="@product.ImagePath" clip-path="url(#circleView)" />
+                </svg>
+                <h2>@product.Name</h2>
+                <p>@Html.Raw(product.SanitizedShortDescription)</p>
+                <p>
+                    <a class="btn btn-secondary" asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" role="button">View details &raquo;</a>
+                </p>
+                <div>
+                    <span class="badge badge-dark">Brand: @product.Brand.Name</span>
+                    <span class="badge badge-dark ml-3">Category: @product.Category.Name</span>
+                </div>
+            </div>
+            <hr class="featurette-divider">
+        }
+    </div>
+    @if (Model.TotalPages != 0)
+    {
+        <div class="col-lg-12 col-md-6 mb-4">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item @prevDisabled">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@prevPage">
+                            Previous
+                        </a>
+                    </li>
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        var active = i == Model.PageIndex ? "active" : string.Empty;
+                        <li class="page-item @active">
+                            <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+                        </li>
+                    }
+                    <li class="page-item @nextDisabled">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@nextPage">
+                            Next
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+</div>

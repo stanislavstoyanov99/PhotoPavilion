@@ -8,12 +8,15 @@
     using Microsoft.AspNetCore.Mvc;
 
     using PhotoPavilion.Common;
+    using PhotoPavilion.Models.ViewModels;
     using PhotoPavilion.Models.ViewModels.OrderProducts;
     using PhotoPavilion.Services.Data.Contracts;
 
     [Authorize]
     public class OrderProductsController : Controller
     {
+        private const int PageSize = 12;
+
         private readonly IOrderProductsService orderProductsService;
         private readonly IShoppingCartsService shoppingCartsService;
 
@@ -54,11 +57,13 @@
             return this.View(orderProductDetailsViewModel);
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNumber)
         {
             var username = this.User.Identity.Name;
-            var orderProducts = await this.orderProductsService.GetAllAsync(username);
-            return this.View(orderProducts);
+            var orderProducts = await Task.Run(() =>
+                this.orderProductsService.GetAllAsQueryeable(username));
+
+            return this.View(await PaginatedList<OrderProductDetailsViewModel>.CreateAsync(orderProducts, pageNumber ?? 1, PageSize));
         }
     }
 }

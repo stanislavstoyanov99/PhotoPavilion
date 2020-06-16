@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using PhotoPavilion.Data.Models;
+    using PhotoPavilion.Data.Models.Enumerations;
     using PhotoPavilion.Models.Common;
     using PhotoPavilion.Services.Mapping;
 
@@ -30,7 +31,10 @@
 
         public int Quantity { get; set; }
 
+        [Display(Name = OrderStatusNameDisplay)]
+        public OrderStatus Status { get; set; }
+
         [Display(Name = CreatedOnNameDisplay)]
-        public DateTime CreatedOn { get; set; }
+        public DateTime Date { get; set; }
     }
 }

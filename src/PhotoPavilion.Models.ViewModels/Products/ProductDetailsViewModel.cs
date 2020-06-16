@@ -15,6 +15,7 @@
 
     using static PhotoPavilion.Models.Common.ModelValidation;
     using Product = Data.Models.Product;
+    using PhotoPavilion.Models.ViewModels.Reviews;
 
     public class ProductDetailsViewModel : IMapFrom<Product>, IHaveCustomMappings
     {
@@ -55,6 +56,8 @@
         public int StarRatingsSum { get; set; }
 
         public IEnumerable<PostProductCommentViewModel> Comments { get; set; }
+
+        public IEnumerable<PostProductReviewViewModel> Reviews { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

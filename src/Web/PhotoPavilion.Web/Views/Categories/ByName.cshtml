@@ -17,6 +17,7 @@
 }
 
 <link href="~/css/products-by-category.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/ratings.css" rel="stylesheet" asp-append-version="true" />
 
 <section class="jumbotron text-center">
     <div class="container">
@@ -68,7 +69,7 @@
                         </a>
                     </h5>
                     <p class="card-text">@Html.Raw(Model.LastlyAddedProduct.SanitizedShortDescription)</p>
-                    <p class="bloc_left_price">$@Model.LastlyAddedProduct.Price</p>
+                    <p class="bloc_left_price">@Model.LastlyAddedProduct.Price $</p>
                 </div>
             </div>
         </div>
@@ -94,7 +95,12 @@
                                         <p class="btn btn-danger btn-block">$@product.Price</p>
                                     </div>
                                     <div class="col">
-                                        <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                        <form method="post" asp-controller="ShoppingCart" asp-action="Add" asp-route-id="@product.Id" asp-route-quantity="quantity">
+                                            <button class="btn btn-success btn-block">
+                                                <i class="fa fa-shopping-cart" aria-hidden="true">&nbsp;Add to Cart</i>
+                                            </button>
+                                            <input type="number" name="quantity" class="btn btn-secondary btn-sm col-md-6 mt-3" value="1" min="1" />
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="product_rassurance">
@@ -107,13 +113,28 @@
                             </div>
                             <div class="card-footer">
                                 <div class="col-md-6">
-                                    <span class="sr-only">Four out of Five Stars</span>
-                                    <span class="fa fa-star-o" aria-hidden="true"></span>
-                                    <span class="fa fa-star-o" aria-hidden="true"></span>
-                                    <span class="fa fa-star-o" aria-hidden="true"></span>
-                                    <span class="fa fa-star-o" aria-hidden="true"></span>
-                                    <span class="fa fa-star-o" aria-hidden="true"></span>
-                                    <span class="badge badge-primary">61</span>
+                                    <div class="block-stars stars_ratings product_@product.Id" onload="showRating()">
+                                        <ul class="ratings p-0">
+                                            <li>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </li>
+                                        </ul>
+                                        <div class="badge badge-primary starRatingsSum">
+                                            @product.StarRatingsSum
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -149,3 +170,8 @@
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/js/rating.js"></script>
+}

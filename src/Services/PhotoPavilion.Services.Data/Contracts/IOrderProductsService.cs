@@ -1,6 +1,6 @@
 ﻿namespace PhotoPavilion.Services.Data.Contracts
 {
-    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using PhotoPavilion.Models.ViewModels.OrderProducts;
@@ -10,7 +10,7 @@
     {
         Task<OrderProductDetailsViewModel> GetDetailsAsync(int id);
 
-        Task<IEnumerable<OrderProductDetailsViewModel>> GetAllAsync(string username);
+        IQueryable<OrderProductDetailsViewModel> GetAllAsQueryeable(string username);
 
         Task BuyAllAsync(string userIdentifier, ShoppingCartProductViewModel[] shoppingCartActivities, string paymentMethod = "");
     }

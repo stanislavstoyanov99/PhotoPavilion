@@ -34,7 +34,7 @@
                     </a>
                 }
                 <div class="text-center">
-                    <b>Total sum: $@(Model.Sum(x => x.ProductPrice * x.Quantity))</b>
+                    <b>Total sum: @(Model.Sum(x => x.ProductPrice * x.Quantity)) $</b>
                 </div>
                 <a class="dropdown-item text-center" asp-area="" asp-controller="ShoppingCart" asp-action="Index">
                     Open shopping cart

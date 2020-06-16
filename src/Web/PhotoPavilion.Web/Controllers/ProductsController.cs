@@ -3,12 +3,13 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-
+    using PhotoPavilion.Models.ViewModels;
     using PhotoPavilion.Models.ViewModels.Products;
     using PhotoPavilion.Services.Data.Contracts;
 
     public class ProductsController : Controller
     {
+        private const int PageSize = 12;
         private readonly IProductsService productsService;
 
         public ProductsController(IProductsService productsService)
@@ -16,13 +17,16 @@
             this.productsService = productsService;
         }
 
-        public async Task<IActionResult> Details(int id, string tab = "")
+        public async Task<IActionResult> Index(int? pageNumber)
         {
-            if (id != 0)
-            {
-                this.ViewBag.ActiveTab = id.ToString();
-            }
+            var allProducts = await Task.Run(() =>
+                this.productsService.GetAllProductsAsQueryeable<ProductDetailsViewModel>());
 
+            return this.View(await PaginatedList<ProductDetailsViewModel>.CreateAsync(allProducts, pageNumber ?? 1, PageSize));
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
             var product = await this.productsService.GetViewModelByIdAsync<ProductDetailsViewModel>(id);
 
             var viewModel = new DetailsListingViewModel

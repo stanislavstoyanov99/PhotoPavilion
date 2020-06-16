@@ -1,0 +1,7 @@
+﻿ul.contacts-list li, .contacts-list a {
+    display: inline-block !important;
+    list-style: none;
+}
+ul.contacts-list li i, .contacts-list a i {
+    color: #ff8d1b;
+}

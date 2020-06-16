@@ -37,5 +37,11 @@
         public const string NullReferenceShoppingCartProductId = "Shopping cart product with id {0} not found.";
 
         public const string OrderProductNotFound = "Order product with id {0} is not found.";
+
+        public const string FaqAlreadyExists = "Faq with question {0} and answer {1} already exists";
+
+        public const string FaqNotFound = "Faq with id {0} is not found.";
+
+        public const string ProductReviewAlreadyExists = "Product review with product id {0}, title {1} and description {2} already exists";
     }
 }

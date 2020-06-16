@@ -50,6 +50,8 @@
             </div>
         }
     }
+
+    var reviews = this.Model.ProductDetailsViewModel.Reviews.ToList();
 }
 
 <link href='https://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
@@ -143,11 +145,6 @@
                     <span id="error" class="alert alert-danger alert-dismissible" style="display: none"></span>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 ml-5 text-center">
-                    <a class="monospaced" href="#">Add to Favourite List</a>
-                </div>
-            </div>
             <hr />
             <div class="row">
                 <div class="col-md-12 top-10">
@@ -208,7 +205,7 @@
                          id="nav-features"
                          role="tabpanel"
                          aria-labelledby="nav-features-tab">
-                        ...
+                        Some features here
                     </div>
                     <div class="tab-pane fade mb-3"
                          id="nav-comments"
@@ -244,7 +241,60 @@
                          id="nav-reviews"
                          role="tabpanel"
                          aria-labelledby="nav-reviews-tab">
-                        ...
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <p>
+                                Total reviews: @Model.ProductDetailsViewModel.Reviews.Count()
+                            </p>
+                            <button type="button" class="btn btn-secondary mb-3" onclick="showAddReviewForm()">
+                                <i class="fa fa-plus"></i>&nbsp; Review
+                            </button>
+                        }
+                        <div class="comment-decoration">
+                            <form id="AddReviewForm" asp-controller="ProductReviews" asp-action="Create" method="post" style="display: none">
+                                <input type="hidden" name="ProductId" value="@Model.ProductDetailsViewModel.Id" />
+                                <div class="form-group">
+                                    Title <input type="text" name="Title" id="Title" class="form-control" required="" />
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="Description" id="Description" placeholder="Write your review here" class="form-control" required=""></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="submit" value="SEND REVIEW" />
+                                </div>
+                                <div class="clearfix"> </div>
+                            </form>
+                        </div>
+                        <div>
+                            @foreach (var review in reviews)
+                            {
+                                <div class="container-fluid mt-100">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card mb-4">
+                                                <div class="card-header">
+                                                    <div class="media flex-wrap w-100 align-items-center">
+                                                        <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" class="d-block ui-w-40 rounded-circle" alt="User profile picture">
+                                                        <div class="media-body ml-3">
+                                                            @review.UserUserName
+                                                            <div class="text-muted small">
+                                                                <time datetime="@review.CreatedOn.ToString("O")"></time>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <h4 class="card-title">@review.Title</h4>
+                                                    <article>
+                                                        @Html.Raw(review.SanitizedDescription)
+                                                    </article>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
@@ -307,6 +357,14 @@
             $("#AddCommentForm").show();
             $([document.documentElement, document.body]).animate({
                 scrollTop: $("#AddCommentForm").offset().top
+            }, 1000);
+        }
+    </script>
+    <script>
+        function showAddReviewForm() {
+            $("#AddReviewForm").show();
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#AddReviewForm").offset().top
             }, 1000);
         }
     </script>
