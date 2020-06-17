@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PhotoPavilion.Data;
 
 namespace PhotoPavilion.Data.Migrations
 {
     [DbContext(typeof(PhotoPavilionDbContext))]
-    partial class PhotoPavilionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200617075239_RemoveSettingsModel")]
+    partial class RemoveSettingsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

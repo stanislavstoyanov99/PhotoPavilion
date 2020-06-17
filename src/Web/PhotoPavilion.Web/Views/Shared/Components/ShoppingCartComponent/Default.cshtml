@@ -13,7 +13,7 @@
             <div class="dropdown-menu">
                 @foreach (var shoppingCartProduct in Model)
                 {
-                    <div class="d-flex justify-content-around" style="min-width: 20vw;">
+                    <div class="d-flex justify-content-around" style="min-width: 30vw;">
                         <a class="dropdown-item" asp-controller="Products" asp-action="Details" asp-route-id="@shoppingCartProduct.ProductId">
                             <img class="img-fluid" src="@shoppingCartProduct.ProductImagePath" width="100" height="100">
                             <span>@shoppingCartProduct.ProductName</span>
