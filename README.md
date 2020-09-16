@@ -8,7 +8,10 @@ ASP.NET Core application for the course IBT 2020 @Technical University of Sofia
 
 **PhotoPavilion** is my project for IBT course of Technical University of Sofia as individual assignment. It is a ready-to-use ASP.NET Core application.
 
-## :pencil: Project Description
+## :pencil: Project Description - EN
+The web application provides a modern graphical interface for use. The app combines a lot of functionality, which can be useful for users. In the header like many web applications there is a navigational panel with the following menus: “Products”, “Brands”, “Categories” – dropping menu, “Privacy”. Next to this panel there is a search bar which can find requested information from the user after full searching in the system. Each page has a footer where you can find references to other pages of the system – “FAQ”, “Contact us”, “Privacy Policy”, different product categories and links to social networks. The app gives opportunity for real product purchases with two ways of payment – in place and online. Moreover, there is a rating system, system for writing comments and reviews of products.
+
+## :pencil: Project Description - BG
 Уеб приложението предоставя модерен графичен интерфейс за работа. Приложението комбинира в себе си много функционалност, която може да бъде полезна за потребителите. В горната му част като повечето уеб приложения има удобен навигационен панел със следните менюта: “Products”, “Brands”, “Categories” – с падащо меню на категориите, “Privacy”. До този панел има търсачка, която може да намира заявена информация от потребителя като резултатите, които се връщат са след претърсване на цялата система. В дъното на всяка страница има footer или мястото, където може да намерите препратка към останалите страници от системата – “FAQ”, “Contact us”, “Privacy Policy”, различните категории продукти както и връзки към социалните мрежи. Приложението дава възможност за реално закупуване на продукти чрез два начина на плащане - на място в магазина и онлайн. Също така има изградена рейтинг система, система за писане на коментари и ревюта на продуктите.
 
 ## :hammer: Used technologies
@@ -32,7 +35,7 @@ ASP.NET Core application for the course IBT 2020 @Technical University of Sofia
 ![](https://res.cloudinary.com/photopavilion/image/upload/v1592300820/db_zufkpr.jpg)
 
 # Link
-За момента приложението не е деплойнато.
+Currently the app is not deployed.
 
 ## Author
 
