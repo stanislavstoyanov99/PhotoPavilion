@@ -8,7 +8,5 @@
     public interface IContactsService
     {
         Task SendContactToAdmin(ContactFormEntryViewModel contactFormEntryViewModel);
-
-        Task<IEnumerable<TEntity>> GetAllUserEmailsAsync<TEntity>();
     }
 }

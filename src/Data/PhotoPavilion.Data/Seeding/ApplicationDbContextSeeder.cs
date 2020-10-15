@@ -7,7 +7,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
-    public class ApplicationDbContextSeeder : ISeeder
+    public class PhotoPavilionDbContextSeeder : ISeeder
     {
         public async Task SeedAsync(PhotoPavilionDbContext dbContext, IServiceProvider serviceProvider)
         {
@@ -21,7 +21,7 @@
                 throw new ArgumentNullException(nameof(serviceProvider));
             }
 
-            var logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger(typeof(ApplicationDbContextSeeder));
+            var logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger(typeof(PhotoPavilionDbContextSeeder));
 
             var seeders = new List<ISeeder>
                           {

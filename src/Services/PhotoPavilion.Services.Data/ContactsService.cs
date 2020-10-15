@@ -1,16 +1,12 @@
 ﻿namespace PhotoPavilion.Services.Data
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
-
-    using Microsoft.EntityFrameworkCore;
 
     using PhotoPavilion.Common;
     using PhotoPavilion.Data.Common.Repositories;
     using PhotoPavilion.Data.Models;
     using PhotoPavilion.Models.ViewModels.Contacts;
     using PhotoPavilion.Services.Data.Contracts;
-    using PhotoPavilion.Services.Mapping;
     using PhotoPavilion.Services.Messaging;
 
     public class ContactsService : IContactsService
@@ -24,16 +20,6 @@
         {
             this.userContactsRepository = contactsRepository;
             this.emailSender = emailSender;
-        }
-
-        public async Task<IEnumerable<TModel>> GetAllUserEmailsAsync<TModel>()
-        {
-            var userEmails = await this.userContactsRepository
-                .All()
-                .To<TModel>()
-                .ToListAsync();
-
-            return userEmails;
         }
 
         public async Task SendContactToAdmin(ContactFormEntryViewModel contactFormViewModel)

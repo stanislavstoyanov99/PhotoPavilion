@@ -85,13 +85,6 @@
             };
         }
 
-        private async Task SeedUserContacts()
-        {
-            await this.userContactsRepository.AddAsync(this.firstUserContactFormEntry);
-
-            await this.userContactsRepository.SaveChangesAsync();
-        }
-
         private void InitializeMapper() => AutoMapperConfig.
             RegisterMappings(Assembly.Load("PhotoPavilion.Models.ViewModels"));
     }

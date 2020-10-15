@@ -135,7 +135,7 @@
 
                 dbContext.Database.Migrate();
 
-                new ApplicationDbContextSeeder()
+                new PhotoPavilionDbContextSeeder()
                     .SeedAsync(dbContext, serviceScope.ServiceProvider)
                     .GetAwaiter()
                     .GetResult();
