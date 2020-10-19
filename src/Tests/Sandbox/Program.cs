@@ -18,8 +18,6 @@
     using PhotoPavilion.Data.Models;
     using PhotoPavilion.Data.Repositories;
     using PhotoPavilion.Data.Seeding;
-    using PhotoPavilion.Services.Data;
-    using PhotoPavilion.Services.Data.Contracts;
     using PhotoPavilion.Services.Messaging;
 
     public static class Program
@@ -36,7 +34,7 @@
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<PhotoPavilionDbContext>();
                 dbContext.Database.Migrate();
-                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+                new PhotoPavilionDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
             using (var serviceScope = serviceProvider.CreateScope())
