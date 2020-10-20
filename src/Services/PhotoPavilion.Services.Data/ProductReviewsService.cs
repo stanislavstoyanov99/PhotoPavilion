@@ -1,7 +1,6 @@
 ﻿namespace PhotoPavilion.Services.Data
 {
     using System;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -39,7 +38,7 @@
             if (doesProductReviewExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.ProductCommentAlreadyExists, productReview.ProductId, productReview.Title, productReview.Description));
+                    string.Format(ExceptionMessages.ProductReviewAlreadyExists, productReview.ProductId, productReview.Title, productReview.Description));
             }
 
             await this.reviewsRepository.AddAsync(productReview);
