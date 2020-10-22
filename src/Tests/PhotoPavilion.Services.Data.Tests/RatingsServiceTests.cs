@@ -160,7 +160,7 @@
             this.firstCategory = new Category
             {
                 Name = "Cameras",
-                Description = "Samle category description",
+                Description = "Sample category description",
             };
 
             this.firstProduct = new Product
