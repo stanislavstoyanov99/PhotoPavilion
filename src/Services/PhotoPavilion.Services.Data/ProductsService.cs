@@ -94,7 +94,7 @@
                 .FirstOrDefaultAsync(p => p.Id == id);
             if (product == null)
             {
-                throw new NullReferenceException(string.Format(ExceptionMessages.CategoryNotFound, id));
+                throw new NullReferenceException(string.Format(ExceptionMessages.ProductNotFound, id));
             }
 
             product.IsDeleted = true;
@@ -175,9 +175,9 @@
         {
             var topRatingProducts = await this.productsRepository
                 .All()
-                .Where(p => p.Ratings.Sum(x => x.Rate) > rating)
+                .Where(p => p.Ratings.Sum(x => x.Rate) > (double)rating)
                 .OrderByDescending(p => p.Ratings.Sum(x => x.Rate))
-                .ThenBy(p => p.Price)
+                .ThenBy(p => (double)p.Price)
                 .Take(count)
                 .To<TViewModel>()
                 .ToListAsync();
