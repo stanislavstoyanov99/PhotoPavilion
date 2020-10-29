@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
     using PhotoPavilion.Data.Common.Repositories;
@@ -17,18 +16,18 @@
 
     public class ShoppingCartsService : IShoppingCartsService
     {
-        private readonly UserManager<PhotoPavilionUser> userManager;
+        private readonly IDeletableEntityRepository<PhotoPavilionUser> usersRepository;
         private readonly IDeletableEntityRepository<Product> productsRepository;
         private readonly IDeletableEntityRepository<ShoppingCartProduct> shoppingCartProductsRepository;
         private readonly IDeletableEntityRepository<ShoppingCart> shoppingCartsRepository;
 
         public ShoppingCartsService(
-            UserManager<PhotoPavilionUser> userManager,
+            IDeletableEntityRepository<PhotoPavilionUser> usersRepository,
             IDeletableEntityRepository<Product> productsRepository,
             IDeletableEntityRepository<ShoppingCartProduct> shoppingCartProductsRepository,
             IDeletableEntityRepository<ShoppingCart> shoppingCartsRepository)
         {
-            this.userManager = userManager;
+            this.usersRepository = usersRepository;
             this.productsRepository = productsRepository;
             this.shoppingCartProductsRepository = shoppingCartProductsRepository;
             this.shoppingCartsRepository = shoppingCartsRepository;
@@ -58,7 +57,7 @@
                 throw new NullReferenceException(string.Format(ExceptionMessages.ProductNotFound, productId));
             }
 
-            var user = await this.userManager.FindByNameAsync(username);
+            var user = await this.usersRepository.All().FirstOrDefaultAsync(x => x.UserName == username);
             if (user == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.NullReferenceUsername, username));
@@ -90,7 +89,7 @@
                     ExceptionMessages.NullReferenceShoppingCartProductId, shoppingCartProductId));
             }
 
-            var user = await this.userManager.FindByNameAsync(username);
+            var user = await this.usersRepository.All().FirstOrDefaultAsync(x => x.UserName == username);
             if (user == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.NullReferenceUsername, username));
@@ -112,7 +111,7 @@
                     ExceptionMessages.NullReferenceShoppingCartProductId, shoppingCartProductId));
             }
 
-            var user = await this.userManager.FindByNameAsync(username);
+            var user = await this.usersRepository.All().FirstOrDefaultAsync(x => x.UserName == username);
             if (user == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.NullReferenceUsername, username));
@@ -130,7 +129,7 @@
 
         public async Task<IEnumerable<ShoppingCartProductViewModel>> GetAllShoppingCartProductsAsync(string username)
         {
-            var user = await this.userManager.FindByNameAsync(username);
+            var user = await this.usersRepository.All().FirstOrDefaultAsync(x => x.UserName == username);
             if (user == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.NullReferenceUsername, username));
@@ -147,7 +146,7 @@
 
         public async Task ClearShoppingCart(string username)
         {
-            var user = await this.userManager.FindByNameAsync(username);
+            var user = await this.usersRepository.All().FirstOrDefaultAsync(x => x.UserName == username);
             if (user == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.NullReferenceUsername, username));

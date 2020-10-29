@@ -25,20 +25,20 @@
     public class OrderProductsService : IOrderProductsService
     {
         private readonly IDeletableEntityRepository<OrderProduct> orderProductsRepository;
-        private readonly UserManager<PhotoPavilionUser> userManager;
+        private readonly IDeletableEntityRepository<PhotoPavilionUser> usersRepository;
         private readonly IDeletableEntityRepository<Product> productsRepository;
         private readonly IShoppingCartsService shoppingCartsService;
         private readonly IEmailSender emailSender;
 
         public OrderProductsService(
             IDeletableEntityRepository<OrderProduct> orderProductsRepository,
-            UserManager<PhotoPavilionUser> userManager,
+            IDeletableEntityRepository<PhotoPavilionUser> usersRepository,
             IDeletableEntityRepository<Product> productsRepository,
             IShoppingCartsService shoppingCartsService,
             IEmailSender emailSender)
         {
             this.orderProductsRepository = orderProductsRepository;
-            this.userManager = userManager;
+            this.usersRepository = usersRepository;
             this.productsRepository = productsRepository;
             this.shoppingCartsService = shoppingCartsService;
             this.emailSender = emailSender;
@@ -69,17 +69,18 @@
             return orderProductsViewModel;
         }
 
-        public async Task BuyAllAsync(string userIdentifier, ShoppingCartProductViewModel[] shoppingCartProducts, string paymentMethod = "")
+        public async Task BuyAllAsync(string userName, ShoppingCartProductViewModel[] shoppingCartProducts, string paymentMethod = "")
         {
-            await this.BuyUsersTickets(userIdentifier, shoppingCartProducts, paymentMethod);
+            await this.BuyUsersTickets(userName, shoppingCartProducts, paymentMethod);
         }
 
-        private async Task BuyUsersTickets(string userIdentifier, IEnumerable<ShoppingCartProductViewModel> shoppingCartProducts, string paymentMethod)
+        private async Task BuyUsersTickets(string userName, IEnumerable<ShoppingCartProductViewModel> shoppingCartProducts, string paymentMethod)
         {
-            var user = await this.userManager.FindByNameAsync(userIdentifier);
+            var user = await this.usersRepository.All().FirstOrDefaultAsync(x => x.UserName == userName);
+
             if (user == null)
             {
-                throw new NullReferenceException(string.Format(ExceptionMessages.NullReferenceUsername, userIdentifier));
+                throw new NullReferenceException(string.Format(ExceptionMessages.NullReferenceUsername, userName));
             }
 
             var orderProductsIds = new List<int>();
@@ -103,7 +104,7 @@
                 orderProductsIds.Add(orderProductId);
             }
 
-            await this.shoppingCartsService.ClearShoppingCart(userIdentifier);
+            await this.shoppingCartsService.ClearShoppingCart(userName);
 
             var emailContent = await this.GenerateEmailContent(orderProductsIds, paymentMethod);
             await this.emailSender.SendEmailAsync(

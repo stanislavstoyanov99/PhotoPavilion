@@ -75,8 +75,8 @@
             });
 
             IEnumerable<ShoppingCartProductViewModel> userProducts;
-            var userIdentifier = this.User.Identity.Name;
-            userProducts = await this.shoppingCartService.GetAllShoppingCartProductsAsync(userIdentifier);
+            var userName = this.User.Identity.Name;
+            userProducts = await this.shoppingCartService.GetAllShoppingCartProductsAsync(userName);
 
             var totalSum = userProducts.Sum(up => up.ShoppingCartProductTotalPrice);
             var totalSumInCents = totalSum * 100;
@@ -86,13 +86,13 @@
             var charge = charges.Create(new ChargeCreateOptions
             {
                 Amount = (long)totalSumInCents,
-                Description = $"{userIdentifier} bought {userProducts.Count()} {productLabel} on {DateTime.UtcNow}",
+                Description = $"{userName} bought {userProducts.Count()} {productLabel} on {DateTime.UtcNow}",
                 Currency = "usd",
                 Customer = customer.Id,
                 ReceiptEmail = stripeEmail,
             });
 
-            await this.orderProductsService.BuyAllAsync(userIdentifier, userProducts.ToArray(), GlobalConstants.OnlinePaymentMethod);
+            await this.orderProductsService.BuyAllAsync(userName, userProducts.ToArray(), GlobalConstants.OnlinePaymentMethod);
             this.HttpContext.Session.Remove(WebConstants.ShoppingCartSessionKey);
 
             return this.View("_BuyingConfirmation");
