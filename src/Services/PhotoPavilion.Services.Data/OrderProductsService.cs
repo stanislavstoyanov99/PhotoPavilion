@@ -8,7 +8,6 @@
 
     using HtmlAgilityPack;
 
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
     using PhotoPavilion.Common;
@@ -86,21 +85,15 @@
             var orderProductsIds = new List<int>();
             foreach (var shoppingCartProduct in shoppingCartProducts)
             {
-                var product = await this.productsRepository.All()
-                    .FirstOrDefaultAsync(p => p.Id == shoppingCartProduct.ProductId);
-                if (product == null)
-                {
-                    throw new NullReferenceException(string.Format(
-                        ExceptionMessages.ProductNotFound,
-                        shoppingCartProduct.ProductId));
-                }
-
                 if (shoppingCartProduct.Quantity <= 0)
                 {
                     throw new InvalidOperationException(ExceptionMessages.ZeroOrNegativeQuantity);
                 }
 
-                var orderProductId = await this.GetOrderProductId(user.Id, product, shoppingCartProduct.Quantity);
+                var product = await this.productsRepository.All()
+                    .FirstAsync(p => p.Id == shoppingCartProduct.ProductId);
+
+                var orderProductId = await this.SetOrderProductId(user.Id, product, shoppingCartProduct.Quantity);
                 orderProductsIds.Add(orderProductId);
             }
 
@@ -115,7 +108,7 @@
                 emailContent);
         }
 
-        private async Task<int> GetOrderProductId(string userId, Product product, int quantity)
+        private async Task<int> SetOrderProductId(string userId, Product product, int quantity)
         {
             var orderProduct = new OrderProduct
             {
