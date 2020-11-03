@@ -94,7 +94,7 @@
                 {
                     this.logger.LogInformation("User created a new account with password.");
                     await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
-                    await this.shoppingCartsService.AssignShoppingCartToUserId(user);
+                    await this.shoppingCartsService.AssignShoppingCartToUserIdAsync(user);
 
                     var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

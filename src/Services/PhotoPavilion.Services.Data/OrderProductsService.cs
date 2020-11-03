@@ -70,10 +70,10 @@
 
         public async Task BuyAllAsync(string userName, ShoppingCartProductViewModel[] shoppingCartProducts, string paymentMethod = "")
         {
-            await this.BuyUsersTickets(userName, shoppingCartProducts, paymentMethod);
+            await this.BuyUsersTicketsAsync(userName, shoppingCartProducts, paymentMethod);
         }
 
-        private async Task BuyUsersTickets(string userName, IEnumerable<ShoppingCartProductViewModel> shoppingCartProducts, string paymentMethod)
+        private async Task BuyUsersTicketsAsync(string userName, IEnumerable<ShoppingCartProductViewModel> shoppingCartProducts, string paymentMethod)
         {
             var user = await this.usersRepository.All().FirstOrDefaultAsync(x => x.UserName == userName);
 
@@ -132,7 +132,9 @@
 
             foreach (var orderProductId in orderProductIds)
             {
-                var orderProduct = await this.orderProductsRepository.All().FirstOrDefaultAsync(op => op.Id == orderProductId);
+                var orderProduct = await this.orderProductsRepository
+                    .All()
+                    .FirstAsync(op => op.Id == orderProductId);
 
                 var productName = orderProduct.Product.Name;
                 var productQuantity = orderProduct.Quantity;

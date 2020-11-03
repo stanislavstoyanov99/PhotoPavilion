@@ -36,6 +36,9 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="product-orders-receipt.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Test.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

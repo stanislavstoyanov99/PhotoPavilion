@@ -33,7 +33,7 @@
             this.shoppingCartsRepository = shoppingCartsRepository;
         }
 
-        public async Task AssignShoppingCartToUserId(PhotoPavilionUser user)
+        public async Task AssignShoppingCartToUserIdAsync(PhotoPavilionUser user)
         {
             var shoppingCart = await this.shoppingCartsRepository.All()
                 .FirstOrDefaultAsync(sc => sc.User.Id == user.Id);

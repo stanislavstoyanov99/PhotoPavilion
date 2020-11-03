@@ -150,7 +150,7 @@
                     {
                         this.logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
                         await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
-                        await this.shoppingCartsService.AssignShoppingCartToUserId(user);
+                        await this.shoppingCartsService.AssignShoppingCartToUserIdAsync(user);
                         await this.StoreGuestShoppingCartIfAny(info.Principal.Identity.Name.RemoveWhiteSpaces());
 
                         // If account confirmation is required, we need to show the link if we don't have a real email sender

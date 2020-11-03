@@ -112,7 +112,7 @@
         }
 
         [Fact]
-        public async Task CheckIfBuyUsersTicketsThrowsNullReferenceExceptionWithMissingUser()
+        public async Task CheckIfBuyUsersTicketsAsyncThrowsNullReferenceExceptionWithMissingUser()
         {
             this.SeedDatabase();
             await this.SeedOrderProducts();
@@ -124,7 +124,7 @@
         }
 
         [Fact]
-        public async Task CheckIfBuyUsersTicketsThrowsNullReferenceExceptionWithInvalidQuantity()
+        public async Task CheckIfBuyUsersTicketsAsyncThrowsNullReferenceExceptionWithInvalidQuantity()
         {
             this.SeedDatabase();
             await this.SeedOrderProducts();
@@ -144,6 +144,27 @@
                 .ThrowsAsync<InvalidOperationException>(async () =>
                     await this.orderProductsService.BuyAllAsync("peter123", shoppingCartProducts.ToArray(), "cash"));
             Assert.Equal(string.Format(ExceptionMessages.ZeroOrNegativeQuantity), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckIfBuyUsersTicketsAsyncWorksCorrectly()
+        {
+            this.SeedDatabase();
+            await this.SeedShoppingCartProducts();
+
+            var shoppingCartProducts = await this.shoppingCartsService.GetAllShoppingCartProductsAsync("peter123");
+
+            await this.orderProductsService.BuyAllAsync("peter123", shoppingCartProducts.ToArray(), "cash");
+
+            var count = await this.orderProductsRepository.All().CountAsync();
+            var firstOrderProduct = await this.orderProductsRepository.All().FirstOrDefaultAsync();
+
+            Assert.Equal(1, count);
+            Assert.Equal(1, firstOrderProduct.Id);
+            Assert.Equal("1", firstOrderProduct.UserId);
+            Assert.Equal(1, firstOrderProduct.ProductId);
+            Assert.Equal(1, firstOrderProduct.Quantity);
+            Assert.Equal(OrderStatus.Pending, firstOrderProduct.Status);
         }
 
         public void Dispose()

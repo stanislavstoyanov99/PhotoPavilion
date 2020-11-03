@@ -16,7 +16,7 @@
                   <td align=""left"" width=""25%"" style=""padding: 12px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-top: 2px dashed #D2C7BA; border-bottom: 2px dashed #D2C7BA;""><strong>${0:F2}</strong></td>
                 </tr>";
 
-        public const string OrderProductsReceiptEmailHtmlPath = "Views/Emails/product-orders-receipt.html";
+        public const string OrderProductsReceiptEmailHtmlPath = "product-orders-receipt.html";
 
         public const string OnlinePaymentEmailString = "Payed online";
 

@@ -8,7 +8,7 @@
 
     public interface IShoppingCartsService
     {
-        Task AssignShoppingCartToUserId(PhotoPavilionUser user);
+        Task AssignShoppingCartToUserIdAsync(PhotoPavilionUser user);
 
         Task<IEnumerable<ShoppingCartProductViewModel>> GetAllShoppingCartProductsAsync(string username);
 
