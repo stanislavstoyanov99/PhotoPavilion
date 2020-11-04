@@ -14,6 +14,10 @@ The web application provides a modern graphical interface for use. The app combi
 ## :pencil: Project Description - BG
 Уеб приложението предоставя модерен графичен интерфейс за работа. Приложението комбинира в себе си много функционалност, която може да бъде полезна за потребителите. В горната му част като повечето уеб приложения има удобен навигационен панел със следните менюта: “Products”, “Brands”, “Categories” – с падащо меню на категориите, “Privacy”. До този панел има търсачка, която може да намира заявена информация от потребителя като резултатите, които се връщат са след претърсване на цялата система. В дъното на всяка страница има footer или мястото, където може да намерите препратка към останалите страници от системата – “FAQ”, “Contact us”, “Privacy Policy”, различните категории продукти както и връзки към социалните мрежи. Приложението дава възможност за реално закупуване на продукти чрез два начина на плащане - на място в магазина и онлайн. Също така има изградена рейтинг система, система за писане на коментари и ревюта на продуктите.
 
+## Unit tests Code coverage
+
+![Code coverage](https://github.com/stanislavstoyanov99/PhotoPavilion/blob/master/tests-code-coverage.png)
+
 ## :hammer: Used technologies
 - ASP.NET [CORE 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1 "CORE 3.1") MVC
 - ASP.NET Core areas
