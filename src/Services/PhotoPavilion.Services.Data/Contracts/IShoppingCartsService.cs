@@ -16,8 +16,8 @@
 
         Task EditShoppingCartProductAsync(int shoppingCartProductId, string username, int newQuantity);
 
-        Task DeleteProductFromShoppingCart(int shoppingCartProductId, string username);
+        Task DeleteProductFromShoppingCartAsync(int shoppingCartProductId, string username);
 
-        Task ClearShoppingCart(string username);
+        Task ClearShoppingCartAsync(string username);
     }
 }

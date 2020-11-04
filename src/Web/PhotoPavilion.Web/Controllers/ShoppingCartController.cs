@@ -57,7 +57,7 @@
         public async Task<IActionResult> Delete(int id)
         {
             var username = this.User.Identity.Name;
-            await this.shoppingCartService.DeleteProductFromShoppingCart(id, username);
+            await this.shoppingCartService.DeleteProductFromShoppingCartAsync(id, username);
 
             return this.RedirectToAction("Index");
         }

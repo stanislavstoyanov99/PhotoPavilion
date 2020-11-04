@@ -97,7 +97,7 @@
                 orderProductsIds.Add(orderProductId);
             }
 
-            await this.shoppingCartsService.ClearShoppingCart(userName);
+            await this.shoppingCartsService.ClearShoppingCartAsync(userName);
 
             var emailContent = await this.GenerateEmailContent(orderProductsIds, paymentMethod);
             await this.emailSender.SendEmailAsync(

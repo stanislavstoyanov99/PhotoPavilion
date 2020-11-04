@@ -35,7 +35,8 @@
 
         public async Task AssignShoppingCartToUserIdAsync(PhotoPavilionUser user)
         {
-            var shoppingCart = await this.shoppingCartsRepository.All()
+            var shoppingCart = await this.shoppingCartsRepository
+                .All()
                 .FirstOrDefaultAsync(sc => sc.User.Id == user.Id);
 
             if (shoppingCart == null)
@@ -79,9 +80,10 @@
             await this.shoppingCartProductsRepository.SaveChangesAsync();
         }
 
-        public async Task DeleteProductFromShoppingCart(int shoppingCartProductId, string username)
+        public async Task DeleteProductFromShoppingCartAsync(int shoppingCartProductId, string username)
         {
-            var shoppingCartProduct = await this.shoppingCartProductsRepository.All()
+            var shoppingCartProduct = await this.shoppingCartProductsRepository
+                .All()
                 .FirstOrDefaultAsync(scp => scp.Id == shoppingCartProductId);
             if (shoppingCartProduct == null)
             {
@@ -95,9 +97,7 @@
                 throw new NullReferenceException(string.Format(ExceptionMessages.NullReferenceUsername, username));
             }
 
-            shoppingCartProduct.IsDeleted = true;
-
-            this.shoppingCartProductsRepository.Update(shoppingCartProduct);
+            this.shoppingCartProductsRepository.Delete(shoppingCartProduct);
             await this.shoppingCartProductsRepository.SaveChangesAsync();
         }
 
@@ -144,7 +144,7 @@
             return shoppingCartProducts;
         }
 
-        public async Task ClearShoppingCart(string username)
+        public async Task ClearShoppingCartAsync(string username)
         {
             var user = await this.usersRepository.All().FirstOrDefaultAsync(x => x.UserName == username);
             if (user == null)
