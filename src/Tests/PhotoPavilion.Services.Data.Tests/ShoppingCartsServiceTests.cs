@@ -1,6 +1,7 @@
 ﻿namespace PhotoPavilion.Services.Data.Tests
 {
     using System;
+    using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@
     using PhotoPavilion.Services.Data.Common;
     using PhotoPavilion.Services.Data.Contracts;
     using PhotoPavilion.Services.Mapping;
+
     using Xunit;
 
     public class ShoppingCartsServiceTests : IDisposable
@@ -31,7 +33,6 @@
 
         private SqliteConnection connection;
 
-        private ShoppingCart firstShoppingCart;
         private ShoppingCartProduct firstShoppingCartProduct;
         private Product firstProduct;
         private Brand firstBrand;
@@ -170,6 +171,118 @@
             Assert.Equal(0, count);
         }
 
+        [Fact]
+        public async Task CheckEditingShoppingCartProductWithMissingShoppingProductOrder()
+        {
+            this.SeedDatabase();
+            await this.SeedShoppingCartProducts();
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () =>
+                    await this.shoppingCartsService.EditShoppingCartProductAsync(2, this.user.UserName, 2));
+
+            Assert.Equal(
+                string.Format(ExceptionMessages.NullReferenceShoppingCartProductId, 2), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckEditingShoppingCartProductWithMissingUsername()
+        {
+            this.SeedDatabase();
+            await this.SeedShoppingCartProducts();
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () =>
+                    await this.shoppingCartsService.EditShoppingCartProductAsync(1, "admin123", 2));
+
+            Assert.Equal(
+                string.Format(ExceptionMessages.NullReferenceUsername, "admin123"), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckEditingShoppingCartProductWithInvalidQuantity()
+        {
+            this.SeedDatabase();
+            await this.SeedShoppingCartProducts();
+
+            var exception = await Assert
+                .ThrowsAsync<InvalidOperationException>(async () =>
+                    await this.shoppingCartsService.EditShoppingCartProductAsync(1, this.user.UserName, -3));
+
+            Assert.Equal(
+                string.Format(ExceptionMessages.ZeroOrNegativeQuantity, -3), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckIfEditShoppingCartProductAsyncWorksCorrectly()
+        {
+            this.SeedDatabase();
+            await this.SeedShoppingCartProducts();
+
+            await this.shoppingCartsService.EditShoppingCartProductAsync(1, this.user.UserName, 2);
+
+            var shoppingProductOrder = await this.shoppingCartProductsRepository.All().FirstOrDefaultAsync();
+
+            Assert.Equal(2, shoppingProductOrder.Quantity);
+        }
+
+        [Fact]
+        public async Task CheckGettingAllShoppingCartProductsWithMissingUsername()
+        {
+            this.SeedDatabase();
+            await this.SeedShoppingCartProducts();
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () =>
+                    await this.shoppingCartsService.GetAllShoppingCartProductsAsync("admin123"));
+
+            Assert.Equal(
+                string.Format(ExceptionMessages.NullReferenceUsername, "admin123"), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckIfGetAllShoppingCartProductsAsyncWorksCorrectly()
+        {
+            this.SeedDatabase();
+            await this.SeedShoppingCartProducts();
+
+            var shoppingCartProducts = await this.shoppingCartsService.GetAllShoppingCartProductsAsync(this.user.UserName);
+
+            var count = shoppingCartProducts.Count();
+            var firstShoppingCartProduct = shoppingCartProducts.First();
+
+            Assert.Equal(1, count);
+            Assert.Equal(this.firstShoppingCartProduct.Id, firstShoppingCartProduct.Id);
+            Assert.Equal(this.firstShoppingCartProduct.ShoppingCart.User.UserName, this.user.UserName);
+        }
+
+        [Fact]
+        public async Task CheckClearingShoppingCartWithMissingUsername()
+        {
+            this.SeedDatabase();
+            await this.SeedShoppingCartProducts();
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () =>
+                    await this.shoppingCartsService.ClearShoppingCartAsync("admin123"));
+
+            Assert.Equal(
+                string.Format(ExceptionMessages.NullReferenceUsername, "admin123"), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckIfClearShoppingCartAsyncWorksCorrectly()
+        {
+            this.SeedDatabase();
+            await this.SeedShoppingCartProducts();
+
+            await this.shoppingCartsService.ClearShoppingCartAsync(this.user.UserName);
+
+            var count = await this.shoppingCartProductsRepository.All().CountAsync();
+
+            Assert.Equal(0, count);
+        }
+
         public void Dispose()
         {
             this.connection.Close();
@@ -250,13 +363,6 @@
             await this.usersRepository.AddAsync(this.user);
 
             await this.usersRepository.SaveChangesAsync();
-        }
-
-        private async Task SeedShoppingCarts()
-        {
-            await this.shoppingCartsRepository.AddAsync(this.firstShoppingCart);
-
-            await this.shoppingCartsRepository.SaveChangesAsync();
         }
 
         private async Task SeedShoppingCartProducts()

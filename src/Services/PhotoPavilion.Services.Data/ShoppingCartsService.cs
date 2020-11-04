@@ -103,7 +103,8 @@
 
         public async Task EditShoppingCartProductAsync(int shoppingCartProductId, string username, int newQuantity)
         {
-            var shoppingProductOrder = await this.shoppingCartProductsRepository.All()
+            var shoppingProductOrder = await this.shoppingCartProductsRepository
+                .All()
                 .FirstOrDefaultAsync(scp => scp.Id == shoppingCartProductId);
             if (shoppingProductOrder == null)
             {
