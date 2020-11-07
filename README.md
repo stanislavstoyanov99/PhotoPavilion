@@ -39,7 +39,7 @@ The web application provides a modern graphical interface for use. The app combi
 ![](https://res.cloudinary.com/photopavilion/image/upload/v1592300820/db_zufkpr.jpg)
 
 # Link
-Currently the app is not deployed.
+https://photopavilion.azurewebsites.net/
 
 ## Author
 
