@@ -1,7 +1,7 @@
 ﻿namespace PhotoPavilion.Models.ViewModels.Products
 {
     using System;
-    using Ganss.XSS;
+    using Ganss.Xss;
     using System.Linq;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;

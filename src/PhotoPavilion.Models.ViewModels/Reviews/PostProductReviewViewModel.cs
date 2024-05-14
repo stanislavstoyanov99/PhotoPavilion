@@ -1,6 +1,6 @@
 ﻿namespace PhotoPavilion.Models.ViewModels.Reviews
 {
-    using Ganss.XSS;
+    using Ganss.Xss;
 
     using System;
 

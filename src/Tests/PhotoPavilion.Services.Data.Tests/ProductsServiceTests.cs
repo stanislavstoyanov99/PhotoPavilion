@@ -8,7 +8,6 @@
     using System.Threading.Tasks;
 
     using CloudinaryDotNet;
-
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Http.Internal;
     using Microsoft.Data.Sqlite;

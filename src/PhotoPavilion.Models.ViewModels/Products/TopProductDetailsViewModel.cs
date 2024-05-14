@@ -1,6 +1,6 @@
 ﻿namespace PhotoPavilion.Models.ViewModels.Products
 {
-    using Ganss.XSS;
+    using Ganss.Xss;
     using PhotoPavilion.Data.Models;
     using PhotoPavilion.Services.Mapping;
 

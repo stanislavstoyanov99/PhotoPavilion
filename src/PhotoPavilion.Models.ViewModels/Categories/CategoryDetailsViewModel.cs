@@ -1,8 +1,7 @@
 ﻿namespace PhotoPavilion.Models.ViewModels.Categories
 {
-    using Ganss.XSS;
     using System.ComponentModel.DataAnnotations;
-
+    using Ganss.Xss;
     using PhotoPavilion.Services.Mapping;
 
     using static PhotoPavilion.Models.Common.ModelValidation;
