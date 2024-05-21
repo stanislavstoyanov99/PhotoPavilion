@@ -16,7 +16,8 @@
         {
             var username = this.User.Identity.Name;
 
-            var shoppingCartProducts = this.shoppingCartsService.GetAllShoppingCartProductsAsync(username)
+            var shoppingCartProducts = this.shoppingCartsService
+                .GetAllShoppingCartProductsAsync(username)
                 .GetAwaiter()
                 .GetResult();
 

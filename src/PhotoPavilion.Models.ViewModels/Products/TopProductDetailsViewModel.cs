@@ -20,7 +20,7 @@
             {
                 var shortDescription = this.Description;
                 return shortDescription.Length > 150
-                        ? shortDescription.Substring(0, 150) + " ..."
+                        ? shortDescription[..150] + " ..."
                         : shortDescription;
             }
         }

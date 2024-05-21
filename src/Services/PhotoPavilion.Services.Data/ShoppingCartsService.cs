@@ -91,7 +91,9 @@
                     ExceptionMessages.NullReferenceShoppingCartProductId, shoppingCartProductId));
             }
 
-            var user = await this.usersRepository.All().FirstOrDefaultAsync(x => x.UserName == username);
+            var user = await this.usersRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.UserName == username);
             if (user == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.NullReferenceUsername, username));
@@ -112,7 +114,9 @@
                     ExceptionMessages.NullReferenceShoppingCartProductId, shoppingCartProductId));
             }
 
-            var user = await this.usersRepository.All().FirstOrDefaultAsync(x => x.UserName == username);
+            var user = await this.usersRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.UserName == username);
             if (user == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.NullReferenceUsername, username));
@@ -130,7 +134,9 @@
 
         public async Task<IEnumerable<ShoppingCartProductViewModel>> GetAllShoppingCartProductsAsync(string username)
         {
-            var user = await this.usersRepository.All().FirstOrDefaultAsync(x => x.UserName == username);
+            var user = await this.usersRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.UserName == username);
             if (user == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.NullReferenceUsername, username));
@@ -147,7 +153,9 @@
 
         public async Task ClearShoppingCartAsync(string username)
         {
-            var user = await this.usersRepository.All().FirstOrDefaultAsync(x => x.UserName == username);
+            var user = await this.usersRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.UserName == username);
             if (user == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.NullReferenceUsername, username));

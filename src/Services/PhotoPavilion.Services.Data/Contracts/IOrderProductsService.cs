@@ -12,6 +12,9 @@
 
         IQueryable<OrderProductDetailsViewModel> GetAllAsQueryeable(string username);
 
-        Task BuyAllAsync(string userIdentifier, ShoppingCartProductViewModel[] shoppingCartActivities, string paymentMethod = "");
+        Task BuyAllAsync(
+            string userIdentifier,
+            ShoppingCartProductViewModel[] shoppingCartActivities,
+            string paymentMethod = "");
     }
 }

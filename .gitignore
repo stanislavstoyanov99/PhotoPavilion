@@ -349,3 +349,4 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 src/Web/PhotoPavilion.Web/appsettings.json
+/src/Tests/PhotoPavilion.Services.Data.Tests/appsettings.json

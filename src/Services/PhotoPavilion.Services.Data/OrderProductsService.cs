@@ -68,14 +68,22 @@
             return orderProductsViewModel;
         }
 
-        public async Task BuyAllAsync(string userName, ShoppingCartProductViewModel[] shoppingCartProducts, string paymentMethod = "")
+        public async Task BuyAllAsync(
+            string userName,
+            ShoppingCartProductViewModel[] shoppingCartProducts,
+            string paymentMethod = "")
         {
             await this.BuyUsersTicketsAsync(userName, shoppingCartProducts, paymentMethod);
         }
 
-        private async Task BuyUsersTicketsAsync(string userName, IEnumerable<ShoppingCartProductViewModel> shoppingCartProducts, string paymentMethod)
+        private async Task BuyUsersTicketsAsync(
+            string userName,
+            IEnumerable<ShoppingCartProductViewModel> shoppingCartProducts,
+            string paymentMethod)
         {
-            var user = await this.usersRepository.All().FirstOrDefaultAsync(x => x.UserName == userName);
+            var user = await this.usersRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.UserName == userName);
 
             if (user == null)
             {
@@ -90,7 +98,8 @@
                     throw new InvalidOperationException(ExceptionMessages.ZeroOrNegativeQuantity);
                 }
 
-                var product = await this.productsRepository.All()
+                var product = await this.productsRepository
+                    .All()
                     .FirstAsync(p => p.Id == shoppingCartProduct.ProductId);
 
                 var orderProductId = await this.SetOrderProductId(user.Id, product, shoppingCartProduct.Quantity);

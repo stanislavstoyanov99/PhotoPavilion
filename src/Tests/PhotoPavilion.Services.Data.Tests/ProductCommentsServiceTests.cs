@@ -135,8 +135,23 @@
 
         public void Dispose()
         {
-            this.connection.Close();
-            this.connection.Dispose();
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.connection.Close();
+                this.connection.Dispose();
+                this.productCommentsRepository.Dispose();
+                this.productsRepository.Dispose();
+                this.brandsRepository.Dispose();
+                this.categoriesRepository.Dispose();
+                this.usersRepository.Dispose();
+                this.shoppingCartsRepository.Dispose();
+            }
         }
 
         private void InitializeDatabaseAndRepositories()

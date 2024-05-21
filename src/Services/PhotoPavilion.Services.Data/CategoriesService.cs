@@ -54,6 +54,7 @@
             var category = await this.categoriesRepository
                 .All()
                 .FirstOrDefaultAsync(c => c.Id == id);
+
             if (category == null)
             {
                 throw new NullReferenceException(

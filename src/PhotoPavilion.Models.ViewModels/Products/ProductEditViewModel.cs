@@ -25,7 +25,7 @@
         public int Id { get; set; }
 
         [Required(ErrorMessage = EmptyFieldLengthError)]
-        [StringLength(Common.ModelValidation.Product.NameMaxLength,
+        [StringLength(ModelValidation.Product.NameMaxLength,
             MinimumLength = Common.ModelValidation.Product.NameMinLength, ErrorMessage = NameLengthError)]
         public string Name { get; set; }
 

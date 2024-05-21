@@ -3,9 +3,8 @@
     using System;
     using System.Threading.Tasks;
 
-    using PhotoPavilion.Data.Common;
-
     using Microsoft.EntityFrameworkCore;
+    using PhotoPavilion.Data.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {
