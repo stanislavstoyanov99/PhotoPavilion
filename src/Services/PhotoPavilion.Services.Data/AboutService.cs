@@ -34,7 +34,8 @@
 
             bool doesFaqExist = await this.faqEntriesRepository
                 .All()
-                .AnyAsync(x => x.Question == faqCreateInputModel.Question && x.Answer == faqCreateInputModel.Answer);
+                .AnyAsync(x => x.Question == faqCreateInputModel.Question &&
+                    x.Answer == faqCreateInputModel.Answer);
             if (doesFaqExist)
             {
                 throw new ArgumentException(
@@ -51,7 +52,9 @@
 
         public async Task DeleteByIdAsync(int id)
         {
-            var faq = await this.faqEntriesRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            var faq = await this.faqEntriesRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == id);
             if (faq == null)
             {
                 throw new NullReferenceException(
@@ -66,7 +69,9 @@
 
         public async Task EditAsync(FaqEditViewModel faqEditViewModel)
         {
-            var faq = await this.faqEntriesRepository.All().FirstOrDefaultAsync(g => g.Id == faqEditViewModel.Id);
+            var faq = await this.faqEntriesRepository
+                .All()
+                .FirstOrDefaultAsync(g => g.Id == faqEditViewModel.Id);
 
             if (faq == null)
             {

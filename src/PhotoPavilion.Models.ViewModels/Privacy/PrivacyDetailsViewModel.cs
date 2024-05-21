@@ -1,10 +1,9 @@
 ﻿namespace PhotoPavilion.Models.ViewModels.Privacy
 {
     using System.ComponentModel.DataAnnotations;
-
+    using Ganss.Xss;
     using PhotoPavilion.Data.Models;
     using PhotoPavilion.Services.Mapping;
-    using Ganss.XSS;
 
     using static PhotoPavilion.Models.Common.ModelValidation.Privacy;
 

@@ -199,8 +199,18 @@
 
         public void Dispose()
         {
-            this.connection.Close();
-            this.connection.Dispose();
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.connection.Close();
+                this.connection.Dispose();
+                this.faqEntriesRepository.Dispose();
+            }
         }
 
         private void InitializeDatabaseAndRepositories()

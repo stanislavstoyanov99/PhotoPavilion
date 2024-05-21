@@ -1,7 +1,7 @@
 ﻿namespace PhotoPavilion.Models.ViewModels.Products
 {
     using System;
-    using Ganss.XSS;
+    using Ganss.Xss;
     using System.Linq;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -34,7 +34,7 @@
             {
                 var shortDescription = this.Description;
                 return shortDescription.Length > 200
-                        ? shortDescription.Substring(0, 200) + " ..."
+                        ? shortDescription[..200] + " ..."
                         : shortDescription;
             }
         }

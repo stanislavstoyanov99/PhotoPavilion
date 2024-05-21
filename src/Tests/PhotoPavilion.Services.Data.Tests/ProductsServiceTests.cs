@@ -8,7 +8,6 @@
     using System.Threading.Tasks;
 
     using CloudinaryDotNet;
-
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Http.Internal;
     using Microsoft.Data.Sqlite;
@@ -491,8 +490,22 @@
 
         public void Dispose()
         {
-            this.connection.Close();
-            this.connection.Dispose();
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.connection.Close();
+                this.connection.Dispose();
+                this.productsRepository.Dispose();
+                this.brandsRepository.Dispose();
+                this.categoriesRepository.Dispose();
+                this.shoppingCartsRepository.Dispose();
+                this.usersRepository.Dispose();
+            }
         }
 
         private void InitializeDatabaseAndRepositories()

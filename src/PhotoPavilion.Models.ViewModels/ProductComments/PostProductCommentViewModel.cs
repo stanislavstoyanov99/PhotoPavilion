@@ -1,8 +1,7 @@
 ﻿namespace PhotoPavilion.Models.ViewModels.ProductComments
 {
     using System;
-    using Ganss.XSS;
-
+    using Ganss.Xss;
     using PhotoPavilion.Data.Models;
     using PhotoPavilion.Services.Mapping;
 

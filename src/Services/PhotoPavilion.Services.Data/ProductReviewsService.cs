@@ -35,6 +35,7 @@
                     x.UserId == userId &&
                     x.Title == title &&
                     x.Description == description);
+
             if (doesProductReviewExist)
             {
                 throw new ArgumentException(

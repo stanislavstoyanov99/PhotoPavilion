@@ -45,6 +45,8 @@
             services.AddDbContext<PhotoPavilionDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
             services.AddDefaultIdentity<PhotoPavilionUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<PhotoPavilionDbContext>();
 
@@ -146,7 +148,7 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
@@ -154,7 +156,11 @@
                 app.UseHsts();
             }
 
-            app.UseResponseCompression();
+            if (!env.IsDevelopment())
+            {
+                app.UseResponseCompression();
+            }
+
             app.UseStatusCodePagesWithRedirects("/Home/HttpError?statusCode={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();

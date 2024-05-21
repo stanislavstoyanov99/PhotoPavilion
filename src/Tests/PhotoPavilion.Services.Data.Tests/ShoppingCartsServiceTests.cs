@@ -210,7 +210,7 @@
                     await this.shoppingCartsService.EditShoppingCartProductAsync(1, this.user.UserName, -3));
 
             Assert.Equal(
-                string.Format(ExceptionMessages.ZeroOrNegativeQuantity, -3), exception.Message);
+                string.Format(ExceptionMessages.ZeroOrNegativeQuantity), exception.Message);
         }
 
         [Fact]
@@ -285,8 +285,23 @@
 
         public void Dispose()
         {
-            this.connection.Close();
-            this.connection.Dispose();
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.connection.Close();
+                this.connection.Dispose();
+                this.productsRepository.Dispose();
+                this.brandsRepository.Dispose();
+                this.categoriesRepository.Dispose();
+                this.shoppingCartsRepository.Dispose();
+                this.shoppingCartProductsRepository.Dispose();
+                this.usersRepository.Dispose();
+            }
         }
 
         private void InitializeDatabaseAndRepositories()

@@ -1,8 +1,7 @@
 ﻿namespace PhotoPavilion.Models.ViewModels.Categories
 {
-    using Ganss.XSS;
     using System.ComponentModel.DataAnnotations;
-
+    using Ganss.Xss;
     using PhotoPavilion.Services.Mapping;
 
     using static PhotoPavilion.Models.Common.ModelValidation;
@@ -23,7 +22,7 @@
             {
                 var shortDescription = this.Description;
                 return shortDescription.Length > 200
-                        ? shortDescription.Substring(0, 200) + " ..."
+                        ? shortDescription[..200] + " ..."
                         : shortDescription;
             }
         }

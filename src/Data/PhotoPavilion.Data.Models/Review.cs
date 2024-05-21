@@ -1,6 +1,5 @@
 ﻿namespace PhotoPavilion.Data.Models
 {
-    using System;
     using System.ComponentModel.DataAnnotations;
 
     using PhotoPavilion.Data.Common.Models;

@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using Microsoft.EntityFrameworkCore;
     using PhotoPavilion.Data.Common.Models;
 
     using static PhotoPavilion.Data.Common.DataValidation.Product;
@@ -28,6 +28,7 @@
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
+        [Precision(18, 2)]
         public decimal Price { get; set; }
 
         [Required]
