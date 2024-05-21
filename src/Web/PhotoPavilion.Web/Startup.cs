@@ -156,7 +156,11 @@
                 app.UseHsts();
             }
 
-            app.UseResponseCompression();
+            if (!env.IsDevelopment())
+            {
+                app.UseResponseCompression();
+            }
+
             app.UseStatusCodePagesWithRedirects("/Home/HttpError?statusCode={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
