@@ -59,6 +59,11 @@
       "files": [
         "min/moment-with-locales.min.js"
       ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "font-awesome@6.5.2",
+      "destination": "wwwroot/lib/font-awesome/"
     }
   ]
 }
