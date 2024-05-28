@@ -52,13 +52,17 @@
 
         public async Task AddProductToShoppingCartAsync(int productId, string username, int quantity)
         {
-            var product = await this.productsRepository.All().FirstOrDefaultAsync(p => p.Id == productId);
+            var product = await this.productsRepository
+                .All()
+                .FirstOrDefaultAsync(p => p.Id == productId);
             if (product == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.ProductNotFound, productId));
             }
 
-            var user = await this.usersRepository.All().FirstOrDefaultAsync(x => x.UserName == username);
+            var user = await this.usersRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.UserName == username);
             if (user == null)
             {
                 throw new NullReferenceException(string.Format(ExceptionMessages.NullReferenceUsername, username));

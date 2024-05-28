@@ -40,7 +40,8 @@
             var lastlyAddedProduct = await this.productsService
                 .GetLastlyAddedProductAsync<ProductDetailsViewModel>();
 
-            var category = await this.categoriesService.GetCategoryAsync<CategoryDetailsViewModel>(name);
+            var category = await this.categoriesService
+                .GetCategoryAsync<CategoryDetailsViewModel>(name);
 
             var viewModel = new ProductCategoryPageListingViewModel
             {

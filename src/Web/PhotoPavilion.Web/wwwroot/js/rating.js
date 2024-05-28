@@ -11,13 +11,13 @@
         rating_number = rating_number / 10;
 
         while (rating_number >= 1) {
-            stars[counter].className = "fa fa-star";
+            stars[counter].className = "fa-solid fa-star";
             counter++;
             rating_number--;
         }
 
         if (rating_number >= 0.5) {
-            stars[counter].className = "fa fa-star-half-full";
+            stars[counter].className = "fa-solid fa-star-half-stroke";
         }
     }
 }

@@ -13,6 +13,7 @@
 
     public class ProductCommentsController : Controller
     {
+        private const string CommentsSection = "#nav-comments";
         private readonly IProductCommentsService productCommentsService;
         private readonly UserManager<PhotoPavilionUser> userManager;
 
@@ -49,7 +50,7 @@
                 return this.BadRequest(aex.Message);
             }
 
-            return this.Redirect(this.Url.Action("Details", "Products", new { id = input.ProductId }) + "#nav-comments");
+            return this.Redirect(this.Url.Action("Details", "Products", new { id = input.ProductId }) + CommentsSection);
         }
     }
 }

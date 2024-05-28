@@ -13,6 +13,7 @@
 
     public class ProductReviewsController : Controller
     {
+        private const string ReviewsSection = "#nav-reviews";
         private readonly IProductReviewsService productReviewsService;
         private readonly UserManager<PhotoPavilionUser> userManager;
 
@@ -39,7 +40,7 @@
                 return this.BadRequest(aex.Message);
             }
 
-            return this.Redirect(this.Url.Action("Details", "Products", new { id = input.ProductId }) + "#nav-reviews");
+            return this.Redirect(this.Url.Action("Details", "Products", new { id = input.ProductId }) + ReviewsSection);
         }
     }
 }

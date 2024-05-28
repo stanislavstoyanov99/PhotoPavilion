@@ -39,7 +39,11 @@
             if (doesProductReviewExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.ProductReviewAlreadyExists, productReview.ProductId, productReview.Title, productReview.Description));
+                    string.Format(
+                        ExceptionMessages.ProductReviewAlreadyExists,
+                        productReview.ProductId,
+                        productReview.Title,
+                        productReview.Description));
             }
 
             await this.reviewsRepository.AddAsync(productReview);

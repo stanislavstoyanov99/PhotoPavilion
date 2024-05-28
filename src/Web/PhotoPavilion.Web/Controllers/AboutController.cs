@@ -17,7 +17,8 @@
 
         public async Task<IActionResult> Index()
         {
-            var faqs = await this.aboutService.GetAllFaqsAsync<FaqDetailsViewModel>();
+            var faqs = await this.aboutService
+                .GetAllFaqsAsync<FaqDetailsViewModel>();
 
             return this.View(faqs);
         }

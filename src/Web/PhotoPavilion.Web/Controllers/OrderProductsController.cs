@@ -20,7 +20,9 @@
         private readonly IOrderProductsService orderProductsService;
         private readonly IShoppingCartsService shoppingCartsService;
 
-        public OrderProductsController(IOrderProductsService orderProductsService, IShoppingCartsService shoppingCartsService)
+        public OrderProductsController(
+            IOrderProductsService orderProductsService,
+            IShoppingCartsService shoppingCartsService)
         {
             this.orderProductsService = orderProductsService;
             this.shoppingCartsService = shoppingCartsService;
@@ -30,9 +32,11 @@
         public async Task<IActionResult> Buy()
         {
             var userName = this.User.Identity.Name;
-            var shoppingCartProducts = await this.shoppingCartsService.GetAllShoppingCartProductsAsync(userName);
+            var shoppingCartProducts = await this.shoppingCartsService
+                .GetAllShoppingCartProductsAsync(userName);
 
-            await this.orderProductsService.BuyAllAsync(userName, shoppingCartProducts.ToArray(), GlobalConstants.CashPaymentMethod);
+            await this.orderProductsService
+                .BuyAllAsync(userName, shoppingCartProducts.ToArray(), GlobalConstants.CashPaymentMethod);
             return this.View("_BuyingConfirmation");
         }
 
@@ -44,7 +48,8 @@
             {
                 orderProductDetailsViewModel = await this.orderProductsService.GetDetailsAsync(id);
 
-                if (orderProductDetailsViewModel.User == null || orderProductDetailsViewModel.User.UserName != this.User.Identity.Name)
+                if (orderProductDetailsViewModel.User == null ||
+                    orderProductDetailsViewModel.User.UserName != this.User.Identity.Name)
                 {
                     return this.View("_AccessDenied");
                 }
@@ -63,7 +68,8 @@
             var orderProducts = await Task.Run(() =>
                 this.orderProductsService.GetAllAsQueryeable(username));
 
-            return this.View(await PaginatedList<OrderProductDetailsViewModel>.CreateAsync(orderProducts, pageNumber ?? 1, PageSize));
+            return this.View(
+                await PaginatedList<OrderProductDetailsViewModel>.CreateAsync(orderProducts, pageNumber ?? 1, PageSize));
         }
     }
 }
