@@ -19,15 +19,19 @@ The web application provides a modern graphical interface for use. The app combi
 ![Code coverage](https://github.com/stanislavstoyanov99/PhotoPavilion/blob/master/tests-code-coverage.png)
 
 ## :hammer: Used technologies
+- ASP.NET [CORE 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) MVC
+    * Current master branch version
 - ASP.NET [CORE 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1 "CORE 3.1") MVC
     * Older version located in branch older-version-net3.1
 - ASP.NET [CORE 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) MVC
-    * Current master branch version
+    * Older version located in branch migrate-to-net6
 - ASP.NET Core areas
+- Entity Framework [CORE 8](https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-8.0/whatsnew "CORE 8")
+    * Current master branch version
 - Entity Framework [CORE 3.1](https://docs.microsoft.com/en-us/ef/core/ "CORE 3.1")
     * Older version located in branch older-version-net3.1
 - Entity Framework [CORE 6](https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-6.0/whatsnew "CORE 6")
-    * Current master branch version
+    * Older version located in branch migrate-to-net6
 - [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/ "Newtonsoft.Json")
 - SendGrid
 - Cloudinary
