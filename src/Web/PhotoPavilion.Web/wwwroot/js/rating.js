@@ -6,7 +6,6 @@
 
         let stars = stars_elements[a].getElementsByTagName("i");
 
-        // Algorithm
         let counter = 0;
         rating_number = rating_number / 10;
 
