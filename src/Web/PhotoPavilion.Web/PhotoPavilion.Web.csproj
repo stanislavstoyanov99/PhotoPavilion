@@ -49,4 +49,10 @@
     <Folder Include="wwwroot\images\home\" />
     <Folder Include="wwwroot\lib\bootstrap\dist\css\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="product-orders-receipt.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
